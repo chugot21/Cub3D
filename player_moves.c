@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:25 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/24 17:53:22 by clara            ###   ########.fr       */
+/*   Updated: 2023/11/29 17:30:54 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ void	move_player(t_game *game)
 	if (game->move_left == 1)
 		move_left(game);
 	if (game->move_up == 1)
-	{
-		printf("up move\n");
 		move_up(game);
-	}
 	if (game->move_down == 1)
 		move_down(game);
 	//if (game->rotate_right == 1)
@@ -110,16 +107,13 @@ int	moves_activated(int keycode, t_game *game)
 	if (keycode == 97)
 		game->move_left = 1;
 	if (keycode == 119)
-	{
-		printf("up activated\n");
 		game->move_up = 1;
-	}
 	if (keycode == 115)
 		game->move_down = 1;
-	//if (keycode == 65363)
-	//	game->rotate_right = 1;
-	//if (keycode == 65361)
-	//	game->rotate_left = 1;
+	if (keycode == 65363)
+		game->rotate_right = 1;
+	if (keycode == 65361)
+		game->rotate_left = 1;
 	if (keycode == 65307)
 		closew(game);
 	return (0);
@@ -132,15 +126,12 @@ int	moves_disactivated(int keycode, t_game *game)
 	if (keycode == 97)
 		game->move_left = 0;
 	if (keycode == 119)
-	{
-		printf("up desactivated\n");
 		game->move_up = 0;
-	}
 	if (keycode == 115)
 		game->move_down = 0;
-	//if (keycode == 65363)
-	//	game->rotate_right = 0;
-	//if (keycode == 65361)
-	//	game->rotate_left = 0;
+	if (keycode == 65363)
+		game->rotate_right = 0;
+	if (keycode == 65361)
+		game->rotate_left = 0;
 	return (0);
 }

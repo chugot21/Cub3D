@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/24 17:35:26 by clara            ###   ########.fr       */
+/*   Updated: 2023/11/29 19:47:13 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include <math.h>
+
+#ifndef M_PI
+# define M_PI 3.1415926535897932384626433832795028841971693993751058
+#endif
 
 typedef struct s_point
 {
@@ -57,11 +61,11 @@ typedef struct s_game
 
 	t_point	player; //position départ
 	t_point player_pixel; //position depart pixel to draw player.
+	double	pa; //angle de la camera par rapport au joueur.
+	t_point	pdelta; //direction joueur
+	t_point vec_plan; //plan camera
 	int	x; //initialisation pour boucle generale.
 
-	//t_point	vec_dir; //direction joueur
-	//t_point vec_plan; //plan camera
-	//double	camerax; //coordonnee x de la camera.
 	//t_point raydir; //rayon de la camera.
 	//t_point map_here; // position exacte du joueur.
 	//t_point sidedist; //longueur du rayon depuis la position actuelle jusqu'au prochain côté x ou y.
@@ -83,8 +87,8 @@ typedef struct s_game
 	int move_left;
 	int move_up;
 	int move_down;
-	//int rotate_right;
-	//int rotate_left;
+	int rotate_right;
+	int rotate_left;
 	
 }	t_game;
 
@@ -98,6 +102,7 @@ int		moves_activated(int keycode, t_game *game);
 void	move_player(t_game *game);
 int		moves_disactivated(int keycode, t_game *game);
 void	init_game(t_game *game);
+void	draw_direction_line(t_game *game);
 
 size_t	ft_strcmp(char *s1, char *s2);
 

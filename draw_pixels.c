@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:57 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/24 17:40:38 by clara            ###   ########.fr       */
+/*   Updated: 2023/11/29 20:03:41 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,27 @@ void	color_square(t_game *game, int x, int y, int width, int heigth, int color)
 		y++;
 	}
 }
+
+void	draw_direction_line(t_game *game)
+{
+	int xmax;
+	int ymax;
+
+	xmax = (int)game->player_pixel.x + game->pdelta.x;
+	ymax = (int)game->player_pixel.y + game->pdelta.y;
+	my_mlx_pixel_put(game, xmax, ymax, 0x94120d);
+	printf("xmax : %d, playerpixel.x : %f, ymax : %d, playerpixel.y : % f\n", xmax, game->player_pixel.x, ymax, game->player_pixel.y);
+	while (xmax > (int)game->player_pixel.x || ymax > (int)game->player_pixel.y)
+	{
+		if(xmax < ymax)
+			xmax -= 1;
+		if (xmax > ymax)
+			ymax -= 1;
+		//printf("test\n");
+		my_mlx_pixel_put(game, xmax, ymax, 0x94120d);
+	}
+}
+
 void	draw_player(t_game *game)
 {
 	int	i;
@@ -71,13 +92,14 @@ void	draw_minimap(t_game *game)
 		while (game->map[i - 1][j - 1])
 		{
 			if (game->map[i - 1][j - 1] == '1')
-				color_square(game, (j * 10 + 1), (i * 10 + 1), (j * 10 + 9), (i * 10 + 9), 0xf6f7f2); //red
+				color_square(game, (j * 10 + 1), (i * 10 + 1), (j * 10 + 9), (i * 10 + 9), 0xf6f7f2); //white
 			else
-				color_square(game, (j * 10 + 1), (i * 10 + 1), (j * 10 + 9), (i * 10 + 9), 0x0000FF00); //vert
+				color_square(game, (j * 10 + 1), (i * 10 + 1), (j * 10 + 9), (i * 10 + 9), 0x0000FF00); //black
 			j++;
 		}
 		i++;
 	}
 	draw_player(game);
+	draw_direction_line(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 }

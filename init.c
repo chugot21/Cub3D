@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/27 17:51:23 by clara            ###   ########.fr       */
+/*   Updated: 2023/11/29 19:49:58 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,46 +73,53 @@ void	init_moves(t_game *game)
 	game->move_right = 0;
 	game->move_up = 0;
 	game->move_down = 0;
-	//game->rotate_left = 0;
-	//game->rotate_right = 0;
+	game->rotate_left = 0;
+	game->rotate_right = 0;
 	//game->side = -1; //a voir si utile.
 }
 
 void	init_direction_WE(t_game *game, char dir)
 {
-	/*if (dir == 'W')
+	if (dir == 'W')
 	{
-		game->vec_dir.x = 0;
-		game->vec_dir.y = -1;
-		game->vec_plan.x = -0.66;
-		game->vec_plan.y = 0;
+		game->pa = M_PI;
+		//game->pdelta.x = cos(game->pa) * 5;
+		//game->pdelta.y = sin(game->pa) * 5;
+		//game->vec_plan.x = -0.66;
+		//game->vec_plan.y = 0;
 	}
 	if (dir == 'E')
 	{
-		game->vec_dir.x = 0;
-		game->vec_dir.y = 1;
-		game->vec_plan.x = 0.66;
-		game->vec_plan.y = 0;
-	}*/
+		game->pa = 0;
+		//game->vec_dir.x = 0;
+		//game->vec_dir.y = 1;
+		//game->vec_plan.x = 0.66;
+		//game->vec_plan.y = 0;
+	}
+	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.y = sin(game->pa) * 5;
+	printf("pdelat x : %f, pdelta y : %f, pa : %f\n", game->pdelta.x, game->pdelta.y, game->pa);
 	init_moves(game);
 }
 
 void	init_direction(t_game *game, char dir)
 {
-	/*if (dir == 'N')
+	if (dir == 'N')
 	{
-		game->vec_dir.x = -1;
-		game->vec_dir.y = 0;
-		game->vec_plan.x = 0;
-		game->vec_plan.y = 0.66;
+		game->pa = M_PI / 2;
+		//game->vec_dir.x = -1;
+		//game->vec_dir.y = 0;
+		//game->vec_plan.x = 0;
+		//game->vec_plan.y = 0.66;
 	}
 	if (dir == 'S')
 	{
-		game->vec_dir.x = 1;
-		game->vec_dir.y = 0;
-		game->vec_plan.x = 0;
-		game->vec_plan.y = -0.66;
-	}*/
+		game->pa = M_PI * 1.5;
+		//game->vec_dir.x = 1;
+		//game->vec_dir.y = 0;
+		//game->vec_plan.x = 0;
+		//game->vec_plan.y = -0.66;
+	}
 	init_direction_WE(game, dir);
 }
 void	init_game(t_game *game)
