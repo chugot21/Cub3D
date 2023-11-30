@@ -96,9 +96,14 @@ void	init_direction_WE(t_game *game, char dir)
 		//game->vec_plan.x = 0.66;
 		//game->vec_plan.y = 0;
 	}
+	printf("pa : %f\n", game->pa);
+	//if (game->pa < 0)
+	//	game->pa += 2 * M_PI;
+	//if (game->pa > 2 * M_PI)
+	//	game->pa -= 2 * M_PI;
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
-	printf("pdelat x : %f, pdelta y : %f, pa : %f\n", game->pdelta.x, game->pdelta.y, game->pa);
+	printf("init pdelat x : %f, pdelta y : %f, pa : %f\n", game->pdelta.x, game->pdelta.y, game->pa);
 	init_moves(game);
 }
 

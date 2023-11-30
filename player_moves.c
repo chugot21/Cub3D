@@ -58,31 +58,44 @@ void	move_down(t_game *game)
 	//draw_minimap(game);
 }
 
-/*void	rotate_left(t_game *game)
+void	rotate_left(t_game *game)
 {
-	double old_planx;
-	double old_dirx;
+	//double old_planx;
+	//double old_dirx;
+//
+	//old_dirx = game->vec_dir.x;
+	//old_planx = game->vec_plan.x;
+	//game->vec_dir.x = game->vec_dir.x * cos(game->rotspeed / 2) - game->vec_dir.y * sin(game->rotspeed / 2);
+	//game->vec_dir.y = old_dirx * sin(game->rotspeed / 2) + game->vec_dir.y * cos(game->rotspeed / 2);
+	//game->vec_plan.x = game->vec_plan.x * cos(game->rotspeed / 2) - game->vec_plan.y * sin(game->rotspeed / 2);
+	//game->vec_plan.y = old_planx * sin(game->rotspeed / 2) + game->vec_plan.y * cos(game->rotspeed / 2);
+	game->pa -= 0.1;
+	if (game->pa < 0)
+		game->pa += 2 * M_PI;
 
-	old_dirx = game->vec_dir.x;
-	old_planx = game->vec_plan.x;
-	game->vec_dir.x = game->vec_dir.x * cos(game->rotspeed / 2) - game->vec_dir.y * sin(game->rotspeed / 2);
-	game->vec_dir.y = old_dirx * sin(game->rotspeed / 2) + game->vec_dir.y * cos(game->rotspeed / 2);
-	game->vec_plan.x = game->vec_plan.x * cos(game->rotspeed / 2) - game->vec_plan.y * sin(game->rotspeed / 2);
-	game->vec_plan.y = old_planx * sin(game->rotspeed / 2) + game->vec_plan.y * cos(game->rotspeed / 2);
+	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.y = sin(game->pa) * 5;
+	printf("test left\n");
 }
 
 void	rotate_right(t_game *game)
 {
-	double old_planx;
-	double old_dirx;
-
-	old_dirx = game->vec_dir.x;
-	old_planx = game->vec_plan.x;
-	game->vec_dir.x = game->vec_dir.x * cos(-game->rotspeed / 2) - game->vec_dir.y * sin(-game->rotspeed / 2);
-	game->vec_dir.y = old_dirx * sin(-game->rotspeed / 2) + game->vec_dir.y * cos(-game->rotspeed / 2);
-	game->vec_plan.x = game->vec_plan.x * cos(-game->rotspeed / 2) - game->vec_plan.y * sin(-game->rotspeed / 2);
-	game->vec_plan.y = old_planx * sin(-game->rotspeed / 2) + game->vec_plan.y * cos(-game->rotspeed / 2); 
-}*/
+	//double old_planx;
+	//double old_dirx;
+//
+	//old_dirx = game->vec_dir.x;
+	//old_planx = game->vec_plan.x;
+	//game->vec_dir.x = game->vec_dir.x * cos(-game->rotspeed / 2) - game->vec_dir.y * sin(-game->rotspeed / 2);
+	//game->vec_dir.y = old_dirx * sin(-game->rotspeed / 2) + game->vec_dir.y * cos(-game->rotspeed / 2);
+	//game->vec_plan.x = game->vec_plan.x * cos(-game->rotspeed / 2) - game->vec_plan.y * sin(-game->rotspeed / 2);
+	//game->vec_plan.y = old_planx * sin(-game->rotspeed / 2) + game->vec_plan.y * cos(-game->rotspeed / 2);
+	game->pa += 0.1;
+	if (game->pa > 2 * M_PI)
+		game->pa -= 2 * M_PI;
+	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.y = sin(game->pa) * 5;
+	printf("test right\n");
+}
 
 void	move_player(t_game *game)
 {
@@ -94,10 +107,10 @@ void	move_player(t_game *game)
 		move_up(game);
 	if (game->move_down == 1)
 		move_down(game);
-	//if (game->rotate_right == 1)
-	//	rotate_right(game);
-	//if (game->rotate_left == 1)
-	//	rotate_left(game);
+	if (game->rotate_right == 1)
+		rotate_right(game);
+	if (game->rotate_left == 1)
+		rotate_left(game);
 }
 
 int	moves_activated(int keycode, t_game *game)

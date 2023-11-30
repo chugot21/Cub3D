@@ -41,18 +41,37 @@ void	draw_direction_line(t_game *game)
 {
 	int xmax;
 	int ymax;
+	int deltax;
+	int deltay;
 
-	xmax = (int)game->player_pixel.x + game->pdelta.x;
+	deltax = game->pdelta.x; //valeur absolue
+	deltay = game->pdelta.y;
+	if (deltax < 0)
+		deltax = deltax * -1;
+	if (deltay < 0)
+		deltay = deltay * -1;
+	xmax = (int)game->player_pixel.x + game->pdelta.x; //point exact sur la carte.
 	ymax = (int)game->player_pixel.y + game->pdelta.y;
 	my_mlx_pixel_put(game, xmax, ymax, 0x94120d);
-	printf("xmax : %d, playerpixel.x : %f, ymax : %d, playerpixel.y : % f\n", xmax, game->player_pixel.x, ymax, game->player_pixel.y);
-	while (xmax > (int)game->player_pixel.x || ymax > (int)game->player_pixel.y)
+	while (xmax != (int)game->player_pixel.x || ymax != (int)game->player_pixel.y)
 	{
-		if(xmax < ymax)
-			xmax -= 1;
-		if (xmax > ymax)
-			ymax -= 1;
-		//printf("test\n");
+		printf("xmax : %d, playerpixel.x : %f, deltax : %d, ymax : %d, playerpixel.y : % f, deltay : %d\n", xmax, game->player_pixel.x, deltax, ymax, game->player_pixel.y, deltay);
+		if (deltax <= deltay && ymax > (int)game->player_pixel.y)
+		{
+			deltay--;
+			if (game->pdelta.y < 0)
+				ymax++;
+			else 
+				ymax--;
+		}
+		if (deltax > deltay && xmax > (int)game->player_pixel.x)
+		{
+			deltax--;
+			if (game->pdelta.x < 0)
+				xmax++;
+			else	
+				xmax--;
+		}
 		my_mlx_pixel_put(game, xmax, ymax, 0x94120d);
 	}
 }
