@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/29 19:47:13 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/04 18:14:15 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # include <pthread.h>
 # include <math.h>
 
-#ifndef M_PI
 # define M_PI 3.1415926535897932384626433832795028841971693993751058
-#endif
+# define P2 M_PI / 2
+# define P3 3 * M_PI
+# define DEGREE_RADIAN 0.0174533
 
 typedef struct s_point
 {
@@ -45,6 +46,9 @@ typedef struct s_game
 	int win_x;
 	int	win_y;
 	char	**map;
+	int mapx;
+	int mapy;
+	int maps;
 	void	*img_no;
 	void	*img_so;
 	void	*img_we;
@@ -65,6 +69,18 @@ typedef struct s_game
 	t_point	pdelta; //direction joueur
 	t_point vec_plan; //plan camera
 	int	x; //initialisation pour boucle generale.
+	
+	int	r; //compteur pour nombre de rays affiché à l'écran. largeur de la vue camera.
+	t_point m;
+	int		mp;
+	int dof; //compte les carrés jsuqu'au mur
+	t_point ray; //trouver longueur rayon de la position du joueur jusqu'au prochain x ou y.
+	double ra; //egal a pa.
+	t_point xoyo; //longueur entre deux cotes x ou y.
+	double dis_horiz; //distance hit horiz
+	t_point horizon; //point hit wall horiz
+	double dis_verti; //distance hit wall verti
+	t_point vertical; //point hit wall verti
 
 	//t_point raydir; //rayon de la camera.
 	//t_point map_here; // position exacte du joueur.

@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:57 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/29 20:03:41 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/04 13:57:34 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	color_square(t_game *game, int x, int y, int width, int heigth, int color)
 	}
 }
 
-void	draw_direction_line(t_game *game)
+/*void	draw_direction_line(t_game *game)
 {
 	int xmax;
 	int ymax;
@@ -74,7 +74,7 @@ void	draw_direction_line(t_game *game)
 		}
 		my_mlx_pixel_put(game, xmax, ymax, 0x94120d);
 	}
-}
+}*/
 
 void	draw_player(t_game *game)
 {
@@ -119,6 +119,6 @@ void	draw_minimap(t_game *game)
 		i++;
 	}
 	draw_player(game);
-	draw_direction_line(game);
+	//draw_direction_line(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 }

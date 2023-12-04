@@ -6,11 +6,13 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:24:40 by chugot            #+#    #+#             */
-/*   Updated: 2023/11/29 19:51:29 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/04 18:15:50 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//13:40 ->video tuto
 
 /*void	draw_ver_line(t_game *game)
 {
@@ -69,6 +71,142 @@ void	find_wall(t_game *game)
 		game->perpWallDist = (game->sidedist.y - game->deltadist.y);
 }*/
 
+double dist(double ax, double ay, double bx, double by, double ang)
+{
+	return(sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+}
+
+void	draw_vertical_rays(t_game *game)
+{
+	game->ra = game->pa;
+	game->r = 0;
+	double ntan;
+
+	ntan = -1/tan(game->ra);
+	game->dis_verti = 1000000;
+	game->vertical.x = game->player_pixel.x;
+	game->vertical.y = game->player_pixel.y;
+	game->dof = 0;
+	if (game->ra > P2 && game->ra < P3) //si on regarde à gauche
+	{
+		game->ray.x = (((int)game->player_pixel.x >> 6) << 6)-0.0001;
+		game->ray.y = (game->player_pixel.x - game->ray.x) * ntan + game->player_pixel.y;
+		game->xoyo.x = -64;
+		game->xoyo.y = -game->xoyo.x * ntan;
+	}
+	if (game->ra < P2 || game->ra > P3) //si on regarde a droite
+	{
+		game->ray.x = (((int)game->player_pixel.x >> 6) << 6) + 64;
+		game->ray.y = (game->player_pixel.x - game->ray.x) * ntan + game->player_pixel.y;
+		game->xoyo.x = 64;
+		game->xoyo.y = -game->xoyo.x * ntan;
+	}
+	if (game->ra == 0 || game->ra == M_PI)
+	{
+		game->ray.x = game->player_pixel.x;
+		game->ray.y = game->player_pixel.y;
+		game->dof = game->mapx;
+	}
+	while(game->dof < game->mapx)
+	{
+		game->m.x = (int) (game->ray.x) >> 6;
+		game->m.y = (int) (game->ray.y) >> 6;
+		game->mp = game->m.y * game->mapx + game->m.x;
+		if (game->mp > 0 && game->mp < game->maps && game->map[game->mp] == 1) //hit wall
+		{
+			game->vertical.x = game->ray.x;
+			game->vertical.y = game->ray.y;
+			game->dis_verti = dist(game->player_pixel.x, game->player_pixel.y, game->vertical.x, game->vertical.y, game->ra);
+			game->dof = game->mapx;
+		}	
+		else
+		{
+			game->ray.x += game->xoyo.x;
+			game->ray.y += game->xoyo.y;
+			game->dof++;
+		} 
+	}
+	if (game->dis_verti < game->dis_horiz)
+	{
+		game->ray.x = game->vertical.x;
+		game->ray.y = game->vertical.y;
+	}
+	if (game->dis_verti > game->dis_horiz)
+	{
+		game->ray.x = game->horizon.x;
+		game->ray.y = game->horizon.y;
+	}
+}
+
+void 	limits_rays(t_game *game)
+{
+	if (game->ra < 0)
+		game->ra += 2 * M_PI;
+	if (game->ra > 2 * M_PI)
+		game->ra -= 2* M_PI;
+}
+
+void	draw_horizontal_rays(t_game *game)
+{
+	game->ra = game->pa;
+	game->r = 0;
+	double atan;
+
+	atan = -1/tan(game->ra);
+	game->dis_horiz = 1000000;
+	game->horizon.x = game->player_pixel.x;
+	game->horizon.y = game->player_pixel.y;
+	game->ra = game->pa - DEGREE_RADIAN * 30;
+	limits_rays(game);
+	while (game->r < 60)
+	{
+		game->dof = 0;
+		if (game->ra > M_PI) //si on regarde dans le dos
+		{
+			game->ray.y = (((int)game->player_pixel.y >> 6) << 6)-0.0001;
+			game->ray.x = (game->player_pixel.y - game->ray.y) * atan + game->player_pixel.x;
+			game->xoyo.y = -64;
+			game->xoyo.x = -game->xoyo.y * atan;
+		}
+		if (game->ra > M_PI) //si on regarde en face
+		{
+			game->ray.y = (((int)game->player_pixel.y >> 6) << 6) + 64;
+			game->ray.x = (game->player_pixel.y - game->ray.y) * atan + game->player_pixel.x;
+			game->xoyo.y = 64;
+			game->xoyo.x = -game->xoyo.y * atan;
+		}
+		if (game->ra == 0 || game->ra == M_PI)
+		{
+			game->ray.x = game->player_pixel.x;
+			game->ray.y = game->player_pixel.y;
+			game->dof = game->mapy;
+		}
+		while(game->dof < game->mapy)
+		{
+			game->m.x = (int) (game->ray.x) >> 6;
+			game->m.y = (int) (game->ray.y) >> 6;
+			game->mp = game->m.y * game->mapx + game->m.x;
+			if (game->mp > 0 && game->mp < game->maps && game->map[game->mp] == 1) //hit wall
+			{
+				game->horizon.x = game->ray.x;
+				game->horizon.y = game->ray.y;
+				game->dis_horiz = dist(game->player_pixel.x, game->player_pixel.y, game->horizon.x, game->horizon.y, game->ra);
+				game->dof = game->mapy;
+			}	
+			else
+			{
+				game->ray.x += game->xoyo.x;
+				game->ray.y += game->xoyo.y;
+				game->dof++;
+			} 
+		}
+		draw_vertical_rays(game);
+		game->ra += DEGREE_RADIAN;
+		limits_rays(game);
+		game->r++;
+	}
+}
+
 int	ft_raycasting(t_game *game)
 {
 	//game->x = 0;
@@ -81,6 +219,7 @@ int	ft_raycasting(t_game *game)
 	//	game->x++;
 	//}
 	draw_minimap(game);
+	draw_horizontal_rays(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 	move_player(game);
 	return(0);
