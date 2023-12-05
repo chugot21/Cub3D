@@ -101,7 +101,7 @@ void	draw_vertical_rays(t_game *game)
 		game->xoyo.x = 64;
 		game->xoyo.y = -game->xoyo.x * ntan;
 	}
-	if (game->ra == 0 || game->ra == M_PI)
+	if (game->ra == 0 || game->ra == PI)
 	{
 		game->ray.x = game->player_pixel.x;
 		game->ray.y = game->player_pixel.y;
@@ -130,20 +130,34 @@ void	draw_vertical_rays(t_game *game)
 	{
 		game->ray.x = game->vertical.x;
 		game->ray.y = game->vertical.y;
+		game->dist = game->dis_verti;
+		game->color = 0x00FF0000;
 	}
 	if (game->dis_verti > game->dis_horiz)
 	{
 		game->ray.x = game->horizon.x;
 		game->ray.y = game->horizon.y;
+		game->dist = game->dis_horiz;
+		game->color = 0x00FF0000 / 2;
 	}
 }
 
 void 	limits_rays(t_game *game)
 {
 	if (game->ra < 0)
-		game->ra += 2 * M_PI;
-	if (game->ra > 2 * M_PI)
-		game->ra -= 2* M_PI;
+		game->ra += 2 * PI;
+	if (game->ra > 2 * PI)
+		game->ra -= 2* PI;
+}
+
+void	fix_fish_eye(t_game *game)
+{
+	game->ca = game->pa - game->ra;
+	if (game->ca < 0)
+		game->ca += 2 * PI;
+	if (game->ca > 2 * PI)
+		game->ca -= 2 * PI;
+	game->dist = game->dist * cos(game->ca);
 }
 
 void	draw_horizontal_rays(t_game *game)
@@ -158,24 +172,24 @@ void	draw_horizontal_rays(t_game *game)
 	game->horizon.y = game->player_pixel.y;
 	game->ra = game->pa - DEGREE_RADIAN * 30;
 	limits_rays(game);
-	while (game->r < 60)
+	while (game->r < game->win_x)
 	{
 		game->dof = 0;
-		if (game->ra > M_PI) //si on regarde dans le dos
+		if (game->ra > PI) //si on regarde dans le dos
 		{
 			game->ray.y = (((int)game->player_pixel.y >> 6) << 6)-0.0001;
 			game->ray.x = (game->player_pixel.y - game->ray.y) * atan + game->player_pixel.x;
 			game->xoyo.y = -64;
 			game->xoyo.x = -game->xoyo.y * atan;
 		}
-		if (game->ra > M_PI) //si on regarde en face
+		if (game->ra > PI) //si on regarde en face
 		{
 			game->ray.y = (((int)game->player_pixel.y >> 6) << 6) + 64;
 			game->ray.x = (game->player_pixel.y - game->ray.y) * atan + game->player_pixel.x;
 			game->xoyo.y = 64;
 			game->xoyo.x = -game->xoyo.y * atan;
 		}
-		if (game->ra == 0 || game->ra == M_PI)
+		if (game->ra == 0 || game->ra == PI)
 		{
 			game->ray.x = game->player_pixel.x;
 			game->ray.y = game->player_pixel.y;
@@ -201,9 +215,30 @@ void	draw_horizontal_rays(t_game *game)
 			} 
 		}
 		draw_vertical_rays(game);
+		fix_fish_eye(game);
+		game->line_height = (game->maps * game->win_x) / game->dist;
+		if (game->line_height > game->win_x)
+			game->line_height = game->win_x;
+		game->line_offset = game->win_y - game->line_height / 2;
+		draw_column(game);
 		game->ra += DEGREE_RADIAN;
 		limits_rays(game);
+		printf("line height : %f, line offset : %f\n", game->line_height, game->line_offset);
 		game->r++;
+	}
+}
+
+void	draw_column(t_game *game)
+{
+	int start_pixel;
+	int end_pixel;
+
+	start_pixel = game->line_offset;
+	end_pixel = game->win_y - game->line_offset;
+	while (start_pixel < end_pixel)
+	{
+		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
+		start_pixel++;
 	}
 }
 

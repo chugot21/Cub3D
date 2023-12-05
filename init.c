@@ -78,17 +78,17 @@ void	init_moves(t_game *game)
 	//game->side = -1; //a voir si utile.
 }
 
-void	init_direction_WE(t_game *game, char dir)
+void	init_direction_WE(t_game *game)
 {
-	if (dir == 'W')
+	if (game->dir == 'W')
 	{
-		game->pa = M_PI;
+		game->pa = PI;
 		//game->pdelta.x = cos(game->pa) * 5;
 		//game->pdelta.y = sin(game->pa) * 5;
 		//game->vec_plan.x = -0.66;
 		//game->vec_plan.y = 0;
 	}
-	if (dir == 'E')
+	if (game->dir == 'E')
 	{
 		game->pa = 0;
 		//game->vec_dir.x = 0;
@@ -107,27 +107,27 @@ void	init_direction_WE(t_game *game, char dir)
 	init_moves(game);
 }
 
-void	init_direction(t_game *game, char dir)
+void	init_direction(t_game *game)
 {
-	if (dir == 'N')
+	if (game->dir == 'N')
 	{
-		game->pa = M_PI / 2;
+		game->pa = PI / 2;
 		//game->vec_dir.x = -1;
 		//game->vec_dir.y = 0;
 		//game->vec_plan.x = 0;
 		//game->vec_plan.y = 0.66;
 	}
-	if (dir == 'S')
+	if (game->dir == 'S')
 	{
-		game->pa = M_PI * 1.5;
+		game->pa = PI * 1.5;
 		//game->vec_dir.x = 1;
 		//game->vec_dir.y = 0;
 		//game->vec_plan.x = 0;
 		//game->vec_plan.y = -0.66;
 	}
-	init_direction_WE(game, dir);
+	init_direction_WE(game);
 }
-void	init_game(t_game *game)
+/*void	init_game(t_game *game)
 {
 	int i;
 	int j;
@@ -153,4 +153,31 @@ void	init_game(t_game *game)
 	game->img = mlx_new_image(game->window.mlx, game->win_x, game->win_y);
 	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
 								&game->endian);
+}*/
+
+void	init_game(t_game *game)
+{
+	int i;
+	int x;
+	int y;
+
+	i = 0;
+	while (i < game->maps)
+	{
+		if (game->map[i] == 7)
+		{
+			y = i / game->mapx;
+			x = i - game->mapx * y;
+			game->player.x = x + 0.5;
+			game->player.y = y + 0.5;
+			game->player_pixel.x = (x + 1.5) * 10;
+			game->player_pixel.y = (y + 1.5) * 10;
+			init_direction(game);
+		}
+		i++;
+	}
+	game->img = mlx_new_image(game->window.mlx, game->win_x, game->win_y);
+	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
+								&game->endian);
 }
+

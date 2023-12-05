@@ -23,9 +23,9 @@
 # include <pthread.h>
 # include <math.h>
 
-# define M_PI 3.1415926535897932384626433832795028841971693993751058
-# define P2 M_PI / 2
-# define P3 3 * M_PI
+# define PI 3.1415926535897932384626433832795028841971693993751058
+# define P2 PI / 2
+# define P3 3 * PI
 # define DEGREE_RADIAN 0.0174533
 
 typedef struct s_point
@@ -45,10 +45,12 @@ typedef struct s_game
 	t_window	window;
 	int win_x;
 	int	win_y;
-	char	**map;
+	//char	**map;
+	int map[65];
 	int mapx;
 	int mapy;
 	int maps;
+	char dir;
 	void	*img_no;
 	void	*img_so;
 	void	*img_we;
@@ -81,6 +83,11 @@ typedef struct s_game
 	t_point horizon; //point hit wall horiz
 	double dis_verti; //distance hit wall verti
 	t_point vertical; //point hit wall verti
+	double dist; //distance finale retenue - la plus courte.
+	double line_height; //hauteur de la ligne a tracer du mur
+	double line_offset; //decalage de ligne
+	double ca; //calcul pour fish eye
+	int color; //couleur du mur
 
 	//t_point raydir; //rayon de la camera.
 	//t_point map_here; // position exacte du joueur.
@@ -114,6 +121,7 @@ void    parsing(t_game *game);
 void	draw_minimap(t_game *game);
 void	draw_player(t_game *game);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
+void	draw_column(t_game *game);
 int		moves_activated(int keycode, t_game *game);
 void	move_player(t_game *game);
 int		moves_disactivated(int keycode, t_game *game);

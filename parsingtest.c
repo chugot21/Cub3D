@@ -16,26 +16,32 @@ void    parsing(t_game *game)
 {
     //int img_width;
     //int img_height;
-    int i;
+    //int i;
 
-    i = 0;
-    game->map = malloc(sizeof(char *) * 6); //a free
+    //i = 0;
+    //game->map = malloc(sizeof(int) * 13 * 5); //a free
 
-    while (i < 6)
-    {
-        game->map[i] = malloc(sizeof(char) * 14);
-        i++;
-    }
-    game->map[i] = malloc(sizeof(char) * 1);
+    //while (i < 6)
+    //{
+    //    game->map[i] = malloc(sizeof(char) * 14);
+    //    i++;
+    //}
+    //game->map[i] = malloc(sizeof(char) * 1);
     game->mapx = 13;
     game->mapy = 5;
     game->maps = 13 * 5;
-    game->map[0] = "1111111111111\0";
-    game->map[1] = "1000000001001\0";
-    game->map[2] = "1000000001001\0";
-    game->map[3] = "1000000N00001\0";
-    game->map[4] = "1111111111111\0";
-    game->map[5] = NULL;
+    game->dir = 'N';
+    game->map[65] = {1,1,1,1,1,1,1,1,1,1,1,1,1,
+                    1,0,0,0,0,0,0,0,0,1,0,0,1,
+                    1,0,0,0,0,0,0,0,0,1,0,0,1,
+                    1,0,0,0,0,0,0,7,0,0,0,0,1,
+                    1,1,1,1,1,1,1,1,1,1,1,1,1};
+    //game->map[0] = "1111111111111\0";
+    //game->map[1] = "1000000001001\0";
+    //game->map[2] = "1000000001001\0";
+    //game->map[3] = "1000000N00001\0";
+    //game->map[4] = "1111111111111\0";
+    //game->map[5] = NULL;
 
     //game->img_no = mlx_xpm_file_to_image(game->window.mlx, "nomfichier.xpm", &img_width, &img_height);
 }
