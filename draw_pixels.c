@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:57 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/04 13:57:34 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/06 18:46:17 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,24 +129,26 @@ void	draw_minimap(t_game *game)
 	int	x;
 	int	y;
 
-	i = 1;
+	i = 0;
 	while (i < game->maps)
 	{
-		if (game->map[i - 1] == 1)
+		if (game->map[i] == 1)
 		{
-			y = i / game->mapx;
-			x = i - game->mapx * y;
+			y = ((i + 1) / game->mapx);
+			x = ((i + 1) - game->mapx * y);
+			//printf("mapx : %d, i : %d, x : %d, y : %d\n", game->mapx, i ,x, y);
 			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0xf6f7f2); //white
 		}
 		else
 		{
-			y = i / game->mapx;
-			x = i - game->mapx * y;
+			y = (i + 1) / game->mapx;
+			x = (i + 1) - game->mapx * y;
 			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0x0000FF00); //black
 		}
 		i++;
+		//printf("testdraw minimap i : %d, x : %d, y : %d\n", i, x, y);
 	}
 	draw_player(game);
 	//draw_direction_line(game);
-	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
+	//mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 }

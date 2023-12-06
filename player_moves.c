@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:25 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/04 13:59:23 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/06 16:59:06 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	rotate_left(t_game *game)
 	//game->vec_plan.x = game->vec_plan.x * cos(game->rotspeed / 2) - game->vec_plan.y * sin(game->rotspeed / 2);
 	//game->vec_plan.y = old_planx * sin(game->rotspeed / 2) + game->vec_plan.y * cos(game->rotspeed / 2);
 	game->pa += 0.1;
-	if (game->pa > 2 * M_PI)
-		game->pa -= 2 * M_PI;
+	if (game->pa > 2 * PI)
+		game->pa -= 2 * PI;
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
 	//printf("test left\n");
@@ -90,7 +90,7 @@ void	rotate_right(t_game *game)
 	//game->vec_plan.y = old_planx * sin(-game->rotspeed / 2) + game->vec_plan.y * cos(-game->rotspeed / 2);
 	game->pa -= 0.1;
 	if (game->pa < 0)
-		game->pa += 2 * M_PI;
+		game->pa += 2 * PI;
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
 	//printf("test right\n");

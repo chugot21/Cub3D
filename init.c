@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/04 13:59:03 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/06 18:25:58 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,9 @@ void	init_game(t_game *game)
 	{
 		if (game->map[i] == 7)
 		{
-			y = i / game->mapx;
-			x = i - game->mapx * y;
+			y = (i + 1) / game->mapx;
+			x = (i + 1) - (game->mapx * y);
+			printf("init mapx : %d, i : %d, x : %d, y : %d\n", game->mapx, i ,x, y);
 			game->player.x = x + 0.5;
 			game->player.y = y + 0.5;
 			game->player_pixel.x = (x + 1.5) * 10;

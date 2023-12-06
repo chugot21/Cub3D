@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/04 18:14:15 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/06 18:48:05 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ typedef struct s_game
 	t_window	window;
 	int win_x;
 	int	win_y;
-	//char	**map;
-	int map[65];
-	int mapx;
+	int *map;
 	int mapy;
+	int mapx;
 	int maps;
 	char dir;
 	void	*img_no;
@@ -70,7 +69,7 @@ typedef struct s_game
 	double	pa; //angle de la camera par rapport au joueur.
 	t_point	pdelta; //direction joueur
 	t_point vec_plan; //plan camera
-	int	x; //initialisation pour boucle generale.
+	//int	x; //initialisation pour boucle generale.
 	
 	int	r; //compteur pour nombre de rays affiché à l'écran. largeur de la vue camera.
 	t_point m;

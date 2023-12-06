@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:24:40 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/04 18:15:50 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/06 19:11:01 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ double dist(double ax, double ay, double bx, double by, double ang)
 	return(sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-void	draw_vertical_rays(t_game *game)
+void	draw_vertical_rays(t_game *game, double ntan)
 {
-	game->ra = game->pa;
-	game->r = 0;
-	double ntan;
+	//game->ra = game->pa;
+	//game->r = 0;
+	//double ntan;
 
 	ntan = -1/tan(game->ra);
 	game->dis_verti = 1000000;
@@ -132,6 +132,7 @@ void	draw_vertical_rays(t_game *game)
 		game->ray.y = game->vertical.y;
 		game->dist = game->dis_verti;
 		game->color = 0x00FF0000;
+		printf("game dist verti %f\n", game->dist);
 	}
 	if (game->dis_verti > game->dis_horiz)
 	{
@@ -139,6 +140,7 @@ void	draw_vertical_rays(t_game *game)
 		game->ray.y = game->horizon.y;
 		game->dist = game->dis_horiz;
 		game->color = 0x00FF0000 / 2;
+		printf("game dist horiz %f\n", game->dist);
 	}
 }
 
@@ -162,18 +164,25 @@ void	fix_fish_eye(t_game *game)
 
 void	draw_horizontal_rays(t_game *game)
 {
-	game->ra = game->pa;
-	game->r = 0;
 	double atan;
+	double ntan;
 
-	atan = -1/tan(game->ra);
-	game->dis_horiz = 1000000;
-	game->horizon.x = game->player_pixel.x;
-	game->horizon.y = game->player_pixel.y;
-	game->ra = game->pa - DEGREE_RADIAN * 30;
-	limits_rays(game);
+	game->r = 0;
+	game->ra = game->pa;
+	//ntan = -1/tan(game->ra);
+	//game->dis_verti = 1000000;
+	//game->vertical.x = game->player_pixel.x;
+	//game->vertical.y = game->player_pixel.y;
+	//game->dof = 0;
+
 	while (game->r < game->win_x)
 	{
+		atan = -1/tan(game->ra);
+		game->dis_horiz = 1000000;
+		game->horizon.x = game->player_pixel.x;
+		game->horizon.y = game->player_pixel.y;
+		game->ra = game->pa - DEGREE_RADIAN * 30;
+		limits_rays(game);
 		game->dof = 0;
 		if (game->ra > PI) //si on regarde dans le dos
 		{
@@ -214,8 +223,9 @@ void	draw_horizontal_rays(t_game *game)
 				game->dof++;
 			} 
 		}
-		draw_vertical_rays(game);
+		draw_vertical_rays(game, ntan);
 		fix_fish_eye(game);
+		printf("game dist : %f\n", game->dist);
 		game->line_height = (game->maps * game->win_x) / game->dist;
 		if (game->line_height > game->win_x)
 			game->line_height = game->win_x;
@@ -223,8 +233,9 @@ void	draw_horizontal_rays(t_game *game)
 		draw_column(game);
 		game->ra += DEGREE_RADIAN;
 		limits_rays(game);
-		printf("line height : %f, line offset : %f\n", game->line_height, game->line_offset);
+		//printf("line height : %f, line offset : %f\n", game->line_height, game->line_offset);
 		game->r++;
+		//printf("r : %d\n", game->r);
 	}
 }
 
@@ -238,6 +249,7 @@ void	draw_column(t_game *game)
 	while (start_pixel < end_pixel)
 	{
 		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
+		printf("pixel axe x : %d, start y : %d\n", game->r, start_pixel);
 		start_pixel++;
 	}
 }
@@ -254,6 +266,7 @@ int	ft_raycasting(t_game *game)
 	//	game->x++;
 	//}
 	draw_minimap(game);
+	//printf("test\n");
 	draw_horizontal_rays(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 	move_player(game);
@@ -274,7 +287,6 @@ int	main(int argc, char **argv)
 			game.win_x,
 			game.win_y, "Club 3D");
 	init_game(&game);
-	
 	//display_map(&game);
 	mlx_hook(game.window.win, 2, 1L << 0, moves_activated, &game);
 	mlx_loop_hook(game.window.mlx, ft_raycasting, &game);
