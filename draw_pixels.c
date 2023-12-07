@@ -99,30 +99,6 @@ void	draw_player(t_game *game)
 	}
 }
 
-/*void	draw_minimap(t_game *game)
-{
-	int	i; // i = y
-	int	j; // j = x
-
-	i = 1;
-	while (game->map[i - 1] != NULL)
-	{
-		j = 1;
-		while (game->map[i - 1][j - 1])
-		{
-			if (game->map[i - 1][j - 1] == '1')
-				color_square(game, (j * 10 + 1), (i * 10 + 1), (j * 10 + 9), (i * 10 + 9), 0xf6f7f2); //white
-			else
-				color_square(game, (j * 10 + 1), (i * 10 + 1), (j * 10 + 9), (i * 10 + 9), 0x0000FF00); //black
-			j++;
-		}
-		i++;
-	}
-	draw_player(game);
-	//draw_direction_line(game);
-	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
-}*/
-
 void	draw_minimap(t_game *game)
 {
 	int i;
@@ -134,21 +110,31 @@ void	draw_minimap(t_game *game)
 	{
 		if (game->map[i] == 1)
 		{
-			y = ((i + 1) / game->mapx);
-			x = ((i + 1) - game->mapx * y);
-			//printf("mapx : %d, i : %d, x : %d, y : %d\n", game->mapx, i ,x, y);
+			y = (i / game->mapx);
+			x = (i - game->mapx * y);
 			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0xf6f7f2); //white
 		}
 		else
 		{
-			y = (i + 1) / game->mapx;
-			x = (i + 1) - game->mapx * y;
+			y = i / game->mapx;
+			x = i - game->mapx * y;
 			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0x0000FF00); //black
 		}
 		i++;
-		//printf("testdraw minimap i : %d, x : %d, y : %d\n", i, x, y);
 	}
 	draw_player(game);
-	//draw_direction_line(game);
-	//mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
+}
+
+void	draw_column(t_game *game)
+{
+	int start_pixel;
+	int end_pixel;
+
+	start_pixel = game->line_offset;
+	end_pixel = game->win_y - game->line_offset;
+	while (start_pixel < end_pixel)
+	{
+		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
+		start_pixel++;
+	}
 }

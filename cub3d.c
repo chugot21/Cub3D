@@ -78,15 +78,11 @@ double dist(double ax, double ay, double bx, double by, double ang)
 
 void	draw_vertical_rays(t_game *game, double ntan)
 {
-	//game->ra = game->pa;
-	//game->r = 0;
-	//double ntan;
-
-	ntan = -1/tan(game->ra);
+	game->dof = 0;
+	ntan = -tan(game->ra);
 	game->dis_verti = 1000000;
 	game->vertical.x = game->player_pixel.x;
 	game->vertical.y = game->player_pixel.y;
-	game->dof = 0;
 	if (game->ra > P2 && game->ra < P3) //si on regarde à gauche
 	{
 		game->ray.x = (((int)game->player_pixel.x >> 6) << 6)-0.0001;
@@ -105,9 +101,9 @@ void	draw_vertical_rays(t_game *game, double ntan)
 	{
 		game->ray.x = game->player_pixel.x;
 		game->ray.y = game->player_pixel.y;
-		game->dof = game->mapx;
+		game->dof = game->win_y;//game->mapy
 	}
-	while(game->dof < game->mapx)
+	while(game->dof < game->win_y) //game->mapy
 	{
 		game->m.x = (int) (game->ray.x) >> 6;
 		game->m.y = (int) (game->ray.y) >> 6;
@@ -117,7 +113,7 @@ void	draw_vertical_rays(t_game *game, double ntan)
 			game->vertical.x = game->ray.x;
 			game->vertical.y = game->ray.y;
 			game->dis_verti = dist(game->player_pixel.x, game->player_pixel.y, game->vertical.x, game->vertical.y, game->ra);
-			game->dof = game->mapx;
+			game->dof = game->win_y;//game->mapy
 		}	
 		else
 		{
@@ -131,16 +127,14 @@ void	draw_vertical_rays(t_game *game, double ntan)
 		game->ray.x = game->vertical.x;
 		game->ray.y = game->vertical.y;
 		game->dist = game->dis_verti;
-		game->color = 0x00FF0000;
-		printf("game dist verti %f\n", game->dist);
+		game->color = 0x217a42;
 	}
 	if (game->dis_verti > game->dis_horiz)
 	{
 		game->ray.x = game->horizon.x;
 		game->ray.y = game->horizon.y;
 		game->dist = game->dis_horiz;
-		game->color = 0x00FF0000 / 2;
-		printf("game dist horiz %f\n", game->dist);
+		game->color = 0x0cab46;
 	}
 }
 
@@ -174,16 +168,15 @@ void	draw_horizontal_rays(t_game *game)
 	//game->vertical.x = game->player_pixel.x;
 	//game->vertical.y = game->player_pixel.y;
 	//game->dof = 0;
-
+	game->ra = game->pa - DEGREE_RADIAN * 30;
+	limits_rays(game);
 	while (game->r < game->win_x)
 	{
+		game->dof = 0;
 		atan = -1/tan(game->ra);
 		game->dis_horiz = 1000000;
 		game->horizon.x = game->player_pixel.x;
 		game->horizon.y = game->player_pixel.y;
-		game->ra = game->pa - DEGREE_RADIAN * 30;
-		limits_rays(game);
-		game->dof = 0;
 		if (game->ra > PI) //si on regarde dans le dos
 		{
 			game->ray.y = (((int)game->player_pixel.y >> 6) << 6)-0.0001;
@@ -191,7 +184,7 @@ void	draw_horizontal_rays(t_game *game)
 			game->xoyo.y = -64;
 			game->xoyo.x = -game->xoyo.y * atan;
 		}
-		if (game->ra > PI) //si on regarde en face
+		if (game->ra < PI) //si on regarde en face
 		{
 			game->ray.y = (((int)game->player_pixel.y >> 6) << 6) + 64;
 			game->ray.x = (game->player_pixel.y - game->ray.y) * atan + game->player_pixel.x;
@@ -202,9 +195,9 @@ void	draw_horizontal_rays(t_game *game)
 		{
 			game->ray.x = game->player_pixel.x;
 			game->ray.y = game->player_pixel.y;
-			game->dof = game->mapy;
+			game->dof = game->win_x; //game->mapx;
 		}
-		while(game->dof < game->mapy)
+		while(game->dof < game->win_x) //game->mapx
 		{
 			game->m.x = (int) (game->ray.x) >> 6;
 			game->m.y = (int) (game->ray.y) >> 6;
@@ -214,7 +207,7 @@ void	draw_horizontal_rays(t_game *game)
 				game->horizon.x = game->ray.x;
 				game->horizon.y = game->ray.y;
 				game->dis_horiz = dist(game->player_pixel.x, game->player_pixel.y, game->horizon.x, game->horizon.y, game->ra);
-				game->dof = game->mapy;
+				game->dof = game->win_x; //game->mapx
 			}	
 			else
 			{
@@ -225,13 +218,13 @@ void	draw_horizontal_rays(t_game *game)
 		}
 		draw_vertical_rays(game, ntan);
 		fix_fish_eye(game);
-		printf("game dist : %f\n", game->dist);
-		game->line_height = (game->maps * game->win_x) / game->dist;
-		if (game->line_height > game->win_x)
-			game->line_height = game->win_x;
-		game->line_offset = game->win_y - game->line_height / 2;
+		//printf("game dist : %f\n", game->dist);
+		game->line_height = (game->maps * game->win_y) / game->dist;
+		if (game->line_height > game->win_y)
+			game->line_height = game->win_y;
+		game->line_offset = (game->win_y / 2) - game->line_height / 2;
 		draw_column(game);
-		game->ra += DEGREE_RADIAN;
+		game->ra += DEGREE_RADIAN/16;
 		limits_rays(game);
 		//printf("line height : %f, line offset : %f\n", game->line_height, game->line_offset);
 		game->r++;
@@ -239,37 +232,16 @@ void	draw_horizontal_rays(t_game *game)
 	}
 }
 
-void	draw_column(t_game *game)
-{
-	int start_pixel;
-	int end_pixel;
-
-	start_pixel = game->line_offset;
-	end_pixel = game->win_y - game->line_offset;
-	while (start_pixel < end_pixel)
-	{
-		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
-		printf("pixel axe x : %d, start y : %d\n", game->r, start_pixel);
-		start_pixel++;
-	}
-}
-
 int	ft_raycasting(t_game *game)
 {
-	//game->x = 0;
-	//while(game->x < game->win_x)
-	//{
-	//	printf("game->x = %d, game->win_x = %d\n", game->x, game->win_x);
-	//	init_raycasting(game);
-	//	find_wall(game);
-	//	draw_column_wall(game);
-	//	game->x++;
-	//}
-	draw_minimap(game);
-	//printf("test\n");
-	draw_horizontal_rays(game);
-	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
+	game->img = mlx_new_image(game->window.mlx, game->win_x, game->win_y);
+	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
+								&game->endian);
 	move_player(game);
+	draw_horizontal_rays(game);
+	draw_minimap(game);
+	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
+	mlx_destroy_image(game->window.mlx, game->img);
 	return(0);
 }
 

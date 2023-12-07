@@ -18,82 +18,66 @@ int	closew(t_game *game)
 	write(1, "Don't give up... It's for the weak !\n", 37);
 	exit(0);
 }
-void	move_right(t_game *game)
+void	move_right(t_game *game) //revoir car n'avance pas en tournant
 {
-	//if (game->map[(int)(game->player.x + (game->vec_dir.y * game->movespeed * 2))][(int)game->player.y] == '0')
-	//	game->player.x += game->vec_dir.y * game->movespeed;
-	//if (game->map[(int)(game->player.x)][(int)(game->player.y - (game->vec_dir.x * game->movespeed * 2))] == '0')
-	//	game->player.y -= game->vec_dir.x * game->movespeed;
-	game->player_pixel.x++;
-	//draw_minimap(game);
-}
-
-void	move_left(t_game *game)
-{
-	//if (game->map[(int)(game->player.x - (game->vec_dir.y * game->movespeed * 2))][(int)game->player.y] == '0')
-	//	game->player.x -= game->vec_dir.y * game->movespeed;
-	//if (game->map[(int)(game->player.x)][(int)(game->player.y + (game->vec_dir.x * game->movespeed * 2))] == '0')
-	//	game->player.y += game->vec_dir.x * game->movespeed;
-	game->player_pixel.x--;
-	//draw_minimap(game);
-}
-
-void	move_up(t_game *game)
-{
-	//if (game->map[(int)(game->player.x + (game->vec_dir.x * game->movespeed * 2))][(int)game->player.y] == '0')
-	//	game->player.x += game->vec_dir.x * game->movespeed;
-	//if (game->map[(int)(game->player.x)][(int)(game->player.y + (game->vec_dir.y * game->movespeed * 2))] == '0')
-	//	game->player.y += game->vec_dir.y * game->movespeed;
-	game->player_pixel.y--;
-	//draw_minimap(game); //a modif en fonction game->map_here.
-}
-
-void	move_down(t_game *game)
-{
-	//if (game->map[(int)(game->player.x - (game->vec_dir.x * game->movespeed * 2))][(int)game->player.y] == '0')
-	//	game->player.x -= game->vec_dir.x * game->movespeed;
-	//if (game->map[(int)(game->player.x)][(int)(game->player.y - (game->vec_dir.y * game->movespeed * 2))] == '0')
-	//	game->player.y -= game->vec_dir.y * game->movespeed;
-	game->player_pixel.y++;
-	//draw_minimap(game);
-}
-
-void	rotate_left(t_game *game)
-{
-	//double old_planx;
-	//double old_dirx;
-//
-	//old_dirx = game->vec_dir.x;
-	//old_planx = game->vec_plan.x;
-	//game->vec_dir.x = game->vec_dir.x * cos(game->rotspeed / 2) - game->vec_dir.y * sin(game->rotspeed / 2);
-	//game->vec_dir.y = old_dirx * sin(game->rotspeed / 2) + game->vec_dir.y * cos(game->rotspeed / 2);
-	//game->vec_plan.x = game->vec_plan.x * cos(game->rotspeed / 2) - game->vec_plan.y * sin(game->rotspeed / 2);
-	//game->vec_plan.y = old_planx * sin(game->rotspeed / 2) + game->vec_plan.y * cos(game->rotspeed / 2);
 	game->pa += 0.1;
 	if (game->pa > 2 * PI)
 		game->pa -= 2 * PI;
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
-	//printf("test left\n");
+}
+
+void	move_left(t_game *game) //revoir car n'avance pas en tournant
+{
+	game->pa += 0.1;
+	if (game->pa > 2 * PI)
+		game->pa -= 2 * PI;
+	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.y = sin(game->pa) * 5;
+}
+
+void	move_up(t_game *game)
+{
+	//int position;
+//
+	//position = (int)game->player_pixel.x / 10 + game->player_pixel.y / 10 * game->mapx - 1;
+	//printf("position up : %d\n", position);
+	//if (game->map[position] == 0)
+	//{
+		game->player_pixel.x += game->pdelta.x;
+		game->player_pixel.y += game->pdelta.y;
+	//}
+}
+
+void	move_down(t_game *game)
+{
+	//int position;
+//
+	//position = (int)game->player_pixel.x / 10 + game->player_pixel.y / 10 * game->mapx;
+	//printf("position down : %d\n", position);
+	//if (game->map[position] == 0)
+	//{
+		game->player_pixel.x -= game->pdelta.x;
+		game->player_pixel.y -= game->pdelta.y;
+	//}
 }
 
 void	rotate_right(t_game *game)
 {
-	//double old_planx;
-	//double old_dirx;
-//
-	//old_dirx = game->vec_dir.x;
-	//old_planx = game->vec_plan.x;
-	//game->vec_dir.x = game->vec_dir.x * cos(-game->rotspeed / 2) - game->vec_dir.y * sin(-game->rotspeed / 2);
-	//game->vec_dir.y = old_dirx * sin(-game->rotspeed / 2) + game->vec_dir.y * cos(-game->rotspeed / 2);
-	//game->vec_plan.x = game->vec_plan.x * cos(-game->rotspeed / 2) - game->vec_plan.y * sin(-game->rotspeed / 2);
-	//game->vec_plan.y = old_planx * sin(-game->rotspeed / 2) + game->vec_plan.y * cos(-game->rotspeed / 2);
+	game->pa += 0.1;
+	if (game->pa > 2 * PI)
+		game->pa -= 2 * PI;
+	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.y = sin(game->pa) * 5;
+}
+
+void	rotate_left(t_game *game)
+{
 	game->pa -= 0.1;
 	if (game->pa < 0)
 		game->pa += 2 * PI;
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
-	//printf("test right\n");
 }
 
 void	move_player(t_game *game)
