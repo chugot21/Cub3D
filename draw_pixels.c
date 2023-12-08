@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:57 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/06 18:46:17 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/08 17:02:18 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,23 @@ void	draw_player(t_game *game)
 	int	i;
 	int	j;
 
+	//i = game->player.y - 2;
+	//j = game->player.x - 2;
+	//my_mlx_pixel_put(game, game->player.x - 1, game->player.y - 1, 0x94120d);
+	//my_mlx_pixel_put(game, game->player.x - 1, game->player.y + 1, 0x94120d);
+	//my_mlx_pixel_put(game, game->player.x + 1, game->player.y + 1, 0x94120d);
+	//my_mlx_pixel_put(game, game->player.x + 1, game->player.y - 1, 0x94120d);
+	//while (i <= game->player.y + 2)
+	//{
+	//	my_mlx_pixel_put(game, game->player.x, i, 0x94120d);
+	//	i++;
+	//}
+	//while (j <= game->player.x + 2)
+	//{
+	//	my_mlx_pixel_put(game, j, game->player.y, 0x94120d);
+	//	j++;
+	//}
+
 	i = game->player_pixel.y - 2;
 	j = game->player_pixel.x - 2;
 	my_mlx_pixel_put(game, game->player_pixel.x - 1, game->player_pixel.y - 1, 0x94120d);
@@ -130,6 +147,10 @@ void	draw_column(t_game *game)
 	int start_pixel;
 	int end_pixel;
 
+	game->line_height = (game->maps * game->win_y) / game->dist; //espace plein dans la colonne /mur a dessiner.
+	if (game->line_height > game->win_y)
+		game->line_height = game->win_y;
+	game->line_offset = (game->win_y / 2) - game->line_height / 2; //espace vide dans la colonne.
 	start_pixel = game->line_offset;
 	end_pixel = game->win_y - game->line_offset;
 	while (start_pixel < end_pixel)

@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/06 18:48:05 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/08 16:34:13 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,16 @@ int		closew(t_game *game);
 void	destroy_all(t_game *game);
 void    parsing(t_game *game);
 void	draw_minimap(t_game *game);
-void	draw_player(t_game *game);
+//void	draw_player(t_game *game);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
 void	draw_column(t_game *game);
 int		moves_activated(int keycode, t_game *game);
-void	move_player(t_game *game);
+//void	move_player(t_game *game);
 int		moves_disactivated(int keycode, t_game *game);
 void	init_game(t_game *game);
 void	draw_direction_line(t_game *game);
+
+int	move_player(int keycode, t_game *game);
 
 size_t	ft_strcmp(char *s1, char *s2);
 

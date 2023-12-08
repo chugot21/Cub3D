@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/06 18:25:58 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/08 16:27:29 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_direction_WE(t_game *game)
 {
 	if (game->dir == 'W')
 	{
-		game->pa = 0;
+		game->pa = PI;
 		//game->pdelta.x = cos(game->pa) * 5;
 		//game->pdelta.y = sin(game->pa) * 5;
 		//game->vec_plan.x = -0.66;
@@ -34,7 +34,7 @@ void	init_direction_WE(t_game *game)
 	}
 	if (game->dir == 'E')
 	{
-		game->pa = PI;
+		game->pa = 0;
 		//game->vec_dir.x = 0;
 		//game->vec_dir.y = 1;
 		//game->vec_plan.x = 0.66;
@@ -49,7 +49,7 @@ void	init_direction(t_game *game)
 {
 	if (game->dir == 'N')
 	{
-		game->pa = PI * 1.5;
+		game->pa = PI / 2;
 		//game->vec_dir.x = -1;
 		//game->vec_dir.y = 0;
 		//game->vec_plan.x = 0;
@@ -57,7 +57,7 @@ void	init_direction(t_game *game)
 	}
 	if (game->dir == 'S')
 	{
-		game->pa = PI / 2;
+		game->pa = PI * 1.5;
 		//game->vec_dir.x = 1;
 		//game->vec_dir.y = 0;
 		//game->vec_plan.x = 0;

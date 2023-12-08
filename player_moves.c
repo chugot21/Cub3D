@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:25 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/06 16:59:06 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/08 16:06:18 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	move_left(t_game *game) //revoir car n'avance pas en tournant
 	game->pa += 0.1;
 	if (game->pa > 2 * PI)
 		game->pa -= 2 * PI;
-	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.x = cos(game->pa) * 5; 
 	game->pdelta.y = sin(game->pa) * 5;
 }
 
@@ -80,7 +80,26 @@ void	rotate_left(t_game *game)
 	game->pdelta.y = sin(game->pa) * 5;
 }
 
-void	move_player(t_game *game)
+int	move_player(int keycode, t_game *game)
+{
+	if (keycode == 100)
+		move_right(game);
+	if (keycode == 97)
+		move_left(game);
+	if (keycode == 119)
+		move_up(game);
+	if (keycode == 115)
+		move_down(game);
+	if (keycode == 65363)
+		rotate_right(game);
+	if (keycode == 65361)
+		rotate_left(game);
+	if (keycode == 65307)
+		closew(game);
+	return (0);
+}
+
+/*void	move_player(t_game *game)
 {
 	if (game->move_right == 1)
 		move_right(game);
@@ -130,4 +149,4 @@ int	moves_disactivated(int keycode, t_game *game)
 	if (keycode == 65361)
 		game->rotate_left = 0;
 	return (0);
-}
+}*/
