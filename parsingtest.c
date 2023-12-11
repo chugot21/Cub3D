@@ -31,13 +31,23 @@ void    parsing(t_game *game)
     //int i = 0;
     //int j;
     //int k = 0;
-//
+
     //mapchar = malloc(sizeof(char *) * 6 + 1);
     game->mapy = 7;
     game->mapx = 14;
     game->maps = game->mapx * game->mapy;
     game->map = malloc(sizeof(int) * game->maps);
     game->dir = 'N';
+
+    //int mapinit[] =
+    //{
+    //    1,1,1,1,1,1,1,1,1,1,1,1,1,
+    //    1,7,0,0,0,0,0,0,0,0,0,1,1,
+    //    1,0,0,0,0,0,0,0,0,0,0,0,1,
+    //    1,0,0,0,0,0,0,0,0,0,0,0,1,
+    //    1,1,1,1,1,1,1,1,1,1,1,1,1,
+    //};
+    //game->map = mapinit;
 
     game->map[0] = 1;
     game->map[1] = 1;
