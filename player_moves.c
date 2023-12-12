@@ -38,7 +38,6 @@ void	move_up(t_game *game)
 	//printf("position up : %d\n", position);
 	//if (game->map[position] == 0)
 	//{
-		printf("pa : %f\n", game->player_pixel.x);
 		game->player_pixel.x += game->pdelta.x;
 		game->player_pixel.y += game->pdelta.y;
 	//}
@@ -94,54 +93,3 @@ int	move_player(int keycode, t_game *game)
 	return (0);
 }
 
-/*void	move_player(t_game *game)
-{
-	if (game->move_right == 1)
-		move_right(game);
-	if (game->move_left == 1)
-		move_left(game);
-	if (game->move_up == 1)
-		move_up(game);
-	if (game->move_down == 1)
-		move_down(game);
-	if (game->rotate_right == 1)
-		rotate_right(game);
-	if (game->rotate_left == 1)
-		rotate_left(game);
-}
-
-int	moves_activated(int keycode, t_game *game)
-{
-	if (keycode == 100)
-		game->move_right = 1;
-	if (keycode == 97)
-		game->move_left = 1;
-	if (keycode == 119)
-		game->move_up = 1;
-	if (keycode == 115)
-		game->move_down = 1;
-	if (keycode == 65363)
-		game->rotate_right = 1;
-	if (keycode == 65361)
-		game->rotate_left = 1;
-	if (keycode == 65307)
-		closew(game);
-	return (0);
-}
-
-int	moves_disactivated(int keycode, t_game *game)
-{
-	if (keycode == 100)
-		game->move_right = 0;
-	if (keycode == 97)
-		game->move_left = 0;
-	if (keycode == 119)
-		game->move_up = 0;
-	if (keycode == 115)
-		game->move_down = 0;
-	if (keycode == 65363)
-		game->rotate_right = 0;
-	if (keycode == 65361)
-		game->rotate_left = 0;
-	return (0);
-}*/

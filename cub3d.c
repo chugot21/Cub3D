@@ -238,6 +238,7 @@ int	ft_raycasting(t_game *game)
 	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
 								&game->endian);
 	//move_player(game);
+	draw_background(game);
 	draw_wall(game);
 	draw_minimap(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);

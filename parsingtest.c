@@ -38,7 +38,16 @@ void    parsing(t_game *game)
     game->maps = game->mapx * game->mapy;
     game->map = malloc(sizeof(int) * game->maps);
     game->dir = 'N';
-
+    game->crgb = malloc(sizeof(int) * 3);
+    game->frgb = malloc(sizeof(int) * 3);
+    game->crgb[0] = 102;
+    game->crgb[1] = 204;
+    game->crgb[2] = 255;
+    game->frgb[0] = 102;
+    game->frgb[1] = 51;
+    game->frgb[2] = 51;
+    //game->fcolor = 0x663333;
+    //game->ccolor = 0x66CCFF;
     //int mapinit[] =
     //{
     //    1,1,1,1,1,1,1,1,1,1,1,1,1,

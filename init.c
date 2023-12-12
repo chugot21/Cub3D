@@ -26,19 +26,11 @@ void	init_direction_WE(t_game *game)
 {
 	if (game->dir == 'W')
 	{
-		game->pa = PI;
-		//game->pdelta.x = cos(game->pa) * 5;
-		//game->pdelta.y = sin(game->pa) * 5;
-		//game->vec_plan.x = -0.66;
-		//game->vec_plan.y = 0;
+		game->pa = 0;
 	}
 	if (game->dir == 'E')
 	{
-		game->pa = 0;
-		//game->vec_dir.x = 0;
-		//game->vec_dir.y = 1;
-		//game->vec_plan.x = 0.66;
-		//game->vec_plan.y = 0;
+		game->pa = PI;
 	}
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
@@ -49,19 +41,11 @@ void	init_direction(t_game *game)
 {
 	if (game->dir == 'N')
 	{
-		game->pa = PI / 2;
-		//game->vec_dir.x = -1;
-		//game->vec_dir.y = 0;
-		//game->vec_plan.x = 0;
-		//game->vec_plan.y = 0.66;
+		game->pa = PI * 1.5;
 	}
 	if (game->dir == 'S')
 	{
-		game->pa = PI * 1.5;
-		//game->vec_dir.x = 1;
-		//game->vec_dir.y = 0;
-		//game->vec_plan.x = 0;
-		//game->vec_plan.y = -0.66;
+		game->pa = PI / 2;
 	}
 	init_direction_WE(game);
 }
@@ -83,10 +67,12 @@ void	init_game(t_game *game)
 			game->player.y = y + 0.5;
 			game->player_pixel.x = (x + 0.5) * 10 + 64;
 			game->player_pixel.y = (y + 0.5) * 10 + 64;
-			printf("x : %f, y : %f\n", game->player.x, game->player.y);
 			init_direction(game);
 		}
 		i++;
 	}
+	game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);
+	game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);
+	printf("crgb %d, frgb %d\n", game->ccolor, game->fcolor);
 }
 

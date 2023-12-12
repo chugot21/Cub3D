@@ -50,6 +50,10 @@ typedef struct s_game
 	int mapx;
 	int maps;
 	char dir;
+	int *frgb;
+	int *crgb;
+	int	fcolor; //floor
+	int ccolor; //ceiling
 	void	*img_no;
 	void	*img_so;
 	void	*img_we;
@@ -117,6 +121,8 @@ typedef struct s_game
 int		closew(t_game *game);
 void	destroy_all(t_game *game);
 void    parsing(t_game *game);
+void	draw_background(t_game *game);
+int	create_hexa_rgb(int r, int g, int b);
 void	draw_minimap(t_game *game);
 //void	draw_player(t_game *game);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);

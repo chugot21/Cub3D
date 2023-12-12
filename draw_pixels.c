@@ -78,40 +78,27 @@ void	color_square(t_game *game, int x, int y, int width, int heigth, int color)
 
 void	draw_player(t_game *game)
 {
+	double px;
+	double py;
 	int	i;
 	int	j;
 
-	//i = game->player.y - 2;
-	//j = game->player.x - 2;
-	//my_mlx_pixel_put(game, game->player.x - 1, game->player.y - 1, 0x94120d);
-	//my_mlx_pixel_put(game, game->player.x - 1, game->player.y + 1, 0x94120d);
-	//my_mlx_pixel_put(game, game->player.x + 1, game->player.y + 1, 0x94120d);
-	//my_mlx_pixel_put(game, game->player.x + 1, game->player.y - 1, 0x94120d);
-	//while (i <= game->player.y + 2)
-	//{
-	//	my_mlx_pixel_put(game, game->player.x, i, 0x94120d);
-	//	i++;
-	//}
-	//while (j <= game->player.x + 2)
-	//{
-	//	my_mlx_pixel_put(game, j, game->player.y, 0x94120d);
-	//	j++;
-	//}
-
-	i = game->player_pixel.y - 2;
-	j = game->player_pixel.x - 2;
-	my_mlx_pixel_put(game, game->player_pixel.x - 1, game->player_pixel.y - 1, 0x94120d);
-	my_mlx_pixel_put(game, game->player_pixel.x - 1, game->player_pixel.y + 1, 0x94120d);
-	my_mlx_pixel_put(game, game->player_pixel.x + 1, game->player_pixel.y + 1, 0x94120d);
-	my_mlx_pixel_put(game, game->player_pixel.x + 1, game->player_pixel.y - 1, 0x94120d);
-	while (i <= game->player_pixel.y + 2)
+	px = (game->player_pixel.x + 10) * 10 / 64;
+	py = (game->player_pixel.y + 10) * 10 / 64;
+	i = py - 2;
+	j = px - 2;
+	my_mlx_pixel_put(game, px - 1, py - 1, 0x94120d);
+	my_mlx_pixel_put(game, px - 1, py + 1, 0x94120d);
+	my_mlx_pixel_put(game, px + 1, py + 1, 0x94120d);
+	my_mlx_pixel_put(game, px + 1, py - 1, 0x94120d);
+	while (i <= py + 2)
 	{
-		my_mlx_pixel_put(game, game->player_pixel.x, i, 0x94120d);
+		my_mlx_pixel_put(game, px, i, 0x94120d);
 		i++;
 	}
-	while (j <= game->player_pixel.x + 2)
+	while (j <= px + 2)
 	{
-		my_mlx_pixel_put(game, j, game->player_pixel.y, 0x94120d);
+		my_mlx_pixel_put(game, j, py, 0x94120d);
 		j++;
 	}
 }
@@ -159,3 +146,40 @@ void	draw_column(t_game *game)
 		start_pixel++;
 	}
 }
+
+void	draw_background(t_game *game)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < game->win_y / 2)
+	{
+		x = 0;
+		while (x < game->win_x)
+		{
+			my_mlx_pixel_put(game, x, y, game->ccolor);
+			x++;
+		}
+		y++;
+	}
+	while (y < game->win_y)
+	{
+		x = 0;
+		while (x < game->win_x)
+		{
+			my_mlx_pixel_put(game, x, y, game->fcolor);
+			x++;
+		}
+		y++;
+	}
+}
+
+int	create_hexa_rgb(int r, int g, int b)
+{
+	int color;
+	
+	color = ((r & 0xff) << 16) + ((g & 0xff) << 8) + ((b & 0xff));
+	return(color);
+}
+
