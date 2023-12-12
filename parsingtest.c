@@ -64,8 +64,8 @@ void    parsing(t_game *game)
     game->map[12] = 1;
     game->map[13] = 1; //14
     game->map[14] = 1;
-    game->map[15] = 1;
-    game->map[16] = 7;
+    game->map[15] = 7;
+    game->map[16] = 0;
     game->map[17] = 0;
     game->map[18] = 0;
     game->map[19] = 0;

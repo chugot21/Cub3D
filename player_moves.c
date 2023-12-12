@@ -20,20 +20,14 @@ int	closew(t_game *game)
 }
 void	move_right(t_game *game) //revoir car n'avance pas en tournant
 {
-	game->pa += 0.1;
-	if (game->pa > 2 * PI)
-		game->pa -= 2 * PI;
-	game->pdelta.x = cos(game->pa) * 5;
-	game->pdelta.y = sin(game->pa) * 5;
+	game->player_pixel.x += cos(P2 + game->pa) * 5;
+	game->player_pixel.y += sin(P2 + game->pa) * 5;
 }
 
 void	move_left(t_game *game) //revoir car n'avance pas en tournant
 {
-	game->pa += 0.1;
-	if (game->pa > 2 * PI)
-		game->pa -= 2 * PI;
-	game->pdelta.x = cos(game->pa) * 5; 
-	game->pdelta.y = sin(game->pa) * 5;
+	game->player_pixel.x += cos(-P2 + game->pa) * 5; 
+	game->player_pixel.y += sin(-P2 + game->pa) * 5;
 }
 
 void	move_up(t_game *game)
@@ -44,6 +38,7 @@ void	move_up(t_game *game)
 	//printf("position up : %d\n", position);
 	//if (game->map[position] == 0)
 	//{
+		printf("pa : %f\n", game->player_pixel.x);
 		game->player_pixel.x += game->pdelta.x;
 		game->player_pixel.y += game->pdelta.y;
 	//}

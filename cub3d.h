@@ -25,7 +25,7 @@
 
 # define PI 3.1415926535897932384626433832795028841971693993751058
 # define P2 PI / 2
-# define P3 3 * PI
+# define P3 3 * PI / 2
 # define DEGREE_RADIAN 0.0174533
 
 typedef struct s_point

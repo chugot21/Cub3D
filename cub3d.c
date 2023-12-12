@@ -169,7 +169,7 @@ void	horizontal_rays(t_game *game, double atan)
 	game->horizon.y = game->player_pixel.y;
 	if (game->ra > PI) //si on regarde dans le dos
 	{
-		game->ray.y = (((int)game->player_pixel.y >> 6) << 6)-0.0001;
+		game->ray.y = (((int)game->player_pixel.y >> 6) << 6) - 0.0001;
 		game->ray.x = (game->player_pixel.y - game->ray.y) * atan + game->player_pixel.x;
 		game->xoyo.y = -64;
 		game->xoyo.x = -game->xoyo.y * atan;

@@ -81,8 +81,9 @@ void	init_game(t_game *game)
 			x = (i - (game->mapx * y));
 			game->player.x = x + 0.5;
 			game->player.y = y + 0.5;
-			game->player_pixel.x = (x + 0.5) * 10;
-			game->player_pixel.y = (y + 0.5) * 10;
+			game->player_pixel.x = (x + 0.5) * 10 + 64;
+			game->player_pixel.y = (y + 0.5) * 10 + 64;
+			printf("x : %f, y : %f\n", game->player.x, game->player.y);
 			init_direction(game);
 		}
 		i++;
