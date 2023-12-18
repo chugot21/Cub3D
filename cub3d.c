@@ -6,70 +6,11 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:24:40 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/08 17:41:01 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/18 21:58:11 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//13:40 ->video tuto
-
-/*void	draw_ver_line(t_game *game)
-{
-	int y;
-
-	y = game->drawstart;
-	while (y <= game->drawend)
-	{
-		my_mlx_pixel_put(game, game->x, y, game->color);
-		y++;
-	}
-}
-
-void	draw_column_wall(t_game *game)
-{
-	game->line_height = (int) (game->win_y / game->perpWallDist);
-	game->drawstart = -game->line_height / 2 + game->win_y / 2;
-	if (game->drawstart < 0)
-		game->drawstart = 0;
-	game->drawend = game->line_height / 2 + game->win_y / 2;
-	if (game->drawend >= game->win_y)
-		game->drawend = game->win_y - 1;
-	game->color = 0x00FF0000;
-	if (game->side == 1)
-		game->color = game->color / 2;
-	draw_ver_line(game);
-}
-
-void	find_wall(t_game *game)
-{
-	while (game->hit == 0)
-	{
-		printf("sidedistx : %f, deltadistx : %f\n", game->sidedist.x, game->deltadist.x);
-		printf("sidedisty : %f, deltadisty : %f\n", game->sidedist.y, game->deltadist.y);
-		if (game->sidedist.x < game->sidedist.y)
-		{
-			game->sidedist.x += game->deltadist.x;
-			game->map_here.x += game->step.x;
-			game->side = 0;
-			printf("test\n");
-		}
-		else
-		{
-			game->sidedist.y += game->deltadist.y;
-			game->map_here.y += game->step.y;
-			game->side = 1;
-		}
-		if (game->map[(int)game->map_here.x][(int)game->map_here.y] == '1')
-		{
-			game->hit = 1;
-		}
-	}
-	if (game->side == 0)
-		game->perpWallDist = (game->sidedist.x - game->deltadist.x);
-	else
-		game->perpWallDist = (game->sidedist.y - game->deltadist.y);
-}*/
 
 double dist(double ax, double ay, double bx, double by, double ang)
 {
@@ -214,7 +155,6 @@ void	draw_wall(t_game *game)
 	double ntan;
 
 	game->r = 0;
-	//game->ra = game->pa;
 	game->ra = game->pa - DEGREE_RADIAN * 30; //30
 	limits_rays(game);
 	while (game->r < game->win_x) //60
@@ -223,12 +163,36 @@ void	draw_wall(t_game *game)
 		vertical_rays(game, ntan);
 		low_rays(game);
 		fix_fish_eye(game);
-		//printf("game dist : %f\n", game->dist);
 		draw_column(game);
 		game->ra += DEGREE_RADIAN / 16;
 		limits_rays(game);
-		//printf("line height : %f, line offset : %f\n", game->line_height, game->line_offset);
 		game->r++;
+	}
+}
+
+void	print_texture(t_game *game)
+{
+	int y = 0;
+	int x = 0;
+	int pixel;
+	int r;
+	int g;
+	int b;
+
+	while (y < 32)
+	{
+		x = 0;
+		while (x < 32)
+		{
+			
+			pixel = (y * 32 + x) * 3;
+			r = game->texture_one[pixel + 0];
+			g = game->texture_one[pixel + 1];
+			b = game->texture_one[pixel + 2];
+			color_square(game, x * 10 + 1, y * 10 + 1, x * 10 + 10, y * 10 + 10, create_hexa_rgb(r, g, b));
+			x++;
+		}
+		y++;
 	}
 }
 
@@ -236,13 +200,15 @@ int	ft_raycasting(t_game *game)
 {
 	game->img = mlx_new_image(game->window.mlx, game->win_x, game->win_y);
 	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
-								&game->endian);
-	//move_player(game);
+							&game->endian);
 	draw_background(game);
 	draw_wall(game);
 	draw_minimap(game);
+	//print_texture(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 	mlx_destroy_image(game->window.mlx, game->img);
+	printf("test flag %d\n", game->flag_move);
+	game->flag_move = 0;
 	return(0);
 }
 
@@ -261,9 +227,11 @@ int	main(int argc, char **argv)
 			game.win_x,
 			game.win_y, "Club 3D");
 	//display_map(&game);
-	//mlx_hook(game.window.win, 2, 1L << 0, moves_activated, &game);
+	//mlx_hook(game.window.win, 2, 1L << 0, moves_activated, &game);	
 	mlx_hook(game.window.win, 2, 1L << 0, move_player, &game);
-	mlx_loop_hook(game.window.mlx, ft_raycasting, &game);
+	//mlx_loop_hook(game.window.mlx, ft_raycasting, &game);
+	if (game.flag_move == 1 || game.flag_move == -1)
+		ft_raycasting(&game);
 	//mlx_hook(game.window.win, 3, 1L << 1, moves_disactivated, &game);
 	mlx_hook(game.window.win, 17, 1L << 9, closew, &game);
 	mlx_loop(game.window.mlx);

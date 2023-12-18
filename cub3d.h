@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/08 16:34:13 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/18 22:14:56 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include <math.h>
+
+//#include "Textures/T_1.ppm"
 
 # define PI 3.1415926535897932384626433832795028841971693993751058
 # define P2 PI / 2
@@ -54,6 +56,8 @@ typedef struct s_game
 	int *crgb;
 	int	fcolor; //floor
 	int ccolor; //ceiling
+
+	int *texture_one;
 	void	*img_no;
 	void	*img_so;
 	void	*img_we;
@@ -67,6 +71,7 @@ typedef struct s_game
 	int endian;
 
 	//For raycasting
+	int flag_move;
 
 	t_point	player; //position départ
 	t_point player_pixel; //position depart pixel to draw player.
@@ -90,31 +95,30 @@ typedef struct s_game
 	double line_height; //hauteur de la ligne a tracer du mur
 	double line_offset; //decalage de ligne
 	double ca; //calcul pour fish eye
-	int color; //couleur du mur
 
-	//t_point raydir; //rayon de la camera.
-	//t_point map_here; // position exacte du joueur.
-	//t_point sidedist; //longueur du rayon depuis la position actuelle jusqu'au prochain côté x ou y.
-	//t_point deltadist; //longueur entre deux côtés x ou y.
-	//double perpWallDist; //calcul la longueur du rayon. perpendiculaire au plan camera.
-	//t_point step; //sens de direction de x et y (+1 ou -1)
-	//int hit; //est-ce qu'on a touché un mur ?
-	//int side; //si x (mur EW) alors 0 si y (mur NS) alors 1.
+	//wall texture
+	int color; //couleur du pixel de la texture
+	int i_pixel_width;
+	int pixel_width;
+	int texture_ix;
+	int texture_iy;
+	int y_too_high;
 
-	//variable for drawing
-	//int line_height;
-	//int drawstart;
-	//int	drawend;
-	//int color;
-	//double movespeed; //squares/second
-	//double rotspeed; //radians/second
-
+	//for collisions and movements
+	int xco;
+	int yco;
+	int ipx;
+	int ipy;
+	int ipx_add_xo;
+	int ipy_add_yo;
+	int ipx_sub_xo;
+	int ipy_sub_yo;
 	int move_right;
 	int move_left;
 	int move_up;
 	int move_down;
 	int rotate_right;
-	int rotate_left;
+	int rot_left;
 	
 }	t_game;
 
@@ -126,10 +130,10 @@ int	create_hexa_rgb(int r, int g, int b);
 void	draw_minimap(t_game *game);
 //void	draw_player(t_game *game);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
+void	color_square(t_game *game, int x, int y, int width, int heigth, int color);
 void	draw_column(t_game *game);
 int		moves_activated(int keycode, t_game *game);
 //void	move_player(t_game *game);
-int		moves_disactivated(int keycode, t_game *game);
 void	init_game(t_game *game);
 void	draw_direction_line(t_game *game);
 

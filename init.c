@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/08 16:27:29 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/18 21:46:02 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,9 @@ void	init_moves(t_game *game)
 	game->move_right = 0;
 	game->move_up = 0;
 	game->move_down = 0;
-	game->rotate_left = 0;
+	game->rot_left = 0;
 	game->rotate_right = 0;
-}
-
-void	init_direction_WE(t_game *game)
-{
-	if (game->dir == 'W')
-	{
-		game->pa = 0;
-	}
-	if (game->dir == 'E')
-	{
-		game->pa = PI;
-	}
-	game->pdelta.x = cos(game->pa) * 5;
-	game->pdelta.y = sin(game->pa) * 5;
-	init_moves(game);
+	game->flag_move = -1;
 }
 
 void	init_direction(t_game *game)
@@ -47,7 +33,17 @@ void	init_direction(t_game *game)
 	{
 		game->pa = PI / 2;
 	}
-	init_direction_WE(game);
+	if (game->dir == 'W')
+	{
+		game->pa = 0;
+	}
+	if (game->dir == 'E')
+	{
+		game->pa = PI;
+	}
+	game->pdelta.x = cos(game->pa) * 5;
+	game->pdelta.y = sin(game->pa) * 5;
+	init_moves(game);
 }
 
 void	init_game(t_game *game)
@@ -73,6 +69,9 @@ void	init_game(t_game *game)
 	}
 	game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);
 	game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);
-	printf("crgb %d, frgb %d\n", game->ccolor, game->fcolor);
+	game->texture_ix = 0;
+	game->texture_iy = 0;
+	game->pixel_width = 0; //utile ?
+	game->i_pixel_width = 0;
 }
 

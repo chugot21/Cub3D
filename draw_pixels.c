@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:57 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/08 17:02:18 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/18 23:19:51 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,62 @@ void	draw_minimap(t_game *game)
 	draw_player(game);
 }
 
+int	find_pixel_color(t_game *game, int x, int y)
+{
+	int pixel;
+	int r;
+	int g;
+	int b;
+
+	pixel = (y * 32 + x) * 3;
+	r = game->texture_one[pixel + 0];
+	g = game->texture_one[pixel + 1];
+	b = game->texture_one[pixel + 2];
+	return(create_hexa_rgb(r, g, b));
+}
+
+int	draw_column_texture_per_pixel(t_game *game, int start_pixel)
+{
+	int pixel_height;
+	int end_pixel;
+
+	//if (game->y_too_high != -1)
+	//	pixel_height = (int) game->y_too_high / 32;
+	//else
+		pixel_height = (int)game->line_height / 32;
+	end_pixel = pixel_height + start_pixel;
+	if (end_pixel > game->win_y)
+		end_pixel = game->win_y;
+	while (start_pixel <= end_pixel)
+	{
+		game->color = find_pixel_color(game, game->texture_ix, game->texture_iy);
+		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
+		start_pixel++;
+	}
+	printf("pixel height %d\ntexture iy %d, texture ix %d\n", pixel_height, game->texture_iy, game->texture_ix);
+	game->texture_iy++;
+	return(start_pixel);
+}
+
+void	ft_pixel_width(t_game *game)
+{
+	if (game->texture_ix == 0 || game->i_pixel_width >= game->pixel_width)
+	{
+		//if (game->y_too_high != -1)
+		//	game->pixel_width = (int) game->y_too_high / 32;
+		//else
+			game->pixel_width = (int) game->line_height / 32;
+	}
+	if (game->i_pixel_width < game->pixel_width)
+		game->i_pixel_width++;
+	else
+	{
+		game->i_pixel_width = 0;
+		game->texture_ix++;
+	}
+}
+
+//avant ajustement quand y dépasse de la fenetre. 
 void	draw_column(t_game *game)
 {
 	int start_pixel;
@@ -137,15 +193,57 @@ void	draw_column(t_game *game)
 	game->line_height = (game->maps * game->win_y) / game->dist; //espace plein dans la colonne /mur a dessiner.
 	if (game->line_height > game->win_y)
 		game->line_height = game->win_y;
+	game->texture_iy = 0;
 	game->line_offset = (game->win_y / 2) - game->line_height / 2; //espace vide dans la colonne.
 	start_pixel = game->line_offset;
 	end_pixel = game->win_y - game->line_offset;
+	ft_pixel_width(game);
 	while (start_pixel < end_pixel)
 	{
-		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
-		start_pixel++;
+		start_pixel = draw_column_texture_per_pixel(game, start_pixel);
+		//my_mlx_pixel_put(game, game->r, start_pixel, game->color);
+		//start_pixel++;
 	}
 }
+
+/*void	iy_start(t_game *game)
+{
+	int extra_y_up;
+	int pixel_width;
+	int nbr_pixel_sup;
+
+	extra_y_up = (game->y_too_high - game->win_y) / 2;
+	pixel_width = (int) game->y_too_high / 32;
+	nbr_pixel_sup = (int) extra_y_up / pixel_width;
+	game->texture_iy += nbr_pixel_sup;
+}
+
+void	draw_column(t_game *game)
+{
+	int start_pixel;
+	int end_pixel;
+
+	game->line_height = (game->maps * game->win_y) / game->dist; //espace plein dans la colonne /mur a dessiner.
+	game->y_too_high = -1;
+	if (game->line_height > game->win_y)
+	{
+		game->y_too_high = game->line_height;
+		game->line_height = game->win_y;
+		iy_start(game);
+	}
+	else
+		game->texture_iy = 0;
+	game->line_offset = (game->win_y / 2) - game->line_height / 2; //espace vide dans la colonne.
+	start_pixel = game->line_offset;
+	end_pixel = game->win_y - game->line_offset;
+	ft_pixel_width(game);
+	while (start_pixel < end_pixel)
+	{
+		start_pixel = draw_column_texture_per_pixel(game, start_pixel);
+		//my_mlx_pixel_put(game, game->r, start_pixel, game->color);
+		//start_pixel++;
+	}
+}*/
 
 void	draw_background(t_game *game)
 {
