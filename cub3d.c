@@ -42,14 +42,14 @@ void low_rays(t_game *game)
 		game->ray.x = game->vertical.x;
 		game->ray.y = game->vertical.y;
 		game->dist = game->dis_verti;
-		game->color = 0x217a42;
+		//game->color = 0x217a42;
 	}
 	if (game->dis_verti > game->dis_horiz)
 	{
 		game->ray.x = game->horizon.x;
 		game->ray.y = game->horizon.y;
 		game->dist = game->dis_horiz;
-		game->color = 0x0cab46;
+		//game->color = 0x0cab46;
 	}
 }
 
@@ -172,24 +172,25 @@ void	draw_wall(t_game *game)
 
 void	print_texture(t_game *game)
 {
-	int y = 0;
-	int x = 0;
+	int y;
+	int x;
 	int pixel;
 	int r;
 	int g;
 	int b;
 
+	y = 0;
 	while (y < 32)
 	{
 		x = 0;
 		while (x < 32)
 		{
-			
+			//printf("y %d | x %d\n", y, x);
 			pixel = (y * 32 + x) * 3;
 			r = game->texture_one[pixel + 0];
 			g = game->texture_one[pixel + 1];
 			b = game->texture_one[pixel + 2];
-			color_square(game, x * 10 + 1, y * 10 + 1, x * 10 + 10, y * 10 + 10, create_hexa_rgb(r, g, b));
+			color_square(game, x * 10, y * 10, x * 10 + 10, y * 10 + 10, create_hexa_rgb(r, g, b));
 			x++;
 		}
 		y++;
@@ -198,17 +199,20 @@ void	print_texture(t_game *game)
 
 int	ft_raycasting(t_game *game)
 {
-	game->img = mlx_new_image(game->window.mlx, game->win_x, game->win_y);
-	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
-							&game->endian);
-	draw_background(game);
-	draw_wall(game);
-	draw_minimap(game);
-	//print_texture(game);
-	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
-	mlx_destroy_image(game->window.mlx, game->img);
-	printf("test flag %d\n", game->flag_move);
-	game->flag_move = 0;
+	if (game->flag_move == -1 || game->flag_move == 1)
+	{
+		game->img = mlx_new_image(game->window.mlx, game->win_x, game->win_y);
+		game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length,
+								&game->endian);
+		draw_background(game);
+		draw_wall(game);
+		//draw_minimap(game);
+		//print_texture(game);
+		mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
+		mlx_destroy_image(game->window.mlx, game->img);
+		//printf("test flag %d\n", game->flag_move);
+		game->flag_move = 0;
+	}
 	return(0);
 }
 
@@ -229,9 +233,7 @@ int	main(int argc, char **argv)
 	//display_map(&game);
 	//mlx_hook(game.window.win, 2, 1L << 0, moves_activated, &game);	
 	mlx_hook(game.window.win, 2, 1L << 0, move_player, &game);
-	//mlx_loop_hook(game.window.mlx, ft_raycasting, &game);
-	if (game.flag_move == 1 || game.flag_move == -1)
-		ft_raycasting(&game);
+	mlx_loop_hook(game.window.mlx, ft_raycasting, &game);
 	//mlx_hook(game.window.win, 3, 1L << 1, moves_disactivated, &game);
 	mlx_hook(game.window.win, 17, 1L << 9, closew, &game);
 	mlx_loop(game.window.mlx);

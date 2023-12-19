@@ -14,11 +14,11 @@
 
 int	closew(t_game *game)
 {
-	////free(game->texture_one);
-	//free(game->map);
-	//free(game->crgb);
-	//free(game->frgb);
-	////destroy_all(game);
+	//free(game->texture_one); //probleme pour free invalid pointer
+	free(game->map);
+	free(game->crgb);
+	free(game->frgb);
+	//destroy_all(game);
 	write(1, "Don't give up... It's for the weak !\n", 37);
 	exit(0);
 }
