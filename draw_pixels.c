@@ -161,8 +161,8 @@ int	draw_column_texture_per_pixel(t_game *game, int start_pixel)
 		my_mlx_pixel_put(game, game->r, start_pixel, game->color);
 		start_pixel++;
 	}
+	game->texture_iy += 32 / game->line_height;
 	//printf("pixel height %d\ntexture iy %d, texture ix %d\n", pixel_height, game->texture_iy, game->texture_ix);
-	game->texture_iy++;
 	return(start_pixel);
 }
 
@@ -204,6 +204,7 @@ void	draw_column(t_game *game)
 		//my_mlx_pixel_put(game, game->r, start_pixel, game->color);
 		//start_pixel++;
 	}
+
 }
 
 /*void	iy_start(t_game *game)

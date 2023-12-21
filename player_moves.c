@@ -109,6 +109,7 @@ int	move_player(int keycode, t_game *game)
 		rotate_left(game);
 	if (keycode == 65307)
 		closew(game);
+	ft_raycasting(game);
 	return (0);
 }
 

@@ -30,6 +30,10 @@
 # define P3 3 * PI / 2
 # define DEGREE_RADIAN 0.0174533
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 50
+# endif
+
 typedef struct s_point
 {
 	double	x;
@@ -136,9 +140,15 @@ int		moves_activated(int keycode, t_game *game);
 //void	move_player(t_game *game);
 void	init_game(t_game *game);
 void	draw_direction_line(t_game *game);
+int	ft_raycasting(t_game *game);
 
 int	move_player(int keycode, t_game *game);
 
 size_t	ft_strcmp(char *s1, char *s2);
+char	*get_next_line(int fd);
+char	*ft_strchr(const char *str, int c);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(const char *str);
+char	**ft_split(char const *s, char c);
 
 #endif

@@ -18,6 +18,8 @@ SRCS =	cub3d.c \
 		init.c \
 		draw_pixels.c \
 		player_moves.c \
+		get_next_line_bonus.c \
+		ft_split.c \
 
 CC = cc
 
