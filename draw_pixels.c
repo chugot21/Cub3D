@@ -136,14 +136,14 @@ int	find_pixel_color(t_game *game, int x, int y)
 	int g;
 	int b;
 
-	pixel = (y * 32 + x) * 3;
+	pixel = ((int)y * 32 + (int)x) * 3;
 	r = game->texture_one[pixel + 0];
 	g = game->texture_one[pixel + 1];
 	b = game->texture_one[pixel + 2];
 	return(create_hexa_rgb(r, g, b));
 }
 
-int	draw_column_texture_per_pixel(t_game *game, int start_pixel)
+/*int	draw_column_texture_per_pixel(t_game *game, int start_pixel)
 {
 	int pixel_height;
 	int end_pixel;
@@ -164,9 +164,9 @@ int	draw_column_texture_per_pixel(t_game *game, int start_pixel)
 	game->texture_iy += 32 / game->line_height;
 	//printf("pixel height %d\ntexture iy %d, texture ix %d\n", pixel_height, game->texture_iy, game->texture_ix);
 	return(start_pixel);
-}
+}*/
 
-void	ft_pixel_width(t_game *game)
+/*void	ft_pixel_width(t_game *game)
 {
 	if (game->texture_ix == 0 || game->i_pixel_width >= game->pixel_width)
 	{
@@ -182,7 +182,7 @@ void	ft_pixel_width(t_game *game)
 		game->i_pixel_width = 0;
 		game->texture_ix++;
 	}
-}
+}*/
 
 //avant ajustement quand y dépasse de la fenetre. 
 void	draw_column(t_game *game)
@@ -191,20 +191,38 @@ void	draw_column(t_game *game)
 	int end_pixel;
 
 	game->line_height = (game->maps * game->win_y) / game->dist; //espace plein dans la colonne /mur a dessiner.
+	game->ty_step = 32 / (float)game->line_height;
+	game->ty_off = 0;
 	if (game->line_height > game->win_y)
-		game->line_height = game->win_y;
-	game->texture_iy = 0;
-	game->line_offset = (game->win_y / 2) - game->line_height / 2; //espace vide dans la colonne.
-	start_pixel = game->line_offset;
-	end_pixel = game->win_y - game->line_offset;
-	ft_pixel_width(game);
-	while (start_pixel < end_pixel)
 	{
-		start_pixel = draw_column_texture_per_pixel(game, start_pixel);
-		//my_mlx_pixel_put(game, game->r, start_pixel, game->color);
-		//start_pixel++;
+		game->ty_off = (game->line_height - game->win_y) / 2;
+		game->line_height = game->win_y;
 	}
-
+	game->line_offset = (game->win_y / 2) - game->line_height / 2; //espace vide dans la colonne.
+	game->texture_iy = game->ty_off * game->ty_step;
+	if (game->shade == 1)
+	{
+		game->texture_ix = (int)(game->ray.x / 2) % 32;
+		if (game->ra > 180)
+			game->texture_ix = 31 - game->texture_ix;
+	}
+	else
+	{
+		game->texture_ix = (int) (game->ray.y / 2) % 32;
+		if (game->ra > 90 && game->ra < 270)
+			game->texture_ix = 31 - game->texture_ix;
+	}
+	start_pixel = 0;
+	//start_pixel = game->line_offset;
+	//end_pixel = game->win_y - game->line_offset;
+	//ft_pixel_width(game);
+	while (start_pixel < game->line_height)
+	{
+		//draw_column_texture_per_pixel(game, start_pixel);
+		my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy));
+		start_pixel++;
+		game->texture_iy += game->ty_step;
+	}
 }
 
 /*void	iy_start(t_game *game)

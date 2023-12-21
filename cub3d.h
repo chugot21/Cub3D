@@ -102,11 +102,14 @@ typedef struct s_game
 
 	//wall texture
 	int color; //couleur du pixel de la texture
+	float shade;
+	float ty_off;
 	int i_pixel_width;
 	int pixel_width;
 	int texture_ix;
 	int texture_iy;
 	int y_too_high;
+	float ty_step;
 
 	//for collisions and movements
 	int xco;

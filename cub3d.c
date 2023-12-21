@@ -37,11 +37,13 @@ void	fix_fish_eye(t_game *game)
 
 void low_rays(t_game *game)
 {
+	game->shade = 1;
 	if (game->dis_verti < game->dis_horiz)
 	{
 		game->ray.x = game->vertical.x;
 		game->ray.y = game->vertical.y;
 		game->dist = game->dis_verti;
+		game->shade = 0.5;
 		//game->color = 0x217a42;
 	}
 	if (game->dis_verti > game->dis_horiz)
