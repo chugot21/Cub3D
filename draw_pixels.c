@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:57 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/22 02:11:19 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 16:06:13 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ void	draw_minimap(t_game *game)
 		{
 			y = (i / game->mapx);
 			x = (i - game->mapx * y);
-			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0xf6f7f2); //white
+			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0xFFFFFF); //walls
 		}
 		else
 		{
 			y = i / game->mapx;
 			x = i - game->mapx * y;
-			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0x0000FF00); //black
+			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9), (y * 10 + 9), 0x009966); //floor
 		}
 		i++;
 	}
@@ -135,8 +135,14 @@ void	draw_column(t_game *game)
 	end_pixel = game->win_y - game->line_offset;
 	while (start_pixel < end_pixel)
 	{
-		//if()
-		my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_north));
+		if (game->side == 0 && ((game->ra >= 0)) && (game->ra < PI))
+			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_north));
+		if (game->side == 0 &&  (game->ra >= PI && game->ra < 2 * PI))
+			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_south));
+		if (game->side == 1 && (game->ra >= P2 && game->ra < P3))
+			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_east));
+		if (game->side == 1 && ((game->ra >= 0 && game->ra < P2) || (game->ra < (2 * PI) && game->ra >= P3)))
+			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_west));
 		start_pixel++;
 		game->texture_iy += game->ty_step;
 	}

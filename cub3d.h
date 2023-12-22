@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/22 01:56:31 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 15:58:52 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include <math.h>
-
-//#include "Textures/T_1.ppm"
 
 # define PI 3.1415926535897932384626433832795028841971693993751058
 # define P2 PI / 2
@@ -69,14 +67,10 @@ typedef struct s_game
 	int endian;
 
 	//For raycasting
-	int flag_move;
-
 	t_point	player; //position départ
 	t_point player_pixel; //position depart pixel to draw player.
 	double	pa; //angle de la camera par rapport au joueur.
 	t_point	pdelta; //direction joueur
-	t_point vec_plan; //plan camera
-	//int	x; //initialisation pour boucle generale.
 	
 	int	r; //compteur pour nombre de rays affiché à l'écran. largeur de la vue camera.
 	t_point m;
@@ -105,6 +99,7 @@ typedef struct s_game
 	int *t_south;
 	int *t_west;
 	int *t_east;
+	int	side;
 
 	//for collisions and movements
 	int xco;
@@ -130,16 +125,13 @@ void    parsing(t_game *game);
 void	draw_background(t_game *game);
 int	create_hexa_rgb(int r, int g, int b);
 void	draw_minimap(t_game *game);
-//void	draw_player(t_game *game);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
 void	color_square(t_game *game, int x, int y, int width, int heigth, int color);
 void	draw_column(t_game *game);
 int		moves_activated(int keycode, t_game *game);
-//void	move_player(t_game *game);
 void	init_game(t_game *game);
 void	draw_direction_line(t_game *game);
 int	ft_raycasting(t_game *game);
-
 int	move_player(int keycode, t_game *game);
 
 size_t	ft_strcmp(char *s1, char *s2);

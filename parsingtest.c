@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/22 01:58:15 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 16:17:36 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	get_texture_fd(char *path)
 {
 	int		file;
 	//path[ft_strlen(path) - 1] = 0;
-	//file = open(path + 3, O_RDONLY);
+	//file = open(path + 3, O_RDONLY); //revoir le + 3 car il peut y avoir plus d'espaces.
     file = open(path, O_RDONLY);
 	if (file == -1)
-		perror("ici pb");
+		perror("Error\n");
 	return (file);
 }
 
@@ -30,10 +30,9 @@ int	*texture(char *path)
 	char	**stack;
 	int		i;
 	int		*pixel;
-	pixel = malloc(sizeof(int) * 3072);
+	pixel = malloc(sizeof(int) * 32 * 32 * 3);
 	fd = get_texture_fd(path);
 	line = get_next_line(fd);
-    //printf("test\n");
 	stack = ft_split(line, ',');
 	i = 0;
 	while (stack[i])
@@ -56,8 +55,8 @@ void    parsing(t_game *game)
     game->maps = game->mapx * game->mapy;
     game->map = malloc(sizeof(int) * game->maps);
     game->dir = 'S'; //direction à remplacer par 7 sur la map.
-    game->crgb = malloc(sizeof(int) * 3);
-    game->frgb = malloc(sizeof(int) * 3);
+    game->crgb = malloc(sizeof(int) * 3); //recup couleur ceiling
+    game->frgb = malloc(sizeof(int) * 3); //recup couleur floor.
     game->crgb[0] = 102;
     game->crgb[1] = 204;
     game->crgb[2] = 255;
@@ -65,20 +64,17 @@ void    parsing(t_game *game)
     game->frgb[1] = 51;
     game->frgb[2] = 51;
 
-    tn = "./Textures/texture_north.ppm";
+    tn = "./Textures/texture_north.ppm"; // recup textures de chaque direction.
     ts = "./Textures/texture_south.ppm";
     tw = "./Textures/texture_west.ppm";
     te = "./Textures/texture_east.ppm";
 
-    //game->texture_one = malloc(sizeof(int) * (32 * 32 * 3));
     game->t_north = texture(tn);
     game->t_south = texture(ts);
     game->t_west = texture(tw);
     game->t_east = texture(te);
    
-    //game->fcolor = 0x663333;
-    //game->ccolor = 0x66CCFF;
-    //int mapinit[] =
+    //int mapinit[] = //fonctionne pas car local
     //{
     //    1,1,1,1,1,1,1,1,1,1,1,1,1,
     //    1,7,0,0,0,0,0,0,0,0,0,1,1,
@@ -186,33 +182,4 @@ void    parsing(t_game *game)
     game->map[95] = 1;
     game->map[96] = 1;
     game->map[97] = 1;
-
-    //mapchar[0] = "1111111111111\0";
-    //mapchar[1] = "1700000000001\0";
-    //mapchar[2] = "1000000000001\0";
-    //mapchar[3] = "1000000000001\0";
-    //mapchar[4] = "1111111111111\0";
-    //mapchar[5] = NULL;
-    
-    //while(mapchar[i] != NULL)
-    //{
-    //    j = 0;
-    //    while (mapchar[i][j] != '\0')
-    //    {
-    //        game->map[k] = mapchar[i][j] - 48;
-    //        printf("map[%d] : %d", k, game->map[k]);
-    //        j++;
-    //        k++;
-    //    }
-    //    i++;
-    //}
-    //k = 0;
-    //while(k < 78)
-    //{
-    //    k++;
-    //}
-
-    //game->img_no = mlx_xpm_file_to_image(game->window.mlx, "nomfichier.xpm", &img_width, &img_height);
 }
-//voir type variable les couleurs de plafond et murs. dans fonction my_pixel_put c'est un int color mais avec ce format : 0x00FF0000. 
-//voir comment convertir l'info de la map direct en ça.
