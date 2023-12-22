@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:24:40 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/18 21:58:11 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 02:01:39 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,9 @@ void	draw_wall(t_game *game)
 	double ntan;
 
 	game->r = 0;
-	game->ra = game->pa - DEGREE_RADIAN * 30; //30
+	game->ra = game->pa - DEGREE_RADIAN * 30;
 	limits_rays(game);
-	while (game->r < game->win_x) //60
+	while (game->r < game->win_x)
 	{
 		horizontal_rays(game, atan);
 		vertical_rays(game, ntan);
@@ -172,7 +172,7 @@ void	draw_wall(t_game *game)
 	}
 }
 
-void	print_texture(t_game *game)
+/*void	print_texture(t_game *game)
 {
 	int y;
 	int x;
@@ -191,9 +191,9 @@ void	print_texture(t_game *game)
 			//printf("%d\n", y * 32 + x);
 			pixel = (y * 32 + x) * 3;
 			//printf("pixel %d\n", pixel);
-			r = game->texture_one[pixel + 0];
-			g = game->texture_one[pixel + 1];
-			b = game->texture_one[pixel + 2];
+			r = game->t_north[pixel + 0];
+			g = game->t_north[pixel + 1];
+			b = game->t_north[pixel + 2];
 			//printf("r %d, g %d, b %d\n", r, g, b);
 			//my_mlx_pixel_put(game, )
 			color_square(game, x * 10, y * 10, x * 10 + 10, y * 10 + 10, create_hexa_rgb(r, g, b));
@@ -201,7 +201,7 @@ void	print_texture(t_game *game)
 		}
 		y++;
 	}
-}
+}*/
 
 int	ft_raycasting(t_game *game)
 {
@@ -215,7 +215,7 @@ int	ft_raycasting(t_game *game)
 	mlx_put_image_to_window(game->window.mlx, game->window.win, game->img, 0, 0);
 	mlx_destroy_image(game->window.mlx, game->img);
 	//printf("test flag %d\n", game->flag_move);
-	game->flag_move = 0;
+	game->flag_move = 0; //sert plus ?
 	return(0);
 }
 

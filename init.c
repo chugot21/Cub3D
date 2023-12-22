@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/18 21:46:02 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 00:55:33 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	init_game(t_game *game)
 	}
 	game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);
 	game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);
-	game->texture_ix = 0;
-	game->texture_iy = 0;
-	game->pixel_width = 0; //utile ?
-	game->i_pixel_width = 0;
+	//game->texture_ix = 0;
+	//game->texture_iy = 0;
+	//game->pixel_width = 0; //utile ?
+	//game->i_pixel_width = 0;
 }
 

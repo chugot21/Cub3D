@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/18 19:21:42 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 01:58:15 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ int	*texture(char *path)
 
 void    parsing(t_game *game)
 {
-    char *path;
-
+    char *tn;
+	char *ts;
+	char *tw;
+	char *te;
+    
     game->mapy = 7; //hauteur map
     game->mapx = 14; //largeur map
     game->maps = game->mapx * game->mapy;
@@ -62,11 +65,16 @@ void    parsing(t_game *game)
     game->frgb[1] = 51;
     game->frgb[2] = 51;
 
-    path = "./Textures/text_one.ppm";
+    tn = "./Textures/texture_north.ppm";
+    ts = "./Textures/texture_south.ppm";
+    tw = "./Textures/texture_west.ppm";
+    te = "./Textures/texture_east.ppm";
 
-    //tableau de pixels de la texture à venir récup dans le fichier exture au format ppm.
     //game->texture_one = malloc(sizeof(int) * (32 * 32 * 3));
-    game->texture_one = texture(path);
+    game->t_north = texture(tn);
+    game->t_south = texture(ts);
+    game->t_west = texture(tw);
+    game->t_east = texture(te);
    
     //game->fcolor = 0x663333;
     //game->ccolor = 0x66CCFF;

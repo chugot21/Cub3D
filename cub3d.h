@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/18 22:14:56 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 01:56:31 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ typedef struct s_game
 	int	fcolor; //floor
 	int ccolor; //ceiling
 
-	int *texture_one;
-	void	*img_no;
-	void	*img_so;
-	void	*img_we;
-	void	*img_ea;
-
 	//Pour afficher
 	void *img;
 	char *addr;
@@ -104,12 +98,13 @@ typedef struct s_game
 	int color; //couleur du pixel de la texture
 	float shade;
 	float ty_off;
-	int i_pixel_width;
-	int pixel_width;
-	int texture_ix;
-	int texture_iy;
-	int y_too_high;
+	float texture_ix;
+	float texture_iy;
 	float ty_step;
+	int *t_north;
+	int *t_south;
+	int *t_west;
+	int *t_east;
 
 	//for collisions and movements
 	int xco;

@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:40:25 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/18 21:50:33 by clara            ###   ########.fr       */
+/*   Updated: 2023/12/22 02:11:50 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ void	move_left(t_game *game)
 void	move_up(t_game *game)
 {
 	game->flag_move = 1;
-	//if (game->map[game->ipy * game->mapx + game->ipx_add_xo] == 0)
+	if (game->map[game->ipy * game->mapx + game->ipx_add_xo] == 0)
 		game->player_pixel.x += game->pdelta.x;
-	//if (game->map[game->ipy_add_yo * game->mapx + game->ipx] == 0)
+	if (game->map[game->ipy_add_yo * game->mapx + game->ipx] == 0)
 		game->player_pixel.y += game->pdelta.y;
 }
 
 void	move_down(t_game *game)
 {
 	game->flag_move = 1;
-	//if (game->map[game->ipy *game->mapx + game->ipx_sub_xo] == 0)
+	if (game->map[game->ipy *game->mapx + game->ipx_sub_xo] == 0)
 		game->player_pixel.x -= game->pdelta.x;
-	//if (game->map[game->ipy_sub_yo * game->mapx + game->ipx] == 0)
+	if (game->map[game->ipy_sub_yo * game->mapx + game->ipx] == 0)
 		game->player_pixel.y -= game->pdelta.y;
 }
 
