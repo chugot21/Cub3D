@@ -12,44 +12,6 @@
 
 #include "cub3d.h"
 
-int	closew(t_game *game)
-{
-	//free(game->texture_one); //probleme pour free invalid pointer
-	free(game->map);
-	free(game->crgb);
-	free(game->frgb);
-	//destroy_all(game);
-	write(1, "Don't give up... It's for the weak !\n", 37);
-	exit(0);
-}
-void	move_right(t_game *game)
-{
-	game->player_pixel.x += cos(P2 + game->pa) * 5;
-	game->player_pixel.y += sin(P2 + game->pa) * 5;
-}
-
-void	move_left(t_game *game)
-{
-	game->player_pixel.x += cos(-P2 + game->pa) * 5; 
-	game->player_pixel.y += sin(-P2 + game->pa) * 5;
-}
-
-void	move_up(t_game *game)
-{
-	if (game->map[game->ipy * game->mapx + game->ipx_add_xo] == 0)
-		game->player_pixel.x += game->pdelta.x;
-	if (game->map[game->ipy_add_yo * game->mapx + game->ipx] == 0)
-		game->player_pixel.y += game->pdelta.y;
-}
-
-void	move_down(t_game *game)
-{
-	if (game->map[game->ipy *game->mapx + game->ipx_sub_xo] == 0)
-		game->player_pixel.x -= game->pdelta.x;
-	if (game->map[game->ipy_sub_yo * game->mapx + game->ipx] == 0)
-		game->player_pixel.y -= game->pdelta.y;
-}
-
 void	rotate_right(t_game *game)
 {
 	game->pa += 0.1;

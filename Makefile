@@ -12,12 +12,17 @@
 
 NAME =	cub3D
 
-SRCS =	cub3d.c \
-		parsingtest.c \
-		utils.c \
+SRCS =	parsingtest.c \
 		init.c \
+		cub3d.c \
+		raycasting.c \
+		rays.c \
+		draw_rays.c \
 		draw_pixels.c \
 		player_moves.c \
+		moves.c \
+		destroy.c \
+		utils.c \
 		get_next_line_bonus.c \
 		ft_split.c \
 

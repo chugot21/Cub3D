@@ -47,9 +47,9 @@ void	init_direction(t_game *game)
 
 void	init_game(t_game *game)
 {
-	int i;
-	int x;
-	int y;
+	int	i;
+	int	x;
+	int	y;
 
 	i = 0;
 	while (i <= game->maps)
@@ -69,4 +69,3 @@ void	init_game(t_game *game)
 	game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);
 	game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);
 }
-
