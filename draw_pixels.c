@@ -20,17 +20,19 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	color_square(t_game *game, int x, int y, int width, int heigth, int color)
+void	color_square(t_game *game, int x, int y, int width)
 {
 	int	tempx;
+	int	heigth;
 
+	heigth = y + 8;
 	tempx = x;
 	while (y <= heigth)
 	{
 		x = tempx;
 		while (x <= width)
 		{
-			my_mlx_pixel_put(game, x, y, color);
+			my_mlx_pixel_put(game, x, y, game->color);
 			x++;
 		}
 		y++;
@@ -70,4 +72,18 @@ int	create_hexa_rgb(int r, int g, int b)
 
 	color = ((r & 0xff) << 16) + ((g & 0xff) << 8) + ((b & 0xff));
 	return (color);
+}
+
+int	find_pixel_color(t_game *game, int x, int y, int *texture)
+{
+	int	pixel;
+	int	r;
+	int	g;
+	int	b;
+
+	pixel = ((int)y * 32 + (int)x) * 3;
+	r = texture[pixel + 0];
+	g = texture[pixel + 1];
+	b = texture[pixel + 2];
+	return (create_hexa_rgb(r, g, b));
 }

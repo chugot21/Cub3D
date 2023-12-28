@@ -18,24 +18,23 @@ void	draw_minimap(t_game *game)
 	int	x;
 	int	y;
 
-	i = 0;
-	while (i < game->maps)
+	i = -1;
+	while (i++ < game->maps - 1)
 	{
 		if (game->map[i] == 1)
 		{
 			y = (i / game->mapx);
 			x = (i - game->mapx * y);
-			color_square(game, (x * 10 + 1), (y * 10 + 1),
-				(x * 10 + 9), (y * 10 + 9), 0xFFFFFF);
+			game->color = 0xFFFFFF;
+			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9));
 		}
 		else
 		{
 			y = i / game->mapx;
 			x = i - game->mapx * y;
-			color_square(game, (x * 10 + 1), (y * 10 + 1),
-				(x * 10 + 9), (y * 10 + 9), 0x009966);
+			game->color = 0x009966;
+			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9));
 		}
-		i++;
 	}
 	draw_player(game);
 }

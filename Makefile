@@ -16,7 +16,7 @@ SRCS =	parsingtest.c \
 		init.c \
 		cub3d.c \
 		raycasting.c \
-		rays.c \
+		horizontal_rays.c \
 		draw_rays.c \
 		draw_pixels.c \
 		player_moves.c \

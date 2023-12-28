@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-double dist(double ax, double ay, double bx, double by, double ang)
+double	dist(double ax, double ay, double bx, double by)
 {
-	return(sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
 void	fix_fish_eye(t_game *game)
@@ -29,7 +29,7 @@ void	fix_fish_eye(t_game *game)
 
 void	draw_column(t_game *game)
 {
-	game->line_height = (game->maps * game->win_y) / game->dist; //espace plein dans la colonne /mur a dessiner.
+	game->line_height = (game->maps * game->win_y) / game->dist;
 	game->ty_step = 32 / (float)game->line_height;
 	game->ty_off = 0;
 	if (game->line_height > game->win_y)
@@ -37,7 +37,7 @@ void	draw_column(t_game *game)
 		game->ty_off = (game->line_height - game->win_y) / 2;
 		game->line_height = game->win_y;
 	}
-	game->line_offset = (game->win_y / 2) - game->line_height / 2; //espace vide dans la colonne.
+	game->line_offset = (game->win_y / 2) - game->line_height / 2;
 	game->texture_iy = game->ty_off * game->ty_step;
 	if (game->shade == 1)
 	{
@@ -47,45 +47,45 @@ void	draw_column(t_game *game)
 	}
 	else
 	{
-		game->texture_ix = (int) (game->ray.y / 2) % 32;
+		game->texture_ix = (int)(game->ray.y / 2) % 32;
 		if (game->ra > 90 && game->ra < 270)
 			game->texture_ix = 31 - game->texture_ix;
 	}
-    draw_column_next(game);
+	draw_column_next(game);
 }
 
-void    draw_column_next(t_game *game)
+void	draw_column_next(t_game *game)
 {
-    int start_pixel;
-	int end_pixel;
+	int	start_pixel;
+	int	end_pixel;
 
 	start_pixel = game->line_offset;
 	end_pixel = game->win_y - game->line_offset;
 	while (start_pixel < end_pixel)
 	{
-		if (game->side == 0 && ((game->ra >= 0)) && (game->ra < PI))
-			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_north));
-		if (game->side == 0 &&  (game->ra >= PI && game->ra < 2 * PI))
-			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_south));
-		if (game->side == 1 && (game->ra >= P2 && game->ra < P3))
-			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_east));
-		if (game->side == 1 && ((game->ra >= 0 && game->ra < P2) || (game->ra < (2 * PI) && game->ra >= P3)))
-			my_mlx_pixel_put(game, game->r, start_pixel, find_pixel_color(game, game->texture_ix, game->texture_iy, game->t_west));
+		draw_textures(game, start_pixel);
 		start_pixel++;
 		game->texture_iy += game->ty_step;
 	}
 }
 
-int	find_pixel_color(t_game *game, int x, int y, int *texture)
+void	draw_textures(t_game *game, int start_pixel)
 {
-	int pixel;
-	int r;
-	int g;
-	int b;
-
-	pixel = ((int)y * 32 + (int)x) * 3;
-	r = texture[pixel + 0];
-	g = texture[pixel + 1];
-	b = texture[pixel + 2];
-	return(create_hexa_rgb(r, g, b));
+	if (game->side == 0 && ((game->ra >= 0)) && (game->ra < PI))
+		my_mlx_pixel_put(game, game->r, start_pixel,
+			find_pixel_color(game, game->texture_ix,
+				game->texture_iy, game->t_north));
+	if (game->side == 0 && (game->ra >= PI && game->ra < 2 * PI))
+		my_mlx_pixel_put(game, game->r, start_pixel,
+			find_pixel_color(game, game->texture_ix,
+				game->texture_iy, game->t_south));
+	if (game->side == 1 && (game->ra >= P2 && game->ra < P3))
+		my_mlx_pixel_put(game, game->r, start_pixel,
+			find_pixel_color(game, game->texture_ix,
+				game->texture_iy, game->t_east));
+	if (game->side == 1 && ((game->ra >= 0 && game->ra < P2)
+			|| (game->ra < (2 * PI) && game->ra >= P3)))
+		my_mlx_pixel_put(game, game->r, start_pixel,
+			find_pixel_color(game, game->texture_ix,
+				game->texture_iy, game->t_west));
 }
