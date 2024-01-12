@@ -15,8 +15,10 @@
 int	main(int argc, char **argv)
 {
 	t_game		game;
-	t_window	window;
+	//t_window	window;
 
+	(void)argc;
+	(void)argv;
 	game.win_x = 960;
 	game.win_y = 540;
 	parsing(&game);

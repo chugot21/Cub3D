@@ -15,16 +15,17 @@ NAME =	cub3D
 SRCS =	parsingtest.c \
 		init.c \
 		cub3d.c \
-		raycasting.c \
-		horizontal_rays.c \
-		draw_rays.c \
-		draw_pixels.c \
-		player_moves.c \
-		moves.c \
+		Raycasting/raycasting.c \
+		Raycasting/horizontal_rays.c \
+		Raycasting/vertical_rays.c \
+		Raycasting/draw_rays.c \
+		Raycasting/draw_pixels.c \
+		Raycasting/player_moves.c \
+		Raycasting/moves.c \
 		destroy.c \
-		utils.c \
-		get_next_line_bonus.c \
-		ft_split.c \
+		Utils/utils.c \
+		Utils/get_next_line_bonus.c \
+		Utils/ft_split.c \
 
 CC = cc
 
@@ -32,16 +33,25 @@ FLAGS = -g -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
+LIBGCDIR = gc
+
+LIBGC = libgc.a
+
+LIBGCFLAGS = -L $(LIBGCDIR) -l:$(LIBGC)
+
 MLX_LIB	= ./minilibx-linux/libmlx.a
 
 MLX_FLAG =	-lX11 -lXext
 
 MLX_EX =	$(MLX_LIB) $(MLX_FLAG)
 
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
 all:	$(NAME)
 
-$(NAME):	$(OBJS)
-			$(CC)  $(FLAGS) $(OBJS) $(MLX_EX) -o $(NAME) -lm
+$(NAME):	$(LIBGCDIR)/$(LIBGC) $(OBJS)
+			$(CC) $(OBJS) $(MLX_EX) $(LIBGCFLAGS) -o $(NAME) -lm
 clean:
 		rm -f $(OBJS)
 
