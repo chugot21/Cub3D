@@ -26,6 +26,25 @@ size_t	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
+int	ft_strncmp(char *str1, char *str2, int length)
+{
+	int	i;
+
+	i = 0;
+	if (!str1 || !str2)
+		return (-1);
+	while (str1[i] != '\0' && i < length)
+	{
+		if (!(str1[i] == str2[i]))
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	if (str2[i] == '\0' || i == length)
+		return (0);
+	else
+		return (str1[i] - str2[i]);
+}
+
 size_t	ft_strlen(const char *str)
 {
 	int	i;

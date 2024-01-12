@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include <math.h>
+# include "gc/gc.h"
 
 # define PI 3.1415926535897932384626433832795028841971693993751058
 # define P2 PI / 2
@@ -29,7 +30,7 @@
 # define DEGREE_RADIAN 0.0174533
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 50
+#  define BUFFER_SIZE 1
 # endif
 
 typedef struct s_point
@@ -46,6 +47,14 @@ typedef struct s_window
 
 typedef struct s_game
 {
+	t_map *tmap;
+	char *path_map;
+	int			trace;
+	t_gcan	gc;
+
+
+
+
 	t_window	window;
 	int			win_x;
 	int			win_y;
@@ -149,5 +158,32 @@ char	*ft_strchr(const char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *str);
 char	**ft_split(char const *s, char c);
+
+
+
+int		ft_strchr2(char *string);
+char	*ft_strstr(char *big, char *lit);
+char	*ft_strdup(t_game *data, const char *s);
+char	*ft_strdup_special(t_game *data, const char *s);
+int		ft_strncmp(char *str1, char *str2, int length);
+int		ft_isdigit(int c);
+int		ft_strnrchr(char *s, char *c);
+
+void	copy_first_line_map(t_game *data, char *buff, int fd);
+void	copy_other_line_map(t_game *data, int fd, char *buff);
+void	check_character(t_game *data, char pos, int x, int y);
+void	get_map(t_game *data, char *argv);
+void	open_malloc_map(t_game *data);
+void	check_right(t_game *data);
+void	check_down(t_game *data);
+void	check_left(t_game *data);
+void	check_up(t_game *data);
+int	check_error(t_game *data, char *argv);
+int	check_player(t_game *data);
+void	rotate_player(t_game *data, double angle); //fonction pour lorientation du player au debut 
+void	set_map_data(t_game *data, char *buff, int info, int fd);
+void	check_exit(t_game *data);
+int	is_players(char c);
+int	check_border_map(t_game *data);
 
 #endif

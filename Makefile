@@ -15,6 +15,13 @@ NAME =	cub3D
 SRCS =	parsingtest.c \
 		init.c \
 		cub3d.c \
+		parsing/check_border.c \
+		parsing/malloc_map.c \
+		parsing/parsing.c \
+		parsing/set_texture.c \
+		parsing/flood_fill.c \
+		parsing/copy_map.c \
+		parsing/check_error.c \
 		Raycasting/raycasting.c \
 		Raycasting/horizontal_rays.c \
 		Raycasting/vertical_rays.c \
@@ -26,6 +33,8 @@ SRCS =	parsingtest.c \
 		Utils/utils.c \
 		Utils/get_next_line_bonus.c \
 		Utils/ft_split.c \
+		Utils/util.c \
+		Utils/strdups.c \
 
 CC = cc
 

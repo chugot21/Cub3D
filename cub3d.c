@@ -15,20 +15,33 @@
 int	main(int argc, char **argv)
 {
 	t_game		game;
-	//t_window	window;
 
 	(void)argc;
 	(void)argv;
+	gc_init(&game.gc);
+	init(&game);
+	get_map(&game, argv[1]);
+	if (check_error(&game, argv[1]) == 1)
+	{
+		printf("here erreur map\n"); // free a faire 
+		//clean_all_error(&game, 0);
+		return(1);
+	}
+	//for (size_t i = 0; i < 15; i++)
+	//	printf("real [%zu]=%s=\n", i,game.tmap->map[i]);
+	printf("start player x:%f y:%f\n", game.tmap->start_player.x , game.tmap->start_player.y);
+	end_parss(&game);
+	//OU
+	parsing(&game); //version test
+
+
 	game.win_x = 960;
 	game.win_y = 540;
-	parsing(&game);
-	//treat_map(argv, &map);
 	init_game(&game);
 	game.window.mlx = mlx_init();
 	game.window.win = mlx_new_window (game.window.mlx,
 			game.win_x,
 			game.win_y, "Club 3D");
-	//display_map(&game);	
 	ft_raycasting(&game);
 	mlx_hook(game.window.win, 2, 1L << 0, move_player, &game);
 	mlx_hook(game.window.win, 17, 1L << 9, closew, &game);
