@@ -12,9 +12,9 @@
 
 NAME =	cub3D
 
-SRCS =	parsingtest.c \
-		init.c \
-		cub3d.c \
+SRCS =	cub3d.c \
+		parsingtest.c \
+		parsing/init_parsing.c \
 		parsing/check_border.c \
 		parsing/malloc_map.c \
 		parsing/parsing.c \
@@ -22,6 +22,7 @@ SRCS =	parsingtest.c \
 		parsing/flood_fill.c \
 		parsing/copy_map.c \
 		parsing/check_error.c \
+		Raycasting/init_raycasting.c \
 		Raycasting/raycasting.c \
 		Raycasting/horizontal_rays.c \
 		Raycasting/vertical_rays.c \

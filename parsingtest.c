@@ -45,16 +45,31 @@ int	*texture(char *path)
 
 void    parsing(t_game *game)
 {
-    char *tn;
+    /* feuille de route :
+        en cours de verif main->get_map->transfert map->check_info.
+    */
+
+
+    /*Gestion d'erreurs :
+    nbr of argument -> ok
+    .cub -> ok
+    erreur d'open ? est-ce qu'on gere tout ?
+
+    */
+
+   // a gerer
+    char *tn; 
 	char *ts;
 	char *tw;
 	char *te;
     
-    game->mapy = 7; //hauteur map
-    game->mapx = 14; //largeur map
+    //game->mapy = 7; //hauteur map
+    //game->mapx = 14; //largeur map
+    game->mapy = (int)game->tmap->y_map;
+    game->mapx = (int)game->tmap->x_map;
     game->maps = game->mapx * game->mapy;
-    game->map = malloc(sizeof(int) * game->maps);
-    game->dir = 'S'; //direction à remplacer par 7 sur la map.
+    //game->dir = 'S'; ok fait dans is_players
+
     game->crgb = malloc(sizeof(int) * 3); //recup couleur ceiling
     game->frgb = malloc(sizeof(int) * 3); //recup couleur floor.
     game->crgb[0] = 102;
@@ -84,7 +99,7 @@ void    parsing(t_game *game)
     //};
     //game->map = mapinit;
 
-    game->map[0] = 1;
+    /*game->map[0] = 1;
     game->map[1] = 1;
     game->map[2] = 1;
     game->map[3] = 1;
@@ -181,5 +196,5 @@ void    parsing(t_game *game)
     game->map[94] = 1;
     game->map[95] = 1;
     game->map[96] = 1;
-    game->map[97] = 1;
+    game->map[97] = 1;*/
 }

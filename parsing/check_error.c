@@ -1,7 +1,25 @@
 
 #include "../cub3d.h"
 
-int	check_player(t_game *data)
+int	check_name(char *argv) //ok verif
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		i++;
+	}
+	if (argv[i - 4] == '.' && argv[i - 3] == 'c'
+		&& argv[i - 2] == 'u' && argv[i - 1] == 'b')
+	{
+		return (0);
+	}
+	printf("Error : Only .cub files are accepted by the program\n");
+	return (1);
+}
+
+int	check_player(t_game *game) //idem init_game ou presque
 {
 	size_t	y;
 	size_t	x;
@@ -9,17 +27,17 @@ int	check_player(t_game *data)
 
 	player = 0;
 	y = 0;
-	while (y < data->tmap->y_map - 1)
+	while (y < game->tmap->y_map - 1)
 	{
 		x = 0;
-		while (data->tmap->map[y][x] && x < data->tmap->x_map)
+		while (game->tmap->map[y][x] && x < game->tmap->x_map)
 		{
-			if (data->tmap->map[y][x] && is_players
-				(data->tmap->map[y][x]) == 1)
+			if (game->tmap->map[y][x] && is_players
+				(game->tmap->map[y][x], game) == 1)
 			{
-				data->tmap->map[y][x] = '7';
-				data->tmap->start_player.x = x;
-				data->tmap->start_player.y = y;
+				game->tmap->map[y][x] = '7';
+				game->tmap->start_player.x = x;
+				game->tmap->start_player.y = y;
 				player++;
 			}
 			x++;
@@ -57,59 +75,39 @@ int	check_texture(t_game *data)
 	return (0);
 }
 
-int	check_name(char *argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		i++;
-	}
-	if (argv[i - 4] == '.' && argv[i - 3] == 'c'
-		&& argv[i - 2] == 'u' && argv[i - 1] == 'b')
-	{
-		return (0);
-	}
-	printf("Error : Only .cub files are accepted by the program\n");
-	return (1);
-}
-
-int	check_xpm(t_game *data)
+int	check_ppm(t_game *data)
 {
 	int	error;
 
 	error = 0;
-	if (ft_strnrchr(data->tmap->no1, ".xpm") != 1)
+	if (ft_strnrchr(data->tmap->no1, ".ppm") != 1)
 		error++;
-	if (ft_strnrchr(data->tmap->so1, ".xpm") != 1)
+	if (ft_strnrchr(data->tmap->so1, ".ppm") != 1)
 		error++;
-	if (ft_strnrchr(data->tmap->ea1, ".xpm") != 1)
+	if (ft_strnrchr(data->tmap->ea1, ".ppm") != 1)
 		error++;
-	if (ft_strnrchr(data->tmap->we1, ".xpm") != 1)
+	if (ft_strnrchr(data->tmap->we1, ".ppm") != 1)
 		error++;
 	if (error != 0)
 	{
-		printf("Error : Textures must be in .xpm format\n");
+		printf("Error : Textures must be in .ppm format\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	check_error(t_game *data, char *argv)
+int	check_error(t_game *game, char *argv)
 {
-	if (check_border_map(data) == 1)
+	if (check_border_map(game) == 1)
 		return (1);
-	if (check_texture(data) == 1)
+	if (check_texture(game) == 1)
 		return (1);
-	if (check_name(argv) == 1)
+	if (check_ppm(game) == 1)
 		return (1);
-	if (check_xpm(data) == 1)
-		return (1);
-	check_right(data);
+	check_right(game);
 	//for (size_t i = 0; i < 16; i++)
 	//	printf("copy [%zu]=%s=\n", i,data->tmap->copy_map[i]);
-	if (data->tmap->map_error != 0)
+	if (game->tmap->map_error != 0)
 	{
 		printf("Error : the map is not closed\n");
 		return (1);

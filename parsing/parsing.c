@@ -32,9 +32,9 @@ void	check_character(t_game *data, char pos, int x, int y)
 	}*/
 }
 
-void	check_info(t_game *data, char *buff, int fd)
+void	check_info(t_game *data, char *buff, int fd) // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ICI
 {
-	if (ft_strncmp(buff, "NO", 2) == 0)
+	if (ft_strncmp(buff, "NO", 2) == 0) //bizarre comparaison ? saute les espaces et tab du debut ?
 		set_map_data(data, buff, 1, fd);
 	else if (ft_strncmp(buff, "SO", 2) == 0)
 		set_map_data(data, buff, 2, fd);
@@ -50,7 +50,7 @@ void	check_info(t_game *data, char *buff, int fd)
 		copy_first_line_map(data, buff, fd);
 }
 
-void	transfert_map(t_game *data, int fd)
+void	transfert_map(t_game *game, int fd)
 {
 	char	*buff;
 	int		i;
@@ -58,14 +58,14 @@ void	transfert_map(t_game *data, int fd)
 	i = 0;
 	while (i == 0 || buff != NULL)
 	{
-		buff = get_next_line(data, fd);
+		buff = get_next_line(fd); //buff = get_next_line(data, fd);
 		if (!buff || buff == NULL)
 		{
 			free(buff);
 			break ;
 		}
-		check_info(data, buff, fd);
-		if (data->trace != 0)
+		check_info(game, buff, fd); // verifier ca prochaine fois. <<<<<<<<< ICI
+		if (game->trace != 0)
 		{
 			free(buff);
 			break ;
@@ -75,19 +75,19 @@ void	transfert_map(t_game *data, int fd)
 	}
 }
 
-void	get_map(t_game *data, char *argv)
+void	get_map(t_game *game, char *argv)
 {
 	int	fd;
 
-	data->path_map = ft_strdup(data, argv);
-	open_malloc_map(data);
+	game->path_map = ft_strdup(game, argv);
+	open_malloc_map(game);
 	fd = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error : to run the program use a map.cub\n");
+		printf("Error : open .cub doesn't work\n");
 		exit(0);
 	}
-	transfert_map(data, fd);
+	transfert_map(game, fd); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ICI
 	close(fd);
 }

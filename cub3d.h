@@ -45,6 +45,46 @@ typedef struct s_window
 	void	*win;
 }	t_window;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_texture;
+
+typedef struct s_map
+{
+	t_point 	start_player; //idem que player mais axel utilise player pour ses calculs ?
+	size_t		x_map; // = game->mapx -> on change ? pour le moment juste relie dans parsing(t_game *game)
+	size_t		y_map; // = game->mapy -> on change ? pour le moment juste relie dans parsing(t_game *game)
+	char		**map; //ok laisse la
+	char 		**map_to_int; //ok laisse la 
+	char		**copy_map; //ok laisse la
+
+	char		*no1; //tn
+	char		*so1; //ts
+	char		*we1; //tw
+	char		*ea1; //te
+	t_texture	no;
+	t_texture	so;
+	t_texture	we;
+	t_texture	ea;
+	int			*f1;
+	int			*c1;
+	int			x_wall;
+	int			y_wall;
+	int			map_error;
+	int			cell_color;
+	int			floor_color;
+	int			trace;
+	int 		trace_first_line;
+	int			y_map_trace;
+}	t_map;
+
 typedef struct s_game
 {
 	t_map *tmap;
@@ -169,21 +209,37 @@ int		ft_strncmp(char *str1, char *str2, int length);
 int		ft_isdigit(int c);
 int		ft_strnrchr(char *s, char *c);
 
+//Revu ok
+int		check_name(char *argv); //ok
+
+int		is_players(char c, t_game *game); //ok
+int		check_player(t_game *game); //presaue idem init_game dans raycasting.
+void	open_malloc_map(t_game *data); //ok
+
+//en cours de verif
+void	get_map(t_game *game, char *argv);
+void	transfert_map(t_game *game, int fd); //->check_info
+
+//a recheck
+void	init_parsing(t_game *data);
+
+//a revoir
+void	ctoi(t_game *data);
+void	map_to_square(t_game *data);
+void	end_parss(t_game *data);
+void	check_character(t_game *data, char pos, int x, int y);
+void	check_info(t_game *data, char *buff, int fd);
 void	copy_first_line_map(t_game *data, char *buff, int fd);
 void	copy_other_line_map(t_game *data, int fd, char *buff);
-void	check_character(t_game *data, char pos, int x, int y);
-void	get_map(t_game *data, char *argv);
-void	open_malloc_map(t_game *data);
 void	check_right(t_game *data);
 void	check_down(t_game *data);
 void	check_left(t_game *data);
 void	check_up(t_game *data);
-int	check_error(t_game *data, char *argv);
-int	check_player(t_game *data);
-void	rotate_player(t_game *data, double angle); //fonction pour lorientation du player au debut 
-void	set_map_data(t_game *data, char *buff, int info, int fd);
 void	check_exit(t_game *data);
-int	is_players(char c);
-int	check_border_map(t_game *data);
+int		check_error(t_game *game, char *argv);
+int		check_border_map(t_game *game);
+void	set_map_data(t_game *data, char *buff, int info, int fd);
+
+void	rotate_player(t_game *data, double angle); //fonction pour lorientation du player au debut 
 
 #endif

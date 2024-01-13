@@ -1,16 +1,28 @@
 
 #include "../cub3d.h"
 
-int	is_players(char c)
+int	is_players(char c, t_game *game)
 {
 	if (c == 'N')
+	{
+		game->dir = 'N';
 		return (1);
+	}
 	else if (c == 'S')
+	{
+		game->dir = 'S';
 		return (1);
+	}
 	else if (c == 'E')
+	{
+		game->dir = 'E';
 		return (1);
+	}
 	else if (c == 'W')
+	{
+		game->dir = 'W';
 		return (1);
+	}
 	return (0);
 }
 
@@ -91,23 +103,23 @@ void	check_exit(t_game *data)
 		data->tmap->map_error++;
 */
 
-int	check_border_map(t_game *data)
+int	check_border_map(t_game *game)
 {
-	malloc_copy_map(data);
-	copy_map(data);
-	data->tmap->x_wall = data->player.y;
-	data->tmap->y_wall = data->player.x;
-	if (check_player(data) == 0)
+	malloc_copy_map(game);
+	copy_map(game);
+	game->tmap->x_wall = game->player.y;
+	game->tmap->y_wall = game->player.x;
+	if (check_player(game) == 0)
 	{
 		printf("Error : No player on the map (N, S , E, W)\n");
 		return (1);
 	}
-	if (check_player(data) > 1)
+	if (check_player(game) > 1)
 	{
 		printf("Error : Too many players on the map (N, S , E, W)\n");
 		return (1);
 	}
-	if (data->tmap->map_error != 0)
+	if (game->tmap->map_error != 0)
 	{
 		printf("Error : The map is not closed\n");
 		return (1);

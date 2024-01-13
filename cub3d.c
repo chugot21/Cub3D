@@ -16,14 +16,19 @@ int	main(int argc, char **argv)
 {
 	t_game		game;
 
-	(void)argc;
-	(void)argv;
+	if (argc != 2)
+	{
+		perror("Error : only file .cub in argument\n");
+		return(1);
+	}
+	if (check_name(argv[1]) == 1)
+		return(1);
 	gc_init(&game.gc);
 	init(&game);
-	get_map(&game, argv[1]);
-	if (check_error(&game, argv[1]) == 1)
+	get_map(&game, argv[1]); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ICI
+	if (check_error(&game, argv[1]) == 1) // free a faire 
 	{
-		printf("here erreur map\n"); // free a faire 
+		//printf("here erreur map\n");
 		//clean_all_error(&game, 0);
 		return(1);
 	}

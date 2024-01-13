@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-void	malloc_map(t_game *data, int fd, char *buff)
+void	malloc_map(t_game *data, int fd, char *buff) //ok verif
 {
 	size_t	y;
 
@@ -20,7 +20,7 @@ void	malloc_map(t_game *data, int fd, char *buff)
 	y = 0;
 	while (buff != NULL)
 	{
-		buff = get_next_line(data, fd);
+		buff = get_next_line(fd); //buff = get_next_line(data, fd);
 		//printf("here buff : #%s# \n", buff);
 		if (ft_strstr(buff, "1") != 0)
 		{
@@ -41,23 +41,23 @@ void	malloc_map(t_game *data, int fd, char *buff)
 	}
 }
 
-void	open_malloc_map(t_game *data)
+void	open_malloc_map(t_game *game) //ok verif
 {
 	char	*buff;
 	int		i;
 	int		fd;
 
 	i = 0;
-	fd = open(data->path_map, O_RDONLY);
+	fd = open(game->path_map, O_RDONLY); //erreur open ?
 	while (i == 0 || buff != NULL)
 	{
-		buff = get_next_line(data, fd);
+		buff = get_next_line(fd); //buff = get_next_line(fd);
 		if (ft_strstr(buff, "1111") != 0)
 		{
-			data->tmap->y_map++;
-			data->tmap->x_map = ft_strlen(buff);
-			malloc_map(data, fd, buff);
-			if (data->tmap->trace != 0)
+			game->tmap->y_map++;
+			game->tmap->x_map = ft_strlen(buff);
+			malloc_map(game, fd, buff);
+			if (game->tmap->trace != 0)
 			{
 				free(buff);
 				break ;
