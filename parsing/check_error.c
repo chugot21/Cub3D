@@ -19,10 +19,10 @@ int	check_name(char *argv) //ok verif
 	return (1);
 }
 
-int	check_player(t_game *game) //idem init_game ou presque
+int	check_player(t_game *game) //ok
 {
-	size_t	y;
-	size_t	x;
+	int	y;
+	int	x;
 	int	player;
 
 	player = 0;
@@ -36,8 +36,8 @@ int	check_player(t_game *game) //idem init_game ou presque
 				(game->tmap->map[y][x], game) == 1)
 			{
 				game->tmap->map[y][x] = '7';
-				game->tmap->start_player.x = x;
-				game->tmap->start_player.y = y;
+				game->tmap->start_player.x = x; //selectionne emplacement joueur.
+				game->tmap->start_player.y = y; //selectionne emplacement joueur.
 				player++;
 			}
 			x++;
@@ -47,46 +47,46 @@ int	check_player(t_game *game) //idem init_game ou presque
 	return (player);
 }
 
-int	check_texture(t_game *data)
+int	check_texture(t_game *data) //ok
 {
 	int	error;
 
 	error = 0;
-	if (!data->tmap->no1 || (open(data->tmap->no1, O_RDONLY) == -1))
+	if (!data->tno || (open(data->tno, O_RDONLY) == -1)) //if (!data->tmap->no1 || (open(data->tmap->no1, O_RDONLY) == -1))
 		error++;
-	if (!data->tmap->so1 || (open(data->tmap->so1, O_RDONLY) == -1))
+	if (!data->tso || (open(data->tso, O_RDONLY) == -1))
 		error++;
-	if (!data->tmap->we1 || (open(data->tmap->we1, O_RDONLY) == -1))
+	if (!data->twe || (open(data->twe, O_RDONLY) == -1))
 		error++;
-	if (!data->tmap->ea1 || (open(data->tmap->ea1, O_RDONLY) == -1))
-		error++;
-	if (!data->tmap->f1)
-		error++;
-	if (!data->tmap->c1)
+	if (!data->tea || (open(data->tea, O_RDONLY) == -1))
 		error++;
 	if (error != 0)
 	{
-		printf("Error : In the file map.cub not all ");
-		printf("textures are defined correctly (example \"NO ");
-		printf("./path_to_the_north_texture\", same ");
-		printf("with SO, WE, EA and \"F 220,100,\" same with C) \n");
+		printf("Error : textures are not defined correctly (can't open or missing texture)\n");
+		return (1);
+	}
+	if (!data->frgb || !data->crgb)
+		error++;
+	if (error != 0)
+	{
+		printf("Error : floor or/and ceiling color(s) are not defined correctly\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	check_ppm(t_game *data)
+int	check_ppm(t_game *data) //ok
 {
 	int	error;
 
 	error = 0;
-	if (ft_strnrchr(data->tmap->no1, ".ppm") != 1)
+	if (ft_strnrchr(data->tno, ".ppm") != 1)
 		error++;
-	if (ft_strnrchr(data->tmap->so1, ".ppm") != 1)
+	if (ft_strnrchr(data->tso, ".ppm") != 1)
 		error++;
-	if (ft_strnrchr(data->tmap->ea1, ".ppm") != 1)
+	if (ft_strnrchr(data->tea, ".ppm") != 1)
 		error++;
-	if (ft_strnrchr(data->tmap->we1, ".ppm") != 1)
+	if (ft_strnrchr(data->twe, ".ppm") != 1)
 		error++;
 	if (error != 0)
 	{
@@ -96,7 +96,7 @@ int	check_ppm(t_game *data)
 	return (0);
 }
 
-int	check_error(t_game *game, char *argv)
+int	check_error(t_game *game) //maybe ok
 {
 	if (check_border_map(game) == 1)
 		return (1);
@@ -104,13 +104,31 @@ int	check_error(t_game *game, char *argv)
 		return (1);
 	if (check_ppm(game) == 1)
 		return (1);
+
+	printf("copy map (char **) before flood fill :\n"); // <<<<<<<<<<<<<<<<<<<<<<<<<<<test
+	printmap(game->tmap->copy_map);
 	check_right(game);
-	//for (size_t i = 0; i < 16; i++)
+	printf("copy map (char **) after flood fill :\n"); // <<<<<<<<<<<<<<<<<<<<<<<<<<<test
+	printmap(game->tmap->copy_map);
+	//for (int i = 0; i < 16; i++)
 	//	printf("copy [%zu]=%s=\n", i,data->tmap->copy_map[i]);
+
 	if (game->tmap->map_error != 0)
 	{
 		printf("Error : the map is not closed\n");
 		return (1);
 	}
 	return (0);
+}
+
+void	printmap(char **map) // <<<<<<<<<<<<<<<<<<<<<<<<<test
+{
+	int y;
+
+	y = 0;
+	while (map[y])
+	{
+		printf("%s\n", map[y]);
+		y++;
+	}
 }

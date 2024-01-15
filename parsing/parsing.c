@@ -12,13 +12,13 @@
 
 #include "../cub3d.h"
 
-void	check_character(t_game *data, char pos, int x, int y)
+/*void	check_character(t_game *data, char pos, int x, int y) //sup ?
 {
 	(void) data;
 	(void) pos;
 	(void) x;
 	(void) y;
-	/*
+	
 	if (pos == 'N' || pos == 'S' || pos == 'E' || pos == 'W')
 	{
 		if (pos == 'S')
@@ -29,28 +29,29 @@ void	check_character(t_game *data, char pos, int x, int y)
 			rotate_player(data, 1.57);
 		data->player.x = y;
 		data->player.y = x;
-	}*/
-}
+	}
+}*/
 
-void	check_info(t_game *data, char *buff, int fd) // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ICI
+void	check_info(t_game *game, char *buff, int fd) //ok
 {
-	if (ft_strncmp(buff, "NO", 2) == 0) //bizarre comparaison ? saute les espaces et tab du debut ?
-		set_map_data(data, buff, 1, fd);
+	//buff = epurstr(buff);
+	if (ft_strncmp(buff, "NO", 2) == 0)
+		set_map_data(game, buff, 1, fd);
 	else if (ft_strncmp(buff, "SO", 2) == 0)
-		set_map_data(data, buff, 2, fd);
+		set_map_data(game, buff, 2, fd);
 	else if (ft_strncmp(buff, "WE", 2) == 0)
-		set_map_data(data, buff, 3, fd);
+		set_map_data(game, buff, 3, fd);
 	else if (ft_strncmp(buff, "EA", 2) == 0)
-		set_map_data(data, buff, 4, fd);
+		set_map_data(game, buff, 4, fd);
 	else if (ft_strncmp(buff, "F", 1) == 0)
-		set_map_data(data, buff, 5, fd);
+		set_map_data(game, buff, 5, fd);
 	else if (ft_strncmp(buff, "C", 1) == 0)
-		set_map_data(data, buff, 6, fd);
+		set_map_data(game, buff, 6, fd);
 	else if (ft_strstr(buff, "1") != 0)
-		copy_first_line_map(data, buff, fd);
+		copy_first_line_map(game, buff, fd);
 }
 
-void	transfert_map(t_game *game, int fd)
+void	transfert_map(t_game *game, int fd) //ok
 {
 	char	*buff;
 	int		i;
@@ -58,13 +59,13 @@ void	transfert_map(t_game *game, int fd)
 	i = 0;
 	while (i == 0 || buff != NULL)
 	{
-		buff = get_next_line(fd); //buff = get_next_line(data, fd);
+		buff = get_next_line_special(game, fd); //buff = get_next_line(data, fd);
 		if (!buff || buff == NULL)
 		{
 			free(buff);
 			break ;
 		}
-		check_info(game, buff, fd); // verifier ca prochaine fois. <<<<<<<<< ICI
+		check_info(game, buff, fd);
 		if (game->trace != 0)
 		{
 			free(buff);
@@ -75,7 +76,7 @@ void	transfert_map(t_game *game, int fd)
 	}
 }
 
-void	get_map(t_game *game, char *argv)
+void	get_map(t_game *game, char *argv) //ok
 {
 	int	fd;
 
@@ -88,6 +89,6 @@ void	get_map(t_game *game, char *argv)
 		printf("Error : open .cub doesn't work\n");
 		exit(0);
 	}
-	transfert_map(game, fd); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ICI
+	transfert_map(game, fd);
 	close(fd);
 }

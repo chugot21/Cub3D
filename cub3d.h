@@ -59,28 +59,24 @@ typedef struct s_texture
 typedef struct s_map
 {
 	t_point 	start_player; //idem que player mais axel utilise player pour ses calculs ?
-	size_t		x_map; // = game->mapx -> on change ? pour le moment juste relie dans parsing(t_game *game)
-	size_t		y_map; // = game->mapy -> on change ? pour le moment juste relie dans parsing(t_game *game)
+	int			x_map; // = game->mapx -> on change ? pour le moment juste relie dans parsing(t_game *game)
+	int			y_map; // = game->mapy -> on change ? pour le moment juste relie dans parsing(t_game *game)
 	char		**map; //ok laisse la
 	char 		**map_to_int; //ok laisse la 
 	char		**copy_map; //ok laisse la
 
-	char		*no1; //tn
-	char		*so1; //ts
-	char		*we1; //tw
-	char		*ea1; //te
 	t_texture	no;
 	t_texture	so;
 	t_texture	we;
 	t_texture	ea;
-	int			*f1;
-	int			*c1;
+	//int			*f1; //frgb
+	//int			*c1; //crgb
 	int			x_wall;
 	int			y_wall;
 	int			map_error;
 	int			cell_color;
 	int			floor_color;
-	int			trace;
+	int			trace; // utilite ? pour free si map ?
 	int 		trace_first_line;
 	int			y_map_trace;
 }	t_map;
@@ -89,7 +85,7 @@ typedef struct s_game
 {
 	t_map *tmap;
 	char *path_map;
-	int			trace;
+	int			trace; //utilite ? car initialise et pas utilise.
 	t_gcan	gc;
 
 
@@ -140,6 +136,10 @@ typedef struct s_game
 	float		texture_ix;
 	float		texture_iy;
 	float		ty_step;
+	char		*tno; //no1
+	char		*tso; //so1
+	char		*twe; //we1
+	char		*tea; //ea1
 	int			*t_north;
 	int			*t_south;
 	int			*t_west;
@@ -192,11 +192,12 @@ void	move_up(t_game *game);
 void	move_down(t_game *game);
 int		closew(t_game *game);
 void	destroy_all(t_game *game);
-size_t	ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 char	*get_next_line(int fd);
+char	*get_next_line_special(t_game *game, int fd);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 char	**ft_split(char const *s, char c);
 
 
@@ -208,38 +209,39 @@ char	*ft_strdup_special(t_game *data, const char *s);
 int		ft_strncmp(char *str1, char *str2, int length);
 int		ft_isdigit(int c);
 int		ft_strnrchr(char *s, char *c);
+//int		epurstr(char *str);
 
 //Revu ok
 int		check_name(char *argv); //ok
-
 int		is_players(char c, t_game *game); //ok
-int		check_player(t_game *game); //presaue idem init_game dans raycasting.
+int		check_player(t_game *game); //ok juste enregistre emplacement joueur depart.
 void	open_malloc_map(t_game *data); //ok
+void	transfert_map(t_game *game, int fd); //ok
+void	check_info(t_game *game, char *buff, int fd); //ok
+void	get_map(t_game *game, char *argv); //ok
+void	set_map_data(t_game *game, char *buff, int info, int fd); //ok
+void	copy_first_line_map(t_game *game, char *buff, int fd); // ok -> copie dans char **
 
-//en cours de verif
-void	get_map(t_game *game, char *argv);
-void	transfert_map(t_game *game, int fd); //->check_info
-
-//a recheck
-void	init_parsing(t_game *data);
-
-//a revoir
-void	ctoi(t_game *data);
-void	map_to_square(t_game *data);
-void	end_parss(t_game *data);
-void	check_character(t_game *data, char pos, int x, int y);
-void	check_info(t_game *data, char *buff, int fd);
-void	copy_first_line_map(t_game *data, char *buff, int fd);
-void	copy_other_line_map(t_game *data, int fd, char *buff);
+//void	copy_other_line_map(t_game *game, int fd, char *buff); -> modif t_point player, utile ?
+//void	check_character(t_game *data, char pos, int x, int y); // a sup ? car rien dedans
+int		check_border_map(t_game *game); //revoir car game->tmap->map_error non encore utilise.
+int		check_error(t_game *game); //flood fill
 void	check_right(t_game *data);
 void	check_down(t_game *data);
 void	check_left(t_game *data);
 void	check_up(t_game *data);
 void	check_exit(t_game *data);
-int		check_error(t_game *game, char *argv);
-int		check_border_map(t_game *game);
-void	set_map_data(t_game *data, char *buff, int info, int fd);
+void	ctoi(t_game *data);
+void	map_to_square(t_game *data);
+void	end_parss(t_game *data);
 
+//a recheck
+void	init_parsing(t_game *data);
+
+//a revoir -> pas utile ?
 void	rotate_player(t_game *data, double angle); //fonction pour lorientation du player au debut 
+
+//test
+void	printmap(char **map);
 
 #endif

@@ -1,23 +1,23 @@
 
 #include "../cub3d.h"
 
-void	set_texture_c(t_game *data, char *buff)
+void	set_texture_c(t_game *game, char *buff) //ok
 {
 	int	i;
 	int	j;
 
 	j = 0;
 	i = 0;
-	data->tmap->c1 = gc_malloc(&data->gc, sizeof(int) * 3);
+	game->crgb = gc_malloc(&game->gc, sizeof(int) * 3);
 	while (i < 3)
 	{
-		data->tmap->c1[i] = 0;
+		game->crgb[i] = 0;
 		while (buff[j] && buff[j] != ',')
 		{
 			if (ft_isdigit(buff[j]) == 1)
 			{
-				data->tmap->c1[i] *= 10;
-				data->tmap->c1[i] += (buff[j] - 48);
+				game->crgb[i] *= 10;
+				game->crgb[i] += (buff[j] - 48);
 			}
 			j++;
 		}
@@ -26,23 +26,23 @@ void	set_texture_c(t_game *data, char *buff)
 	}
 }
 
-void	set_texture_f(t_game *data, char *buff)
+void	set_texture_f(t_game *game, char *buff) //ok
 {
 	int	i;
 	int	j;
 
 	j = 0;
 	i = 0;
-	data->tmap->f1 = gc_malloc(&data->gc, sizeof(int) * 3);
+	game->frgb = gc_malloc(&game->gc, sizeof(int) * 3); //data->tmap->f1
 	while (i < 3)
 	{
-		data->tmap->f1[i] = 0;
+		game->frgb[i] = 0;
 		while (buff[j] && buff[j] != ',')
 		{
 			if (ft_isdigit(buff[j]) == 1)
 			{
-				data->tmap->f1[i] *= 10;
-				data->tmap->f1[i] += (buff[j] - 48);
+				game->frgb[i] *= 10;
+				game->frgb[i] += (buff[j] - 48);
 			}
 			j++;
 		}
@@ -51,19 +51,19 @@ void	set_texture_f(t_game *data, char *buff)
 	}
 }
 
-void	set_map_data(t_game *data, char *buff, int info, int fd)
+void	set_map_data(t_game *game, char *buff, int info, int fd) //ok
 {
 	(void)fd;
 	if (info == 1)
-		data->tmap->no1 = ft_strdup(data, ft_strstr(buff, "./"));
+		game->tno = ft_strdup(game, ft_strstr(buff, "./"));
 	else if (info == 2)
-		data->tmap->so1 = ft_strdup(data, ft_strstr(buff, "./"));
+		game->tso = ft_strdup(game, ft_strstr(buff, "./"));
 	else if (info == 3)
-		data->tmap->we1 = ft_strdup(data, ft_strstr(buff, "./"));
+		game->twe = ft_strdup(game, ft_strstr(buff, "./"));
 	else if (info == 4)
-		data->tmap->ea1 = ft_strdup(data, ft_strstr(buff, "./"));
+		game->tea = ft_strdup(game, ft_strstr(buff, "./"));
 	else if (info == 5)
-		set_texture_f(data, buff);
+		set_texture_f(game, buff);
 	else if (info == 6)
-		set_texture_c(data, buff);
+		set_texture_c(game, buff);
 }

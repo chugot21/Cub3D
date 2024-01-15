@@ -19,7 +19,7 @@ int	get_texture_fd(char *path)
 	//file = open(path + 3, O_RDONLY); //revoir le + 3 car il peut y avoir plus d'espaces.
     file = open(path, O_RDONLY);
 	if (file == -1)
-		perror("Error\n");
+		perror("Error : can't open texture\n");
 	return (file);
 }
 
@@ -46,7 +46,7 @@ int	*texture(char *path)
 void    parsing(t_game *game)
 {
     /* feuille de route :
-        en cours de verif main->get_map->transfert map->check_info.
+        en cours de verif 
     */
 
 
@@ -54,14 +54,26 @@ void    parsing(t_game *game)
     nbr of argument -> ok
     .cub -> ok
     erreur d'open ? est-ce qu'on gere tout ?
+    ok si espace sur la ligne pour les couleurs et textures
+    texture si open et toutes les textures sont presentes
+    textures en format .ppm
+    il y a bien un joueur
+
 
     */
 
-   // a gerer
-    char *tn; 
-	char *ts;
-	char *tw;
-	char *te;
+
+
+   /*check si pb :
+        mapy et mapx
+        map
+        dir
+        crgb
+        frgb
+        tno, tso, twe, tea
+        printf map
+        printf copy_map
+    */
     
     //game->mapy = 7; //hauteur map
     //game->mapx = 14; //largeur map
@@ -70,24 +82,28 @@ void    parsing(t_game *game)
     game->maps = game->mapx * game->mapy;
     //game->dir = 'S'; ok fait dans is_players
 
-    game->crgb = malloc(sizeof(int) * 3); //recup couleur ceiling
-    game->frgb = malloc(sizeof(int) * 3); //recup couleur floor.
-    game->crgb[0] = 102;
-    game->crgb[1] = 204;
-    game->crgb[2] = 255;
-    game->frgb[0] = 102;
-    game->frgb[1] = 51;
-    game->frgb[2] = 51;
+    //game->crgb = malloc(sizeof(int) * 3); //recup couleur ceiling
+    //game->frgb = malloc(sizeof(int) * 3); //recup couleur floor.
+    //game->crgb[0] = 102;
+    //game->crgb[1] = 204;
+    //game->crgb[2] = 255;
+    //game->frgb[0] = 102;
+    //game->frgb[1] = 51;
+    //game->frgb[2] = 51;
 
-    tn = "./Textures/texture_north.ppm"; // recup textures de chaque direction.
-    ts = "./Textures/texture_south.ppm";
-    tw = "./Textures/texture_west.ppm";
-    te = "./Textures/texture_east.ppm";
+    //char *tno;
+	//char *tso;
+	//char *twe;
+	//char *tea;
+    //tno = "./Textures/texture_north.ppm"; // recup textures de chaque direction.
+    //tso = "./Textures/texture_south.ppm";
+    //twe = "./Textures/texture_west.ppm";
+    //tea = "./Textures/texture_east.ppm";
 
-    game->t_north = texture(tn);
-    game->t_south = texture(ts);
-    game->t_west = texture(tw);
-    game->t_east = texture(te);
+    game->t_north = texture(game->tno);
+    game->t_south = texture(game->tso);
+    game->t_west = texture(game->twe);
+    game->t_east = texture(game->tea);
    
     //int mapinit[] = //fonctionne pas car local
     //{

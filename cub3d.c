@@ -24,15 +24,15 @@ int	main(int argc, char **argv)
 	if (check_name(argv[1]) == 1)
 		return(1);
 	gc_init(&game.gc);
-	init(&game);
-	get_map(&game, argv[1]); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ICI
-	if (check_error(&game, argv[1]) == 1) // free a faire 
+	init_parsing(&game);
+	get_map(&game, argv[1]);
+	if (check_error(&game) == 1) // free a faire 
 	{
 		//printf("here erreur map\n");
 		//clean_all_error(&game, 0);
 		return(1);
 	}
-	//for (size_t i = 0; i < 15; i++)
+	//for (int i = 0; i < 15; i++)
 	//	printf("real [%zu]=%s=\n", i,game.tmap->map[i]);
 	printf("start player x:%f y:%f\n", game.tmap->start_player.x , game.tmap->start_player.y);
 	end_parss(&game);

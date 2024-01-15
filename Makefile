@@ -33,6 +33,7 @@ SRCS =	cub3d.c \
 		destroy.c \
 		Utils/utils.c \
 		Utils/get_next_line_bonus.c \
+		Utils/get_next_line_special.c \
 		Utils/ft_split.c \
 		Utils/util.c \
 		Utils/strdups.c \

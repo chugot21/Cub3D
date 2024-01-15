@@ -1,7 +1,7 @@
 
 #include "../cub3d.h"
 
-int	is_players(char c, t_game *game)
+int	is_players(char c, t_game *game) //ok
 {
 	if (c == 'N')
 	{
@@ -26,31 +26,31 @@ int	is_players(char c, t_game *game)
 	return (0);
 }
 
-void	malloc_copy_map(t_game *data)
+void	malloc_copy_map(t_game *data) //ok
 {
-	size_t	y;
+	//int	y;
 
-	y = 0;
+	//y = 0;
 	//data->tmap->copy_map = malloc(sizeof(char *) * data->tmap->y_map + 4);
 	data->tmap->copy_map = gc_malloc(&data->gc,
 			sizeof(char *) * data->tmap->y_map + 4);
-	data->tmap->copy_map[y] = gc_malloc(&data->gc, sizeof(char) * data->tmap->x_map + 3);
-	while (y < data->tmap->y_map + 1)
-	{
-		//data->tmap->copy_map[y] = gc_malloc(&data->gc,
-		//		sizeof(char) * data->tmap->x_map + 2);
-		y++;
-	};
+	//data->tmap->copy_map[y] = gc_malloc(&data->gc, sizeof(char) * data->tmap->x_map + 3);
+	//while (y < data->tmap->y_map + 1)
+	//{
+	//	data->tmap->copy_map[y] = gc_malloc(&data->gc,
+	//			sizeof(char) * data->tmap->x_map + 3);
+	//	y++;
+	//}
 }
 
-void	copy_map(t_game *data)
+void	copy_map(t_game *data) //revoir printf copy_map
 {
-	size_t	y;
-	size_t	x;
+	int	y;
+	int	x;
 
 	x = 0;
 	y = 0;
-	while (x < data->tmap->x_map + 2)
+	while (x < data->tmap->x_map + 2) // x <= data->tmap->x_map + 2 ?
 	{
 		data->tmap->copy_map[y][x] = '4';
 		x++;
@@ -63,13 +63,13 @@ void	copy_map(t_game *data)
 	}
 	y++;
 	x = 0;
-	data->tmap->copy_map[y] = malloc(sizeof(char) * data->tmap->x_map + 3);
-	while (x < data->tmap->x_map + 2)
+	data->tmap->copy_map[y] = gc_malloc(&data->gc, sizeof(char) * data->tmap->x_map + 3);
+	while (x < data->tmap->x_map + 2) // x <= data->tmap->x_map + 2 ?
 	{
 		data->tmap->copy_map[y][x] = '4';
 		x++;
 	}
-	//data->tmap->copy_map[y + 1] = NULL; 
+	data->tmap->copy_map[y + 1] = NULL;
 }
 
 void	check_exit(t_game *data)
@@ -103,12 +103,12 @@ void	check_exit(t_game *data)
 		data->tmap->map_error++;
 */
 
-int	check_border_map(t_game *game)
+int	check_border_map(t_game *game) //revoir map_error pas utilise
 {
 	malloc_copy_map(game);
 	copy_map(game);
-	game->tmap->x_wall = game->player.y;
-	game->tmap->y_wall = game->player.x;
+	game->tmap->x_wall = game->player.y; // game->player, fiable ?
+	game->tmap->y_wall = game->player.x; // game->player, fiable ?
 	if (check_player(game) == 0)
 	{
 		printf("Error : No player on the map (N, S , E, W)\n");
@@ -119,10 +119,10 @@ int	check_border_map(t_game *game)
 		printf("Error : Too many players on the map (N, S , E, W)\n");
 		return (1);
 	}
-	if (game->tmap->map_error != 0)
-	{
-		printf("Error : The map is not closed\n");
-		return (1);
-	}
+	//if (game->tmap->map_error != 0)
+	//{
+	//	printf("Error : The map is not closed\n");
+	//	return (1);
+	//}
 	return (0);
 }

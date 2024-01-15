@@ -14,22 +14,25 @@
 
 void	malloc_map(t_game *data, int fd, char *buff) //ok verif
 {
-	size_t	y;
+	int	y;
 
 	data->tmap->y_map = 0;
 	y = 0;
 	while (buff != NULL)
 	{
-		buff = get_next_line(fd); //buff = get_next_line(data, fd);
-		//printf("here buff : #%s# \n", buff);
+		//printf("%s", buff);
+		free(buff);
+		buff = get_next_line_special(data, fd); //buff = get_next_line(data, fd);
 		if (ft_strstr(buff, "1") != 0)
 		{
 			data->tmap->y_map++;
 		}
 		if (ft_strlen(buff) > data->tmap->x_map)
 			data->tmap->x_map = ft_strlen(buff);
-		free(buff);
+		printf("test y map %d\n", data->tmap->y_map);
 	}
+	//free(buff);
+	//printf("test\n");
 	//data->tmap->map = malloc(sizeof(char *) * data->tmap->y_map + 1);
 	data->tmap->map = gc_malloc(&data->gc, sizeof(char *) * data->tmap->y_map + 4);
 	while (y < data->tmap->y_map)
@@ -51,7 +54,7 @@ void	open_malloc_map(t_game *game) //ok verif
 	fd = open(game->path_map, O_RDONLY); //erreur open ?
 	while (i == 0 || buff != NULL)
 	{
-		buff = get_next_line(fd); //buff = get_next_line(fd);
+		buff = get_next_line_special(game, fd); //buff = get_next_line(fd);
 		if (ft_strstr(buff, "1111") != 0)
 		{
 			game->tmap->y_map++;

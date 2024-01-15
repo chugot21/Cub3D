@@ -23,12 +23,12 @@ void	init_parsing(t_game *data)
 	data->tmap->y_map_trace = 0;
 	/*data->ray_i = gc_malloc(&data->gc, sizeof(t_ray));
 	data->mlx_i = gc_malloc(&data->gc, sizeof(t_mlx));*/
-	data->tmap->f1 = NULL;
-	data->tmap->c1 = NULL;
-	data->tmap->no1 = NULL;
-	data->tmap->so1 = NULL;
-	data->tmap->we1 = NULL;
-	data->tmap->ea1 = NULL;
+	data->frgb = NULL;
+	data->crgb = NULL;
+	data->tno = NULL;
+	data->tso = NULL;
+	data->twe = NULL;
+	data->tea = NULL;
 	data->tmap->x_wall = 0;
 	data->tmap->y_wall = 1;
 	data->tmap->map_error = 0;
@@ -36,10 +36,9 @@ void	init_parsing(t_game *data)
 
 void ctoi(t_game *data)
 {
-	size_t y;
-	size_t x;
+	int y;
+	int x;
 	int i;
-
 
 	y = 0;
 	i = 0;
@@ -50,27 +49,26 @@ void ctoi(t_game *data)
 		while (x < data->tmap->x_map + 2)
 		{
 			data->map[i] = (data->tmap->map_to_int[y][x]) - 48;
-			printf("%d", data->map[i]);
+			printf("%d", data->map[i]); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,test
 			i++;
 			x++;
 		//	printf("%c", data->tmap->map_to_int[y][x]);
 		}
-		printf("\n");
+		printf("\n"); // <<<<<<<<<<<<<<<<<<<<<<<<<<<test
 		y++;
 	}
-
 }
 
 void map_to_square(t_game *data)
 {
-	size_t	y;
-	size_t	x;
+	int	y;
+	int	x;
 
 	x = 0;
 	y = 0;
 	data->tmap->map_to_int = gc_malloc(&data->gc,
 			sizeof(char *) * data->tmap->y_map + 4);
-	data->tmap->map_to_int[y] = malloc(sizeof(char) * data->tmap->x_map + 2);
+	data->tmap->map_to_int[y] = gc_malloc(&data->gc, sizeof(char) * data->tmap->x_map + 2);
 	while (x < data->tmap->x_map + 2)
 	{
 		data->tmap->map_to_int[y][x] = '4';
@@ -84,15 +82,17 @@ void map_to_square(t_game *data)
 	}
 	y++;
 	x = 0;
-	data->tmap->map_to_int[y] = malloc(sizeof(char) * data->tmap->x_map + 2);
+	data->tmap->map_to_int[y] = gc_malloc(&data->gc, sizeof(char) * data->tmap->x_map + 2);
 	while (x < data->tmap->x_map + 2)
 	{
 		data->tmap->map_to_int[y][x] = '4';
 		x++;
 	}
+	printf("map to int : \n"); // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>test
+	printmap(data->tmap->map_to_int);
 	//data->tmap->map_to_int[y + 1] = NULL;
-	for (size_t i = 0; i < 16; i++)
-		printf("char to int [%zu]=%s=\n", i,data->tmap->map_to_int[i]);
+	//for (int i = 0; i < 16; i++)
+	//	printf("char to int [%zu]=%s=\n", i,data->tmap->map_to_int[i]);
 }
 
 void end_parss(t_game *data)

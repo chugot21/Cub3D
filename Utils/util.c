@@ -32,9 +32,9 @@ int	ft_strchr2(char *string)
 
 char	*ft_strstr(char *big, char *lit)
 {
-	size_t	i;
-	size_t	u;
-	size_t	l;
+	int	i;
+	int	u;
+	int	l;
 
 	i = 0;
 	l = ft_strlen(lit);
@@ -67,7 +67,7 @@ int	ft_isdigit(int c)
 int	ft_strnrchr(char *s, char *c)
 {
 	int		i;
-	size_t		u;
+	int		u;
 
 	u = 0;
 	i = 0;
@@ -89,3 +89,23 @@ int	ft_strnrchr(char *s, char *c)
 		return (1);
 	return (0);
 }
+/*int epurstr(char *str)
+{
+	int i;
+	char *newstr;
+
+	newstr = gc_malloc(&data->gc, sizeof());
+	i = 0;
+	while ((str[i] == ' ' || str[i] == '\t') && str[i] != '\0')
+		i++;
+	while(str[i])
+	{
+		if(str[i] != ' ' && str[i] != '\t' && str[i] != '\0')
+			newstr[j] = str[i];
+		else if((str[i] == ' ' || str[i] == '\t') && (str[i + 1] != ' ' && str[i + 1] != '\t' && str[i + 1] != '\0'))
+			newstr[j] = " ";
+		i++;
+	}
+	write(1, "\n", 1);
+	return(0);
+}*/

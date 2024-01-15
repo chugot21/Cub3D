@@ -14,9 +14,9 @@
 
 char	*ft_strdup(t_game *data, const char *s)
 {
-	size_t		i;
+	int		i;
 	char	*dst;
-	size_t		len;
+	int		len;
 
 	len = 0;
 	i = 0;
@@ -39,7 +39,7 @@ char	*ft_strdup(t_game *data, const char *s)
 char	*ft_strdup_special(t_game *data, const char *s)
 {
 	int		i;
-	size_t		j;
+	int		j;
 	char	*dst;
 	int		len;
 
@@ -47,7 +47,7 @@ char	*ft_strdup_special(t_game *data, const char *s)
 	len = 0;
 	i = 0;
 	j = 1;
-	dst = malloc(sizeof(char) * data->tmap->x_map + 3);
+	dst = gc_malloc(&data->gc, sizeof(char) * data->tmap->x_map + 3);
 	if (!dst)
 		return (NULL);
 	dst[0] = '4';
