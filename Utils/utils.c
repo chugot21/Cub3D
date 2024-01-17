@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-int	ft_strcmp(char *s1, char *s2)
+size_t	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
@@ -26,26 +26,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int	ft_strncmp(char *str1, char *str2, int length)
-{
-	int	i;
-
-	i = 0;
-	if (!str1 || !str2)
-		return (-1);
-	while (str1[i] != '\0' && i < length)
-	{
-		if (!(str1[i] == str2[i]))
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	if (str2[i] == '\0' || i == length)
-		return (0);
-	else
-		return (str1[i] - str2[i]);
-}
-
-int	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -74,12 +55,12 @@ char	*ft_strchr(const char *str, int c)
 		return (NULL);
 }
 
-/*char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
-	int	length;
-	int	i;
-	int	j;
+	size_t	length;
+	size_t	i;
+	size_t	j;
 
 	j = -1;
 	i = -1;
@@ -99,4 +80,4 @@ char	*ft_strchr(const char *str, int c)
 	new[i + j] = '\0';
 	free (s1);
 	return (new);
-}*/
+}

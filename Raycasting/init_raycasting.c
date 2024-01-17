@@ -25,13 +25,21 @@ void	init_moves(t_game *game)
 void	init_direction(t_game *game)
 {
 	if (game->dir == 'N')
+	{
 		game->pa = PI * 1.5;
+	}
 	if (game->dir == 'S')
+	{
 		game->pa = PI / 2;
+	}
 	if (game->dir == 'W')
+	{
 		game->pa = 0;
+	}
 	if (game->dir == 'E')
+	{
 		game->pa = PI;
+	}
 	game->pdelta.x = cos(game->pa) * 5;
 	game->pdelta.y = sin(game->pa) * 5;
 	init_moves(game);
