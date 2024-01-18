@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/22 15:59:04 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/18 17:55:41 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	init_moves(t_game *game)
 	game->move_down = 0;
 	game->rot_left = 0;
 	game->rotate_right = 0;
+	game->proportion = proportions_minimap(game);
+	if (game->proportion == -1)
+		game->map_flag = -1;
+	else
+		game->map_flag = 0;
 }
 
 void	init_direction(t_game *game)

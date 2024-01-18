@@ -6,7 +6,7 @@
 #    By: clara <clara@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 12:00:49 by chugot            #+#    #+#              #
-#    Updated: 2023/11/24 17:39:46 by clara            ###   ########.fr        #
+#    Updated: 2024/01/18 16:27:58 by clara            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	parsingtest.c \
 		Raycasting/draw_pixels.c \
 		Raycasting/player_moves.c \
 		Raycasting/moves.c \
+		Raycasting/minimap.c \
 		destroy.c \
 		Utils/utils.c \
 		Utils/get_next_line_bonus.c \

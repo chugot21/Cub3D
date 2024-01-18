@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/22 15:58:52 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/18 17:36:50 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,16 @@ typedef struct s_game
 	int			move_down;
 	int			rotate_right;
 	int			rot_left;
+
+	int			map_flag;
+	int			proportion;
 }	t_game;
 
 void	parsing(t_game *game);
 void	init_game(t_game *game);
 void	draw_background(t_game *game);
+int		proportions_minimap(t_game *game);
 void	draw_minimap(t_game *game);
-void	draw_player(t_game *game);
 int		ft_raycasting(t_game *game);
 void	horizontal_rays(t_game *game, double atan);
 void	horizontal_rays_next(t_game *game);
@@ -134,7 +137,6 @@ void	draw_textures(t_game *game, int start_pixel);
 int		find_pixel_color(int x, int y, int *texture);
 void	limits_rays(t_game *game);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
-void	color_square(t_game *game, int x, int y, int width);
 int		create_hexa_rgb(int r, int g, int b);
 int		move_player(int keycode, t_game *game);
 void	move_right(t_game *game);

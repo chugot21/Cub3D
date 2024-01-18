@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chugot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:40:26 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/27 16:40:29 by chugot           ###   ########.fr       */
+/*   Updated: 2024/01/18 17:56:12 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	draw_minimap(t_game *game)
-{
-	int	i;
-	int	x;
-	int	y;
-
-	i = -1;
-	while (i++ < game->maps - 1)
-	{
-		if (game->map[i] == 1)
-		{
-			y = (i / game->mapx);
-			x = (i - game->mapx * y);
-			game->color = 0xFFFFFF;
-			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9));
-		}
-		else
-		{
-			y = i / game->mapx;
-			x = i - game->mapx * y;
-			game->color = 0x009966;
-			color_square(game, (x * 10 + 1), (y * 10 + 1), (x * 10 + 9));
-		}
-	}
-	draw_player(game);
-}
 
 void	draw_wall(t_game *game)
 {
@@ -105,7 +78,8 @@ int	ft_raycasting(t_game *game)
 			&game->line_length, &game->endian);
 	draw_background(game);
 	draw_wall(game);
-	draw_minimap(game);
+	if (game->map_flag == 1)
+		draw_minimap(game);
 	mlx_put_image_to_window(game->window.mlx, game->window.win,
 		game->img, 0, 0);
 	mlx_destroy_image(game->window.mlx, game->img);

@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 23:24:40 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/22 16:02:04 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/18 16:33:03 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv)
 {
 	t_game		game;
-	//t_window	window;
 
 	(void)argc;
 	(void)argv;
