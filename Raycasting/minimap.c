@@ -19,7 +19,7 @@ int    proportions_minimap(t_game *game)
 
     nb_pixelx = game->win_x / game->mapx;
     nb_pixely = game->win_y / game->mapy;
-    if (nb_pixelx < 1 || nb_pixely < 1) //inferieur a 5 car la taille du player est de 5 par 5 ?
+    if (nb_pixelx < 5 || nb_pixely < 5)
     {
         printf("map too large for the screen, can't display minimap\n");
         return (-1);
@@ -34,26 +34,41 @@ void	draw_player(t_game *game)
 {
 	double	px;
 	double	py;
+	int		x;
+	int		y;
+	int		width_player;
 	int		i;
-	int		j;
 
-	px = (game->player_pixel.x) * game->proportion / 64;
-	py = (game->player_pixel.y) * game->proportion / 64;
-	i = py - 2;
-	j = px - 2;
-	my_mlx_pixel_put(game, px - 1, py - 1, 0x94120d);
-	my_mlx_pixel_put(game, px - 1, py + 1, 0x94120d);
-	my_mlx_pixel_put(game, px + 1, py + 1, 0x94120d);
-	my_mlx_pixel_put(game, px + 1, py - 1, 0x94120d);
-	while (i <= py + 2)
+	px = (game->player_pixel.y) * game->proportion / 64;
+	py = (game->player_pixel.x) * game->proportion / 64;
+	width_player = game->proportion / 5;
+	if (width_player % 2 != 0)
+		width_player += 1;
+	x = px;
+	y = py - width_player / 2;
+	i = 0;
+	while(y <= py)
 	{
-		my_mlx_pixel_put(game, px, i, 0x94120d);
+		x = px - i;
+		while (x <= (px + i))
+		{
+			my_mlx_pixel_put(game, y, x, 0x94120d);
+			x++;
+		}
+		y++;
 		i++;
 	}
-	while (j <= px + 2)
+	i -= 2;
+	while(y <= py + width_player / 2)
 	{
-		my_mlx_pixel_put(game, j, py, 0x94120d);
-		j++;
+		x = px - i;
+		while (x <= (px + i))
+		{
+			my_mlx_pixel_put(game, y, x, 0x94120d);
+			x++;
+		}
+		y++;
+		i--;
 	}
 }
 
