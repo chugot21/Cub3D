@@ -65,9 +65,10 @@ void	init_game(t_game *game)
 			x = (i - (game->mapx * y));
 			game->player.x = x + 0.5;
 			game->player.y = y + 0.5;
-			game->player_pixel.x = (x + 0.5) * 10 + 64;
-			game->player_pixel.y = (y + 0.5) * 10 + 64;
+			game->player_pixel.x = (x + 0.5) * 64;
+			game->player_pixel.y = (y + 0.5) * 64;
 			init_direction(game);
+			game->map[i] = 0;
 		}
 		i++;
 	}

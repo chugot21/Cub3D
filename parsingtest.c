@@ -50,7 +50,7 @@ void    parsing(t_game *game)
 	char *tw;
 	char *te;
     
-    game->mapy = 7; //hauteur map
+    game->mapy = 6; //hauteur map
     game->mapx = 14; //largeur map
     game->maps = game->mapx * game->mapy;
     game->map = malloc(sizeof(int) * game->maps);
@@ -77,7 +77,7 @@ void    parsing(t_game *game)
     //int mapinit[] = //fonctionne pas car local
     //{
     //    1,1,1,1,1,1,1,1,1,1,1,1,1,
-    //    1,7,0,0,0,0,0,0,0,0,0,1,1,
+    //    1,7,0,0,0,0,0,0,0,0,0,0,1,
     //    1,0,0,0,0,0,0,0,0,0,0,0,1,
     //    1,0,0,0,0,0,0,0,0,0,0,0,1,
     //    1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -118,8 +118,8 @@ void    parsing(t_game *game)
     game->map[31] = 0;
     game->map[32] = 0;
     game->map[33] = 0;
-    game->map[34] = 7;
-    game->map[35] = 0;
+    game->map[34] = 0;
+    game->map[35] = 7;
     game->map[36] = 0;
     game->map[37] = 0;
     game->map[38] = 0;
@@ -168,18 +168,4 @@ void    parsing(t_game *game)
     game->map[81] = 1;
     game->map[82] = 1;
     game->map[83] = 1;
-    game->map[84] = 1;
-    game->map[85] = 1;
-    game->map[86] = 1;
-    game->map[87] = 1;
-    game->map[88] = 1;
-    game->map[89] = 1;
-    game->map[90] = 1;
-    game->map[91] = 1;
-    game->map[92] = 1;
-    game->map[93] = 1;
-    game->map[94] = 1;
-    game->map[95] = 1;
-    game->map[96] = 1;
-    game->map[97] = 1;
 }

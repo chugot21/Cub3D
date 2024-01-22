@@ -17,8 +17,8 @@ int    proportions_minimap(t_game *game)
     float nb_pixelx;
     float nb_pixely;
 
-    nb_pixelx = game->win_x / game->mapx;
-    nb_pixely = game->win_y / game->mapy;
+    nb_pixelx = (game->win_x / game->mapx) / 3;
+    nb_pixely = (game->win_y / game->mapy) / 3;
     if (nb_pixelx < 5 || nb_pixely < 5)
     {
         printf("map too large for the screen, can't display minimap\n");
