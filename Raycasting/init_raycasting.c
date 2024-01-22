@@ -63,8 +63,6 @@ void	init_game(t_game *game)
 		{
 			y = i / game->mapx;
 			x = (i - (game->mapx * y));
-			game->player.x = x + 0.5;
-			game->player.y = y + 0.5;
 			game->player_pixel.x = (x + 0.5) * 64;
 			game->player_pixel.y = (y + 0.5) * 64;
 			init_direction(game);
@@ -72,6 +70,7 @@ void	init_game(t_game *game)
 		}
 		i++;
 	}
-	game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);
-	game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);
+	//game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);// revoir fonction maxime
+	//game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);// revoir fonction maxime
+	ft_textures(game);
 }

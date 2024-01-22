@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	main(int argc, char **argv)
+void	engine(t_game *game)
 {
-	t_game		game;
-
-	(void)argc;
-	(void)argv;
-	game.win_x = 960;
-	game.win_y = 540;
-	parsing(&game);
-	//treat_map(argv, &map);
-	init_game(&game);
-	game.window.mlx = mlx_init();
-	game.window.win = mlx_new_window (game.window.mlx,
-			game.win_x,
-			game.win_y, "Club 3D");
-	//display_map(&game);	
-	ft_raycasting(&game);
-	mlx_hook(game.window.win, 2, 1L << 0, move_player, &game);
-	mlx_hook(game.window.win, 17, 1L << 9, closew, &game);
-	mlx_loop(game.window.mlx);
+	game->win_x = 960;
+	game->win_y = 540;
+	init_game(game);
+	game->window.mlx = mlx_init();
+	game->window.win = mlx_new_window (game->window.mlx,
+			game->win_x,
+			game->win_y, "Club 3D");
+	ft_raycasting(game);
+	mlx_hook(game->window.win, 2, 1L << 0, move_player, &game);
+	mlx_hook(game->window.win, 17, 1L << 9, closew, &game);
+	mlx_loop(game->window.mlx);
 }

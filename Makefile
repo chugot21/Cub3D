@@ -12,8 +12,8 @@
 
 NAME =	cub3D
 
-SRCS =	parsingtest.c \
-		cub3d.c \
+SRCS =	Parsing/parsing.c \
+		Raycasting/engine.c \
 		Raycasting/init_raycasting.c \
 		Raycasting/raycasting.c \
 		Raycasting/horizontal_rays.c \
@@ -22,6 +22,7 @@ SRCS =	parsingtest.c \
 		Raycasting/draw_pixels.c \
 		Raycasting/player_moves.c \
 		Raycasting/moves.c \
+		Raycasting/textures.c \
 		Raycasting/minimap.c \
 		destroy.c \
 		Utils/utils.c \
@@ -44,7 +45,7 @@ MLX_LIB	= ./minilibx-linux/libmlx.a
 
 MLX_FLAG =	-lX11 -lXext
 
-MLX_EX =	$(MLX_LIB) $(MLX_FLAG)
+MLX_EX =	$(MLX_LIB) $(MLX_FLAG) ./libft/libft.a
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
@@ -52,13 +53,16 @@ MLX_EX =	$(MLX_LIB) $(MLX_FLAG)
 all:	$(NAME)
 
 $(NAME):	$(LIBGCDIR)/$(LIBGC) $(OBJS)
+			make all -C libft
 			$(CC) $(OBJS) $(MLX_EX) $(LIBGCFLAGS) -o $(NAME) -lm
 clean:
+		make clean -C libft
 		rm -f $(OBJS)
 
 fclean:
+		make fclean -C libft
 		rm -f $(OBJS) $(NAME)
 
-re:		fclean $(NAME)
+re:		fclean all
 
 .PHONY:	all clean fclean re

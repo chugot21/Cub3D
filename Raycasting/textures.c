@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsingtest.c                                      :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	get_texture_fd(char *path)
 {
@@ -43,9 +43,9 @@ int	*texture(char *path)
 	return (pixel);
 }
 
-void    parsing(t_game *game)
+void    ft_textures(t_game *game) //renommer en fonction de texture
 {
-    char *tn;
+    /*char *tn;
 	char *ts;
 	char *tw;
 	char *te;
@@ -67,12 +67,12 @@ void    parsing(t_game *game)
     tn = "./Textures/texture_north.ppm"; // recup textures de chaque direction.
     ts = "./Textures/texture_south.ppm";
     tw = "./Textures/texture_west.ppm";
-    te = "./Textures/texture_east.ppm";
+    te = "./Textures/texture_east.ppm";*/
 
-    game->t_north = texture(tn);
-    game->t_south = texture(ts);
-    game->t_west = texture(tw);
-    game->t_east = texture(te);
+    game->t_north = texture(game->tn);
+    game->t_south = texture(game->ts);
+    game->t_west = texture(game->tw);
+    game->t_east = texture(game->te);
    
     //int mapinit[] = //fonctionne pas car local
     //{
@@ -84,7 +84,7 @@ void    parsing(t_game *game)
     //};
     //game->map = mapinit;
 
-    game->map[0] = 1;
+    /*game->map[0] = 1;
     game->map[1] = 1;
     game->map[2] = 1;
     game->map[3] = 1;
@@ -167,5 +167,5 @@ void    parsing(t_game *game)
     game->map[80] = 1;
     game->map[81] = 1;
     game->map[82] = 1;
-    game->map[83] = 1;
+    game->map[83] = 1;*/
 }

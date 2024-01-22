@@ -1,5 +1,5 @@
-NO ./Textures/texture_north.ppm 
 SO ./Textures/texture_south.ppm
+NO ./Textures/texture_north.ppm 
 WE ./Textures/texture_west.ppm
 EA ./Textures/texture_east.ppm
 
