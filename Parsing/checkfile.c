@@ -114,11 +114,11 @@ int	check_file(t_game *game, char **argv)
 	if (has_textures(game) == -1)
 		return(error("your file is missing at least one texture\n"));
 	printf("--file has all textures\n");
-	//if (can_access_textures(game) == -1)
-	//	return(error("could not access at least one texture\n"));
+	if (can_access_textures(game) == -1)
+		return(error("could not access at least one texture\n"));
 	printf("---all textures can be accessed\n");
-	//if (texture_extension(game) == -1)
-	//	return(error("please use .ppm textures exclusively\n"));
+	if (texture_extension(game) == -1)
+		return(error("please use .ppm textures exclusively\n"));
 	if (has_floor_ceiling(game) == -1)
 		return(error("your map appears not to specify floor and ceiling colors correctly\n"));
 	printf("--file has valid rgb for floor and ceiling\n");

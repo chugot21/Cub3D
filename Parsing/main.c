@@ -12,7 +12,31 @@
 
 #include "../cub3d.h"
 
-void	connect_to_exec(t_game *game)
+int	minimap_to_map(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	printf("HERE\n");
+	game->map = malloc(sizeof(int) * ((game->info_map.y + 3) * (game->info_map.longest + 2)));
+	if(!game->minimap)
+		return (-1);
+	while(i < game->maps)
+	{
+		if (i % 8 == 0)
+			printf("\n");
+		if (game->minimap[i] == 2)
+			game->map[i] = 1;
+		else
+			game->map[i] = game->minimap[i];
+		printf("%d", game->map[i]);
+		i++;
+	}
+	printf("\n");
+	return (0);
+}
+
+int	connect_to_exec(t_game *game)
 {
 	game->tn = texture_path(game->info_map.file[game->info_map.NO]);
 	game->ts = texture_path(game->info_map.file[game->info_map.SO]);
@@ -23,6 +47,8 @@ void	connect_to_exec(t_game *game)
 	game->maps = game->mapy * game->mapx;
 	game->fcolor = game->info_map.hexf;
 	game->ccolor = game->info_map.hexc;
+	if (minimap_to_map(game) == -1)
+		return(-1);
 	printf("tn est %s\n", game->tn);
 	printf("ts est %s\n", game->ts);
 	printf("tw est %s\n", game->tw);
@@ -33,6 +59,8 @@ void	connect_to_exec(t_game *game)
 	printf("hexf est %lx\n", game->fcolor);
 	printf("hexc est %lx\n", game->ccolor);
 	printf("dir est %c\n", game->dir);
+	printf("HERE\n");
+	return (0);
 }
 
 void	initstruct(t_game *game, char **argv)
@@ -57,7 +85,7 @@ void	initstruct(t_game *game, char **argv)
 	game->info_map.y = 0;
 }
 
-//parsing core
+// parsing core
 int	parsing(t_game *game, char **argv)
 {
 	initstruct(game, argv);
@@ -79,6 +107,18 @@ int main(int argc, char **argv)
 		return(1);
 	if (parsing(&game, argv) == -1)
 		return(1);
-	connect_to_exec(&game);
-	engine(&game);
+	if (connect_to_exec(&game) == -1)
+		return(1);
+	printf("HERE\n");
+	game.win_x = 960;
+	game.win_y = 540;
+	init_game(&game);
+	game.window.mlx = mlx_init();
+	game.window.win = mlx_new_window (game.window.mlx,
+			game.win_x,
+			game.win_y, "Club 3D");
+	ft_raycasting(&game);
+	mlx_hook(game.window.win, 2, 1L << 0, move_player, &game);
+	mlx_hook(game.window.win, 17, 1L << 9, closew, &game);
+	mlx_loop(game.window.mlx);
 }

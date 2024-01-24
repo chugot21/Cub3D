@@ -90,6 +90,7 @@ typedef struct s_game
 	t_window	window;
 ///////////////////////////
 	int			*map;
+	int			*minimap;
 	int			mapy;
 	int			mapx;
 	int			maps;
@@ -164,7 +165,8 @@ typedef struct s_game
 int		main(int argc, char **argv);
 int		parsing(t_game *game, char **argv);
 void	initstruct(t_game *game, char **argv);
-void	connect_to_exec(t_game *game);
+int		connect_to_exec(t_game *game);
+int		minimap_to_map(t_game *game);
 // checkfile.c
 int		convert_file(t_game *game, char **argv);
 int		check_file(t_game *game, char **argv);

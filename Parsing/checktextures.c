@@ -31,14 +31,14 @@ int	texture_extension(t_game *game)
 			j = game->info_map.WE;
 		else if (i == 3)
 			j = game->info_map.EA;
-		if(check_extension(game->info_map.file[j], ".xpm") == 0)
+		if (check_extension(game->info_map.file[j], ".ppm") == 0)
+			ppm++;
+		else if(check_extension(game->info_map.file[j], ".xpm") == 0)
 		{
 			printf("incompatible format detected\n");
 			printf(".xpm files aren't supported yet\n");
 			return(-1);
 		}
-		else if (check_extension(game->info_map.file[j], ".ppm") == 0)
-			ppm++;
 	}
 	if (ppm == 4)
 		return(0);

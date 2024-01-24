@@ -107,14 +107,14 @@ void	draw_minimap(t_game *game)
 	i = -1;
 	while (i++ < game->maps - 1)
 	{
-		if (game->map[i] == 1)
+		if (game->minimap[i] == 1)
 		{
 			y = (i / game->mapx);
 			x = (i - game->mapx * y);
 			game->color = 0x171717;
 			color_square(game, x, y);
 		}
-		else if(game->map[i] == 0)
+		else if(game->minimap[i] == 0 || game->minimap[i] == 7)
 		{
 			y = i / game->mapx;
 			x = i - game->mapx * y;

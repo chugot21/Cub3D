@@ -22,18 +22,18 @@ int	strs_to_ints(t_game *game)
 	j = 0;
 	k = 0;
 	printf("INTS HERE\n");
-	game->map = malloc(sizeof(int) * ((game->info_map.y + 3) * (game->info_map.longest + 2)));
-	if(!game->map)
+	game->minimap = malloc(sizeof(int) * ((game->info_map.y + 3) * (game->info_map.longest + 2)));
+	if(!game->minimap)
 		return (-1);
 	while (j < game->info_map.y + 3)
 	{
 		while(i < game->info_map.longest + 2)
 		{
 			if (ft_isalpha(game->info_map.copy[j][i]) ==  1)
-				game->map[k] = 7;
+				game->minimap[k] = 7;
 			else
-				game->map[k] = game->info_map.copy[j][i] - '0';
-			printf("%d", game->map[k]);
+				game->minimap[k] = game->info_map.copy[j][i] - '0';
+			printf("%d", game->minimap[k]);
 			i++;
 			k++;
 		}
