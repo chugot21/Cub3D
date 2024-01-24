@@ -12,7 +12,15 @@
 
 NAME =	cub3D
 
-SRCS =	Parsing/parsing.c \
+SRCS =	Parsing/main.c \
+		Parsing/checkfile.c \
+		Parsing/maps.c \
+		Parsing/checkmap.c \
+		Parsing/checkmap2.c \
+		Parsing/colors.c \
+		Parsing/checktextures.c \
+		Parsing/parsing_utils.c \
+		Parsing/parsing_utils2.c \
 		Raycasting/engine.c \
 		Raycasting/init_raycasting.c \
 		Raycasting/raycasting.c \
@@ -45,6 +53,8 @@ MLX_LIB	= ./minilibx-linux/libmlx.a
 
 MLX_FLAG =	-lX11 -lXext
 
+DEBUG	= -g3 # -fsanitize=address
+
 MLX_EX =	$(MLX_LIB) $(MLX_FLAG) ./libft/libft.a
 
 %.o: %.c
@@ -54,7 +64,7 @@ all:	$(NAME)
 
 $(NAME):	$(LIBGCDIR)/$(LIBGC) $(OBJS)
 			make all -C libft
-			$(CC) $(OBJS) $(MLX_EX) $(LIBGCFLAGS) -o $(NAME) -lm
+			$(CC) $(OBJS) $(MLX_EX) $(LIBGCFLAGS) $(DEBUG) -o $(NAME) -lm
 clean:
 		make clean -C libft
 		rm -f $(OBJS)
@@ -66,3 +76,5 @@ fclean:
 re:		fclean all
 
 .PHONY:	all clean fclean re
+
+.SILENT:

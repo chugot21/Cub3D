@@ -114,7 +114,7 @@ void	draw_minimap(t_game *game)
 			game->color = 0x171717;
 			color_square(game, x, y);
 		}
-		else
+		else if(game->map[i] == 0)
 		{
 			y = i / game->mapx;
 			x = i - game->mapx * y;

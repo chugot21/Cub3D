@@ -85,8 +85,8 @@ typedef struct	s_data {
 
 typedef struct s_game
 {
-	t_player player;
-	t_map info_map;
+	t_player	player;
+	t_map		info_map;
 	t_window	window;
 ///////////////////////////
 	int			*map;
@@ -96,7 +96,7 @@ typedef struct s_game
 	char		dir;
 	unsigned long	fcolor; //floor
 	unsigned long	ccolor; //ceiling
-////////////////////////
+///////////////////////////
 	int			win_x;
 	int			win_y;
 	int			xco;
@@ -159,7 +159,60 @@ typedef struct s_game
 	double		ca; //calcul pour fish eye
 }	t_game;
 
+///// PARSING FUNCTIONS /////
+// main.c
 int		main(int argc, char **argv);
+int		parsing(t_game *game, char **argv);
+void	initstruct(t_game *game, char **argv);
+void	connect_to_exec(t_game *game);
+// checkfile.c
+int		convert_file(t_game *game, char **argv);
+int		check_file(t_game *game, char **argv);
+int		map_start(t_game *game);
+int		map_end(t_game *game);
+int		has_floor_ceiling(t_game *game);
+// maps.c
+int		maps(t_game *game);
+int		map_maker(t_game *game);
+int 	copy_maker(t_game *game);
+void	add_map_copy(t_game *game);
+int		strs_to_ints(t_game *game);
+// checkmap.c
+int		check_map(t_game *game);
+int		only_numbers(t_game *game);
+int		only_one_player(t_game *game);
+int		find_player(t_game *game);
+void	longest_line(t_game *game);
+// checkmap2.c
+int	handle_spaces(t_game *game);
+int	ft_get_linecount(int fd);
+int zeros_corner(t_game *game, char **map);
+int	final_check(t_game *game, char **map);
+void	flood(t_game *game, int x, int y);
+// checktextures.c
+int	has_textures(t_game *game);
+int	can_access_textures(t_game *game);
+char	*texture_path(char *line);
+int	texture_extension(t_game *game);
+// colors.c
+int	get_hexa_color(t_game *game);
+int	get_red(t_game *game, int floor);
+int	get_green(t_game *game, int floor);
+int	get_blue(t_game *game, int floor);
+unsigned long rgb_to_hexa(int red, int green, int blue);
+// parsing_utils.c
+void    print_map(char **map);
+int check_extension(char *file, char *ext);
+int	valid_rgb(char *str);
+int	error(char *str);
+// parsing_utils2.c
+void	top_bot_line(t_game *game);
+void	left_right_line(t_game *game);
+int	check_tab(t_game *game);
+void	tab_to_spaces(t_game *game);
+int	ft_get_tabcount(int fd);
+
+/////GRAPHIC ENGINE FUNCTIONS /////
 void	engine(t_game *game);
 void	init_game(t_game *game);
 void	draw_background(t_game *game);
