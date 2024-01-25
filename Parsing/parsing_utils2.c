@@ -37,7 +37,7 @@ int	ft_get_tabcount(int fd)
 		}
 	}
 	free(buffer);
-	return(linecount - 1);
+	return (linecount - 1);
 }
 
 // converts tab to spaces
@@ -76,9 +76,10 @@ int	check_tab(t_game *game)
 	j = 0;
 	while (i < game->info_map.map_end - game->info_map.map_start)
 	{
-		while (game->info_map.file[i][j] != '\0' && game->info_map.file[i][j] != '\n')
+		while (game->info_map.file[i][j] != '\0' &&
+			game->info_map.file[i][j] != '\n')
 		{
-			if(game->info_map.file[i][j] == '\t')
+			if (game->info_map.file[i][j] == '\t')
 				return (-1);
 			j++;
 		}
@@ -91,15 +92,15 @@ int	check_tab(t_game *game)
 void	left_right_line(t_game *game)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 1;
-	while(j < game->info_map.y + 2)
+	while (j < game->info_map.y + 2)
 	{
-		while(i <= game->info_map.longest + 1)
+		while (i <= game->info_map.longest + 1)
 		{
-			if(i == 0 || i == game->info_map.longest + 1)
+			if (i == 0 || i == game->info_map.longest + 1)
 				game->info_map.copy[j][i] = '2';
 			else
 				game->info_map.copy[j][i] = '0';
@@ -116,17 +117,15 @@ void	top_bot_line(t_game *game)
 	int	i;
 
 	i = 0;
-	while(i < game->info_map.longest + 2)
+	while (i < game->info_map.longest + 2)
 	{
 		game->info_map.copy[0][i] = '2';
 		i++;
 	}
-	//game->info_map.copy[0][game->info_map.longest + 2] = '\0';
 	i = 0;
-	while(i < game->info_map.longest + 2)
+	while (i < game->info_map.longest + 2)
 	{
 		game->info_map.copy[game->info_map.y + 2][i] = '2';
 		i++;
 	}
-	//game->info_map.copy[game->info_map.y + 2][game->info_map.longest + 3] = '\0';
 }

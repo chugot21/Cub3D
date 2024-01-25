@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2024/01/18 17:55:41 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/25 16:18:11 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_game(t_game *game)
 	int	y;
 
 	i = 0;
-	while (i <= game->maps)
+	while (i < game->maps)
 	{
 		if (game->map[i] == 7)
 		{

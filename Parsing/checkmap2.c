@@ -14,8 +14,9 @@
 
 void	flood(t_game *game, int x, int y)
 {
-	if (x < 1 || y < 1 || y > game->info_map.y || x >= game->info_map.x || game->info_map.copy[y][x] == '1')
-		return;
+	if (x < 1 || y < 1 || y > game->info_map.y
+		|| x >= game->info_map.x || game->info_map.copy[y][x] == '1')
+		return ;
 	game->info_map.copy[y][x] = '1';
 	flood(game, x - 1, y);
 	flood(game, x + 1, y);
@@ -34,7 +35,7 @@ int	final_check(t_game *game, char **map)
 	j = 1;
 	while (j < game->info_map.y + 3)
 	{
-		while(i < game->info_map.longest + 2)
+		while (i < game->info_map.longest + 2)
 		{
 			if (map[j][i] == '0' && (map[j][i + 1] == '2' ||
 				map[j][i - 1] == '2' || map[j + 1][i] == '2' ||
@@ -42,7 +43,7 @@ int	final_check(t_game *game, char **map)
 				map[j - 1][i + 1] == '2' || map[j + 1][i - 1] == '2' ||
 				map[j - 1][i - 1] == '2'))
 			{
-				return(-1);
+				return (-1);
 			}
 			i++;
 		}
@@ -52,7 +53,7 @@ int	final_check(t_game *game, char **map)
 	return (0);
 }
 
-int zeros_corner(t_game *game, char **map)
+int	zeros_corner(t_game *game, char **map)
 {
 	int	i;
 	int	j;
@@ -61,20 +62,19 @@ int zeros_corner(t_game *game, char **map)
 	j = 1;
 	while (map[j + 1] != NULL)
 	{
-		while (i < game->info_map.longest )
-		{	
-
-			if (map[j][i] == '0' && map[j + 1][i + 1] == '2' 
-				&& map[j + 1][i - 1] == '2' 
-				&& map[j - 1][i + 1] == '2' 
+		while (i < game->info_map.longest)
+		{
+			if (map[j][i] == '0' && map[j + 1][i + 1] == '2'
+				&& map[j + 1][i - 1] == '2'
+				&& map[j - 1][i + 1] == '2'
 				&& map[j - 1][i - 1] == '2' )
-				return(-1);
+				return (-1);
 			i++;
 		}
 		i = 1;
 		j++;
 	}
-	return(0);
+	return (0);
 }
 
 // calculates amount of lines in file
@@ -102,7 +102,7 @@ int	ft_get_linecount(int fd)
 		}
 	}
 	free(buffer);
-	return(linecount - 1);
+	return (linecount - 1);
 }
 
 // converts stray spaces into 2s
@@ -113,23 +113,22 @@ int	handle_spaces(t_game *game)
 
 	i = 0;
 	j = 0;
-	while(j < game->info_map.y )
+	while (j < game->info_map.y)
 	{
 		while (game->info_map.map[j][i] != '\n')
 		{
-			if(game->info_map.map[j][i] == 'N' ||
+			if (game->info_map.map[j][i] == 'N' ||
 				game->info_map.map[j][i] == 'S' ||
 				game->info_map.map[j][i] == 'E' ||
 				game->info_map.map[j][i] == 'W')
 				i++;
-			if(game->info_map.map[j][i] == ' ')
+			if (game->info_map.map[j][i] == ' ')
 				game->info_map.map[j][i] = '2';
-			if (game->info_map.map[j][i] < '0' || 
+			if (game->info_map.map[j][i] < '0' ||
 				game->info_map.map[j][i] > '2' )
 				return (-1);
 			i++;
 		}
-		printf("%s", game->info_map.map[j]);
 		i = 0;
 		j++;
 	}

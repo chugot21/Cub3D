@@ -18,10 +18,37 @@ int	error(char *str)
 	char	*err;
 
 	err = "Error\n";
-	while(*err)
+	while (*err)
 		write(2, err++, 1);
-	while(*str)
+	while (*str)
 		write(2, str++, 1);
+	return (-1);
+}
+
+int	has_floor_ceiling2(t_game *game, int i, int floor, int ceiling)
+{
+	while (i < game->info_map.linecount)
+	{
+		if (!ft_strncmp(game->info_map.file[i], "F ", 2))
+		{
+			game->info_map.file[i] += 2;
+			if (valid_rgb(game->info_map.file[i]) == -1)
+				return (-1);
+			floor++;
+			game->info_map.floor = i;
+		}
+		if (!ft_strncmp(game->info_map.file[i], "C ", 2))
+		{
+			game->info_map.file[i] += 2;
+			if (valid_rgb(game->info_map.file[i]) == -1)
+				return (-1);
+			ceiling++;
+			game->info_map.ceiling = i;
+		}
+		i++;
+	}
+	if (floor == 1 && ceiling == 1)
+		return (0);
 	return (-1);
 }
 
@@ -29,20 +56,20 @@ int	error(char *str)
 int	valid_rgb(char *str)
 {
 	int	i;
-	int chiffre;
-	int nb;
+	int	chiffre;
+	int	nb;
 
-	i = 0; 
+	i = 0;
 	chiffre = 1;
 	nb = 1;
-	while(str[i + 1] != '\0' && str[i + 1 ] != ' ' && str[i + 1] != '\n')
+	while (str[i + 1] != '\0' && str[i + 1] != ' ' && str[i + 1] != '\n')
 	{
-		if(str[i] == ',' && (str[i + 1] >= '0' && str[i + 1] <= '9'))
+		if (str[i] == ',' && (str[i + 1] >= '0' && str[i + 1] <= '9'))
 		{
 			chiffre = 0;
 			nb++;
 		}
-		else if(str[i] < '0' || str[i] > '9' || chiffre > 3)
+		else if (str[i] < '0' || str[i] > '9' || chiffre > 3)
 			return (-1);
 		chiffre++;
 		i++;
@@ -53,9 +80,9 @@ int	valid_rgb(char *str)
 }
 
 //checks that "file" has a given "ext" extension 
-int check_extension(char *file, char *ext)
+int	check_extension(char *file, char *ext)
 {
-	char *str;
+	char	*str;
 
 	str = file;
 	str += ft_strlen(file) - 4 ;
@@ -65,18 +92,18 @@ int check_extension(char *file, char *ext)
 		return (-1);
 	}
 	str = file;
-    return(0);
+	return (0);
 }
 
 // prints a given map
-void    print_map(char **map) 
+void	print_map(char **map)
 {
-    int y;
+	int	y;
 
-    y = 0;
-    while (map[y] != NULL)
-    {
-        printf("%s\n", map[y]);
+	y = 0;
+	while (map[y] != NULL)
+	{
+		printf("%s\n", map[y]);
 		y++;
-    }
+	}
 }
