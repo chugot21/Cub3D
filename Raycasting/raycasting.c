@@ -29,7 +29,7 @@ void	draw_wall(t_game *game)
 		low_rays(game);
 		fix_fish_eye(game);
 		draw_column(game);
-		game->ra += DEGREE_RADIAN / 16;
+		game->ra += DEGREE_RADIAN / 50; //plus mapx > mapy, plus 50 sera grand
 		limits_rays(game);
 		game->r++;
 	}
