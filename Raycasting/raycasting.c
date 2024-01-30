@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:40:26 by chugot            #+#    #+#             */
-/*   Updated: 2024/01/25 16:11:37 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/30 17:54:17 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_wall(t_game *game)
 		low_rays(game);
 		fix_fish_eye(game);
 		draw_column(game);
-		game->ra += DEGREE_RADIAN / 50; //plus mapx > mapy, plus 50 sera grand
+		game->ra += DEGREE_RADIAN / 16; //plus mapx > mapy, plus 50 sera grand
 		limits_rays(game);
 		game->r++;
 	}

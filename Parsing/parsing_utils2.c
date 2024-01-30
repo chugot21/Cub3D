@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgourlai <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:29:14 by mgourlai          #+#    #+#             */
-/*   Updated: 2024/01/23 19:29:15 by mgourlai         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:00:12 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,12 @@ void	top_bot_line(t_game *game)
 		game->info_map.copy[0][i] = '2';
 		i++;
 	}
+	//game->info_map.copy[0][i] = '\n';
 	i = 0;
 	while (i < game->info_map.longest + 2)
 	{
 		game->info_map.copy[game->info_map.y + 2][i] = '2';
 		i++;
 	}
+	//game->info_map.copy[game->info_map.y + 2][i] = '\n';
 }

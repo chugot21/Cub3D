@@ -6,7 +6,7 @@
 #    By: clara <clara@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 12:00:49 by chugot            #+#    #+#              #
-#    Updated: 2024/01/25 15:50:22 by clara            ###   ########.fr        #
+#    Updated: 2024/01/30 16:32:15 by clara            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SRCS =	Parsing/main.c \
 		Utils/utils.c \
 		Utils/get_next_line_bonus.c \
 		Utils/ft_split.c \
-		#Raycasting/engine.c \#
 
 CC = cc
 

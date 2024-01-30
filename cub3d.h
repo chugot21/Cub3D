@@ -6,9 +6,22 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:56:51 by mgourlai          #+#    #+#             */
-/*   Updated: 2024/01/25 15:00:13 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/30 19:05:58 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+//tab non gerer, voir subject_map
+//pb avec angle_map, on dirait qu'il n'y a pas de \n a la fin des lignes de game->info_map.copy et que ca cause un  soucis sur les maps d'apres
+
+//test il y a des caracteres ascii dans le tab de int*
+
+	//while (i <= game.maps)
+	//{
+	//	if (i % game.mapx == 0)
+	//		printf("\n");
+	//	printf("%d", game.minimap[i]);
+	//	i++;
+	//}
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -25,7 +38,6 @@
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
 # include "libft/libft.h"
-//# include "getnextlinemod/get_next_line_bonus.h"
 
 # define PI 3.1415926535897932384626433832795028841971693993751058
 # define P2 PI / 2

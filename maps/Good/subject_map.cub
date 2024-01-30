@@ -4,8 +4,9 @@ WE ./Textures/texture_west.ppm
 EA ./Textures/texture_east.ppm
 
 
-F 102,51,51
-C 102,204,255
+F 60,50,60
+C 8,34,42
+
 
 	1111111111111111111111111
 	1000000000110000000000001

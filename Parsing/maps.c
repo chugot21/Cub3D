@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:20:46 by mgourlai          #+#    #+#             */
-/*   Updated: 2024/01/25 15:06:05 by clara            ###   ########.fr       */
+/*   Updated: 2024/01/30 19:05:38 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	map_maker(t_game *game)
 // hub that handles maps
 int	maps(t_game *game)
 {
+	int i = 0;
 	printf("--creating map\n");
 	longest_line(game);
 	if (map_maker(game) == -1)
@@ -86,5 +87,13 @@ int	maps(t_game *game)
 	if (check_map(game) == -1)
 		return (error("map incorrect\n"));
 	printf("--map is correct\n");
+	
+	//while (i < game->maps)
+	//{
+	//	if (i % game->mapx == 0)
+	//		printf("\n");
+	//	printf("%d", game->minimap[i]);
+	//	i++;
+	//}
 	return (0);
 }

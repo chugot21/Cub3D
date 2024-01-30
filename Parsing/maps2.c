@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgourlai <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:07:54 by mgourlai          #+#    #+#             */
-/*   Updated: 2024/01/25 01:07:55 by mgourlai         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:58:32 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,11 @@ int	copy_maker(t_game *game)
 	top_bot_line(game);
 	left_right_line(game);
 	add_map_copy(game);
+	int j = 0;
+	while (game->info_map.copy[j])
+	{
+		printf("%s", game->info_map.copy[j]);
+		j++;
+	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chugot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:36:35 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/27 18:36:38 by chugot           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:06:28 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,25 @@ double	dist(double ax, double ay, double bx, double by)
 
 void	fix_fish_eye(t_game *game)
 {
+	float i;
+
 	game->ca = game->pa - game->ra;
 	if (game->ca < 0)
 		game->ca += 2 * PI;
 	if (game->ca > 2 * PI)
 		game->ca -= 2 * PI;
 	game->dist = game->dist * cos(game->ca);
+	if (game->mapx > game->mapy)
+		i = game->mapx / game->mapy;
+	else
+		i = game->mapy / game->mapx;
+	if (i < 1)
+		i = 1;
+	game->line_height = (game->maps * game->win_y) / (game->dist * game->mapx / (4 * i));
 }
 
 void	draw_column(t_game *game)
 {
-	game->line_height = (game->maps * game->win_y) / game->dist;
 	game->ty_step = 32 / (float)game->line_height;
 	game->ty_off = 0;
 	if (game->line_height > game->win_y)
@@ -38,17 +46,17 @@ void	draw_column(t_game *game)
 		game->line_height = game->win_y;
 	}
 	game->line_offset = (game->win_y / 2) - game->line_height / 2;
-	game->texture_iy = game->ty_off * game->ty_step;
+	 game->texture_iy = game->ty_off * game->ty_step;
 	if (game->shade == 1)
 	{
 		game->texture_ix = (int)(game->ray.x / 2) % 32;
-		if (game->ra > 180)
+		if (game->ra > PI)
 			game->texture_ix = 31 - game->texture_ix;
 	}
 	else
 	{
 		game->texture_ix = (int)(game->ray.y / 2) % 32;
-		if (game->ra > 90 && game->ra < 270)
+		if (game->ra > (PI / 2) && game->ra < (3 * PI / 2))
 			game->texture_ix = 31 - game->texture_ix;
 	}
 	draw_column_next(game);
