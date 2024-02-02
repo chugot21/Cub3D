@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:37:33 by chugot            #+#    #+#             */
-/*   Updated: 2024/01/25 16:18:11 by clara            ###   ########.fr       */
+/*   Updated: 2024/02/02 12:32:07 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,5 @@ void	init_game(t_game *game)
 		}
 		i++;
 	}
-	//game->ccolor = create_hexa_rgb(game->crgb[0], game->crgb[1], game->crgb[2]);// revoir fonction maxime
-	//game->fcolor = create_hexa_rgb(game->frgb[0], game->frgb[1], game->frgb[2]);// revoir fonction maxime
 	ft_textures(game);
 }

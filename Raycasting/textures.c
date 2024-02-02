@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:41:46 by chugot            #+#    #+#             */
-/*   Updated: 2024/01/25 15:01:44 by clara            ###   ########.fr       */
+/*   Updated: 2024/02/02 13:13:04 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	*texture(char *path)
 	int		*pixel;
 	pixel = malloc(sizeof(int) * 32 * 32 * 3);
 	fd = get_texture_fd(path);
-	line = get_next_line(fd); //<<<<<<<<<<<<<<<<<<<
-	stack = ft_split(line, ','); //<<<<<<<<<<<<
+	line = get_next_line(fd);
+	stack = ft_split(line, ',');
     free(line);
 	i = 0;
 	while (stack[i])

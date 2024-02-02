@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_rays.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chugot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:32:58 by chugot            #+#    #+#             */
-/*   Updated: 2023/12/28 18:33:03 by chugot           ###   ########.fr       */
+/*   Updated: 2024/02/02 13:50:29 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	vertical_rays(t_game *game, double ntan)
 	game->dis_verti = 1000000;
 	game->vertical.x = game->player_pixel.x;
 	game->vertical.y = game->player_pixel.y;
-	if (game->ra > P2 && game->ra < P3)
+	if (game->ra > (PI / 2) && game->ra < (3 * PI / 2))
 	{
 		game->ray.x = (((int)game->player_pixel.x >> 6) << 6) - 0.0001;
 		game->ray.y = (game->player_pixel.x - game->ray.x)
@@ -27,7 +27,7 @@ void	vertical_rays(t_game *game, double ntan)
 		game->xoyo.x = -64;
 		game->xoyo.y = -game->xoyo.x * ntan;
 	}
-	if (game->ra < P2 || game->ra > P3)
+	if (game->ra < (PI / 2) || game->ra > (3 * PI / 2))
 	{
 		game->ray.x = (((int)game->player_pixel.x >> 6) << 6) + 64;
 		game->ray.y = (game->player_pixel.x - game->ray.x)

@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:20:46 by mgourlai          #+#    #+#             */
-/*   Updated: 2024/01/30 19:05:38 by clara            ###   ########.fr       */
+/*   Updated: 2024/02/02 12:41:56 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	map_maker(t_game *game)
 // hub that handles maps
 int	maps(t_game *game)
 {
-	int i = 0;
+	//int i = 0;
 	printf("--creating map\n");
 	longest_line(game);
 	if (map_maker(game) == -1)

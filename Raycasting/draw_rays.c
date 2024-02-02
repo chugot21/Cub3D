@@ -6,7 +6,7 @@
 /*   By: clara <clara@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:36:35 by chugot            #+#    #+#             */
-/*   Updated: 2024/01/30 18:06:28 by clara            ###   ########.fr       */
+/*   Updated: 2024/02/02 13:51:21 by clara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ void	draw_textures(t_game *game, int start_pixel)
 		my_mlx_pixel_put(game, game->r, start_pixel,
 			find_pixel_color(game->texture_ix,
 				game->texture_iy, game->t_south));
-	if (game->side == 1 && (game->ra >= P2 && game->ra < P3))
+	if (game->side == 1 && (game->ra >= (PI / 2) && game->ra < (3 * PI / 2)))
 		my_mlx_pixel_put(game, game->r, start_pixel,
 			find_pixel_color(game->texture_ix,
 				game->texture_iy, game->t_east));
-	if (game->side == 1 && ((game->ra >= 0 && game->ra < P2)
-			|| (game->ra < (2 * PI) && game->ra >= P3)))
+	if (game->side == 1 && ((game->ra >= 0 && game->ra < (PI / 2))
+			|| (game->ra < (2 * PI) && game->ra >= (3 * PI / 2))))
 		my_mlx_pixel_put(game, game->r, start_pixel,
 			find_pixel_color(game->texture_ix,
 				game->texture_iy, game->t_west));
