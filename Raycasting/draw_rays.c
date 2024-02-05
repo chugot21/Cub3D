@@ -19,7 +19,7 @@ double	dist(double ax, double ay, double bx, double by)
 
 void	fix_fish_eye(t_game *game)
 {
-	float i;
+	float	i;
 
 	game->ca = game->pa - game->ra;
 	if (game->ca < 0)
@@ -33,7 +33,8 @@ void	fix_fish_eye(t_game *game)
 		i = game->mapy / game->mapx;
 	if (i < 1)
 		i = 1;
-	game->line_height = (game->maps * game->win_y) / (game->dist * game->mapx / (4 * i));
+	game->line_height = (game->maps * game->win_y)
+		/ (game->dist * game->mapx / (4 * i));
 }
 
 void	draw_column(t_game *game)
@@ -46,7 +47,7 @@ void	draw_column(t_game *game)
 		game->line_height = game->win_y;
 	}
 	game->line_offset = (game->win_y / 2) - game->line_height / 2;
-	 game->texture_iy = game->ty_off * game->ty_step;
+	game->texture_iy = game->ty_off * game->ty_step;
 	if (game->shade == 1)
 	{
 		game->texture_ix = (int)(game->ray.x / 2) % 32;

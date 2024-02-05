@@ -29,6 +29,7 @@ void	move_left(t_game *game)
 			game->player_pixel.y += sin(-(PI / 2) + game->pa) * 5;
 	}
 }
+
 void	move_right(t_game *game)
 {
 	if (game->pa < (PI / 2) || (game->pa > PI && game->pa < (3 * PI / 2)))

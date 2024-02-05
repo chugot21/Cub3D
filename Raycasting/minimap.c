@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-int    proportions_minimap(t_game *game)
+int	proportions_minimap(t_game *game)
 {
 	float	nb_pixelx;
 	float	nb_pixely;
@@ -110,7 +110,7 @@ void	draw_minimap(t_game *game)
 			game->color = 0x171717;
 			color_square(game, x, y);
 		}
-		else if(game->minimap[i] == 0 || game->minimap[i] == 7)
+		else if (game->minimap[i] == 0 || game->minimap[i] == 7)
 		{
 			y = i / game->mapx;
 			x = i - game->mapx * y;
