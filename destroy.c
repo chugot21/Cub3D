@@ -21,7 +21,6 @@ void	free_map(char **map)
 	{
 		free(map[i]);
 		i++;
-		//printf("i : %d\n", i);
 	}
 	free(map);
 }
@@ -33,7 +32,7 @@ int	closew(t_game *game)
 	free(game->t_west);
 	free(game->t_east);
 	free_map(game->info_map.map);
-	free_map(game->info_map.file); //<<<<<
+	//free_map(game->info_map.file); //<<<<<
 	free_map(game->info_map.copy);
 	free(game->map);
 	free(game->minimap);

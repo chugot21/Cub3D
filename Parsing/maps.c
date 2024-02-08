@@ -63,13 +63,22 @@ int	map_maker(t_game *game)
 	game->info_map.map[j] = NULL;
 	game->info_map.y = j - 1;
 	game->info_map.x = ft_strlen(game->info_map.map[0]);
+
+	//<<<<<<<<<<<<<<<<<<<test<<<<<<<<<<<<<
+	printf("info_map.map\n");
+	int k = 0;
+	while (game->info_map.map[k])
+	{
+		printf("%s", game->info_map.map[k]);
+		k++;
+	}
+
 	return (0);
 }
 
 // hub that handles maps
 int	maps(t_game *game)
 {
-	//int i = 0;
 	printf("--creating map\n");
 	longest_line(game);
 	if (map_maker(game) == -1)
@@ -87,13 +96,5 @@ int	maps(t_game *game)
 	if (check_map(game) == -1)
 		return (error("map incorrect\n"));
 	printf("--map is correct\n");
-	
-	//while (i < game->maps)
-	//{
-	//	if (i % game->mapx == 0)
-	//		printf("\n");
-	//	printf("%d", game->minimap[i]);
-	//	i++;
-	//}
 	return (0);
 }

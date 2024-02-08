@@ -70,10 +70,14 @@ int	copy_maker(t_game *game)
 	top_bot_line(game);
 	left_right_line(game);
 	add_map_copy(game);
+
+	//<<<<<<<<<<<<<<<<<<<<test<<<<<<<<
+	printf("info_map.copy\n");
 	int j = 0;
 	while (game->info_map.copy[j])
 	{
 		printf("%s", game->info_map.copy[j]);
+		printf("\n");
 		j++;
 	}
 	return (0);

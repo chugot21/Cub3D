@@ -94,6 +94,18 @@ int	main(int argc, char **argv)
 		return (1);
 	if (connect_to_exec(&game) == -1)
 		return (1);
+
+	//<<<<<<<<<<<<<<<<<<<test<<<<<<<<<<<<<<
+	printf("minimap\n");
+	int i = 0;
+	while (i < game.maps)
+	{
+		if (i % game.mapx == 0)
+			printf("\n");
+		printf("%d", game.minimap[i]);
+		i++;
+	}
+
 	game.win_x = 960;
 	game.win_y = 540;
 	init_game(&game);

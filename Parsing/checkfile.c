@@ -100,6 +100,15 @@ int	check_file(t_game *game, char **argv)
 		return (error("issue with floor and ceiling colors\n"));
 	if (get_hexa_color(game) == -1)
 		return (error("could not gather all file data\n"));
+
+	//<<<<<<<<<<<<<<<<<<<<<<<<<test<<<<<<<<<<<
+	printf("info_map.file\n");
+	int j = 0;
+	while (game->info_map.file[j])
+	{
+		printf("%s", game->info_map.file[j]);
+		j++;
+	}
 	return (0);
 }
 

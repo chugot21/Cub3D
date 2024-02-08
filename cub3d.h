@@ -51,7 +51,7 @@ typedef struct s_map
 {
 	char			**file;
 	char			**map;
-	int				**intmap;
+	int				**intmap; //non utilise ?
 	char			**copy;
 	int				linecount;
 	int				map_start;
