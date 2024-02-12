@@ -11,18 +11,8 @@
 /* ************************************************************************** */
 
 //tab non gerer, voir subject_map
-//pb avec angle_map, on dirait qu'il n'y a pas de \n a la fin des lignes de game->info_map.copy et que ca cause un  soucis sur les maps d'apres
-
-//pb avec alloc memoire info_map.file donc avec free.
-//test il y a des caracteres ascii dans le tab de int*
-
-	//while (i <= game.maps)
-	//{
-	//	if (i % game.mapx == 0)
-	//		printf("\n");
-	//	printf("%d", game.minimap[i]);
-	//	i++;
-	//}
+//pb avec angle_map, on dirait qu'il n'y a pas de \n a la fin des 
+//lignes de game->info_map.copy et que ca cause un  soucis sur les maps d'apres
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -51,7 +41,6 @@ typedef struct s_map
 {
 	char			**file;
 	char			**map;
-	int				**intmap; //non utilise ?
 	char			**copy;
 	int				linecount;
 	int				map_start;
@@ -181,6 +170,8 @@ int				parsing(t_game *game, char **argv);
 void			initstruct(t_game *game, char **argv);
 int				connect_to_exec(t_game *game);
 int				minimap_to_map(t_game *game);
+// errors.c
+void			ft_error_frees(t_game *game, int n);
 // checkfile.c
 int				convert_file(t_game *game, char **argv);
 int				check_file(t_game *game, char **argv);
@@ -194,7 +185,7 @@ int				strs_to_ints(t_game *game);
 // maps2.c
 int				copy_maker(t_game *game);
 void			add_map_copy(t_game *game);
-void			add_map_copy2(t_game *game, int i, int j);
+int				add_map_copy2(t_game *game, int i, int j);
 // checkmap.c
 int				check_map(t_game *game);
 int				only_numbers(t_game *game);
@@ -234,7 +225,7 @@ int				error(char *str);
 void			top_bot_line(t_game *game);
 void			left_right_line(t_game *game);
 int				check_tab(t_game *game);
-void			tab_to_spaces(t_game *game);
+int				skip_space(char *str);
 int				ft_get_tabcount(int fd);
 
 /////GRAPHIC ENGINE FUNCTIONS /////
@@ -273,6 +264,7 @@ size_t			ft_strcmp(char *s1, char *s2);
 char			*get_next_line(int fd);
 char			*ft_strchr(const char *str, int c);
 char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strdup(const char *s);
 size_t			ft_strlen(const char *str);
 char			**ft_split(char const *s, char c);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);

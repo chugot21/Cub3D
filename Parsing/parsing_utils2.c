@@ -40,30 +40,15 @@ int	ft_get_tabcount(int fd)
 	return (linecount - 1);
 }
 
-// converts tab to spaces
-void	tab_to_spaces(t_game *game)
+// returns position of first non space in a char *
+int	skip_space(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (game->info_map.file[i] != NULL)
-	{
-		while (game->info_map.file[i][j] != '\n')
-		{
-			if (game->info_map.file[i][j] == '\t')
-			{
-				game->info_map.file[i][j] = ' ';
-				game->info_map.file[i + 1][j] = ' ';
-				game->info_map.file[i + 2][j] = ' ';
-				game->info_map.file[i + 3][j] = ' ';
-				i += 3;
-			}
-			i++;
-		}
-		j++;
-	}
+	while (str[i] != '\0' && (str[i] == ' ' || str[i] == '	'))
+		i++;
+	return (i);
 }
 
 // security option to reject files that have tabs 
@@ -122,12 +107,10 @@ void	top_bot_line(t_game *game)
 		game->info_map.copy[0][i] = '2';
 		i++;
 	}
-	//game->info_map.copy[0][i] = '\n';
 	i = 0;
 	while (i < game->info_map.longest + 2)
 	{
 		game->info_map.copy[game->info_map.y + 2][i] = '2';
 		i++;
 	}
-	//game->info_map.copy[game->info_map.y + 2][i] = '\n';
 }

@@ -61,15 +61,15 @@ int	can_access_textures(t_game *game)
 	return (0);
 }
 
-void	find_textures(t_game *game, int i)
+void	find_textures(t_game *game, int i, int j)
 {
-	if (!ft_strncmp(game->info_map.file[i], "NO ", 3))
+	if (!ft_strncmp(&game->info_map.file[i][j], "NO ", 3))
 		game->info_map.no = i;
-	else if (!ft_strncmp(game->info_map.file[i], "SO ", 3))
+	else if (!ft_strncmp(&game->info_map.file[i][j], "SO ", 3))
 		game->info_map.so = i;
-	else if (!ft_strncmp(game->info_map.file[i], "WE ", 3))
+	else if (!ft_strncmp(&game->info_map.file[i][j], "WE ", 3))
 		game->info_map.we = i;
-	else if (!ft_strncmp(game->info_map.file[i], "EA ", 3))
+	else if (!ft_strncmp(&game->info_map.file[i][j], "EA ", 3))
 		game->info_map.ea = i;
 }
 
@@ -77,11 +77,13 @@ void	find_textures(t_game *game, int i)
 int	has_textures(t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->info_map.linecount)
 	{
-		find_textures(game, i);
+		j = skip_space(game->info_map.file[i]);
+		find_textures(game, i, j);
 		i++;
 	}
 	if (game->info_map.no != -1 && game->info_map.so != -1

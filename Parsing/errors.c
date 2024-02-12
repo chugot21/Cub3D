@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgourlai <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 14:42:03 by mgourlai          #+#    #+#             */
-/*   Updated: 2023/04/12 14:42:04 by mgourlai         ###   ########.fr       */
+/*   Created: 2024/02/08 18:37:34 by mgourlai          #+#    #+#             */
+/*   Updated: 2024/02/08 18:37:35 by mgourlai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub3d.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_error_frees(t_game *game, int n)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
+	if (n >= 1)
 	{
-		i++;
+		if (!game->info_map.file)
+			return ;
+		free_map(game->info_map.file);
 	}
-	return (i);
+	if (n >= 2)
+	{
+		if (!game->info_map.map)
+			return ;
+		free_map(game->info_map.map);
+	}
+	if (n >= 3)
+	{
+		if (!game->info_map.copy)
+			return ;
+		free_map(game->info_map.copy);
+	}
+	if (n >= 4)
+	{
+		if (!game->minimap)
+			return ;
+		free(game->minimap);
+	}
 }

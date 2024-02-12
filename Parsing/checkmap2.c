@@ -113,7 +113,7 @@ int	handle_spaces(t_game *game)
 
 	i = 0;
 	j = 0;
-	while (j < game->info_map.y)
+	while (j <= game->info_map.y)
 	{
 		while (game->info_map.map[j][i] != '\n')
 		{

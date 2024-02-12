@@ -3,7 +3,7 @@ SO ./Textures/texture_south.ppm
 WE ./Textures/texture_west.ppm
 EA ./Textures/texture_east.ppm
 
-F 60,50,60
+    F 60,50,60
 C 8,34,42
 
 

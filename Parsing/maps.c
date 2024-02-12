@@ -29,7 +29,8 @@ int	strs_to_ints(t_game *game)
 		i = 0;
 		while (i < game->info_map.longest + 2)
 		{
-			if (ft_isalpha(game->info_map.copy[j][i]) == 1)
+			if (ft_isalpha(game->info_map.copy[j][i]) == 1 ||
+				game->info_map.copy[j][i] == 0)
 				game->minimap[k] = 7;
 			else
 				game->minimap[k] = game->info_map.copy[j][i] - '0';
@@ -63,16 +64,6 @@ int	map_maker(t_game *game)
 	game->info_map.map[j] = NULL;
 	game->info_map.y = j - 1;
 	game->info_map.x = ft_strlen(game->info_map.map[0]);
-
-	//<<<<<<<<<<<<<<<<<<<test<<<<<<<<<<<<<
-	printf("info_map.map\n");
-	int k = 0;
-	while (game->info_map.map[k])
-	{
-		printf("%s", game->info_map.map[k]);
-		k++;
-	}
-
 	return (0);
 }
 
@@ -81,20 +72,24 @@ int	maps(t_game *game)
 {
 	printf("--creating map\n");
 	longest_line(game);
-	if (map_maker(game) == -1)
-		return (error("make map\n"));
-	printf("--map created\n");
-	if (handle_spaces(game) == -1)
-		return (-1);
+	if (map_maker(game) == -1 || handle_spaces(game) == -1)
+	{
+		ft_error_frees(game, 2);
+		return (error("map and/or handling spaces\n"));
+	}
 	printf("--handled spaces\n");
 	if (copy_maker(game) == -1)
+	{
+		ft_error_frees(game, 3);
 		return (error("could not make map copy\n"));
+	}
 	printf("--created map copy\n");
 	printf("--char map converted to int array\n");
-	if (strs_to_ints(game) == -1)
-		return (error("couldnt convert char map to int array\n"));
-	if (check_map(game) == -1)
-		return (error("map incorrect\n"));
+	if (strs_to_ints(game) == -1 || check_map(game) == -1)
+	{
+		ft_error_frees(game, 4);
+		return (error("failed conversion to ints or incorrect map\n"));
+	}
 	printf("--map is correct\n");
 	return (0);
 }

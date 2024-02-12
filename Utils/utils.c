@@ -28,10 +28,10 @@ size_t	ft_strcmp(char *s1, char *s2)
 
 size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		i++;
 	}

@@ -13,6 +13,7 @@
 NAME =	cub3D
 
 SRCS =	Parsing/main.c \
+		Parsing/errors.c \
 		Parsing/checkfile.c \
 		Parsing/maps.c \
 		Parsing/maps2.c \

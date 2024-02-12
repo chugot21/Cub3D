@@ -17,7 +17,7 @@ void	free_map(char **map)
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (map[i] != NULL)
 	{
 		free(map[i]);
 		i++;
@@ -31,8 +31,8 @@ int	closew(t_game *game)
 	free(game->t_south);
 	free(game->t_west);
 	free(game->t_east);
+	free_map(game->info_map.file);
 	free_map(game->info_map.map);
-	//free_map(game->info_map.file); //<<<<<
 	free_map(game->info_map.copy);
 	free(game->map);
 	free(game->minimap);

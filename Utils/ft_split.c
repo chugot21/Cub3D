@@ -14,14 +14,14 @@
 
 static int	ft_countword(char const *s, char c)
 {
-	int	i;
-	int	j;
+	int			i;
+	static int	j;
 
 	i = 0;
 	j = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c && (s[i - 1] == c || i == 0))
+		if ((i > 0 && s[i] != c && (s[i - 1] == c)) || i == 0)
 			j++;
 		i++;
 	}
@@ -30,10 +30,10 @@ static int	ft_countword(char const *s, char c)
 
 static int	*ft_lengthword(char const *s, char c)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	*length;
+	int			i;
+	int			j;
+	int			k;
+	static int	*length;
 
 	i = 0;
 	j = 0;

@@ -27,20 +27,21 @@ int	error(char *str)
 
 int	has_floor_ceiling2(t_game *game, int i, int floor, int ceiling)
 {
+	int	j;
+
 	while (i < game->info_map.linecount)
 	{
-		if (!ft_strncmp(game->info_map.file[i], "F ", 2))
+		j = skip_space(game->info_map.file[i]);
+		if (!ft_strncmp(&game->info_map.file[i][j], "F ", 2))
 		{
-			game->info_map.file[i] += 2;
-			if (valid_rgb(game->info_map.file[i]) == -1)
+			if (valid_rgb(&game->info_map.file[i][j]) == -1)
 				return (-1);
 			floor++;
 			game->info_map.floor = i;
 		}
-		if (!ft_strncmp(game->info_map.file[i], "C ", 2))
+		if (!ft_strncmp(&game->info_map.file[i][j], "C ", 2))
 		{
-			game->info_map.file[i] += 2;
-			if (valid_rgb(game->info_map.file[i]) == -1)
+			if (valid_rgb(&game->info_map.file[i][j]) == -1)
 				return (-1);
 			ceiling++;
 			game->info_map.ceiling = i;
@@ -59,7 +60,7 @@ int	valid_rgb(char *str)
 	int	chiffre;
 	int	nb;
 
-	i = 0;
+	i = 2;
 	chiffre = 1;
 	nb = 1;
 	while (str[i + 1] != '\0' && str[i + 1] != ' ' && str[i + 1] != '\n')
